@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- important meta tags-->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1.0,user-scalable=no">
+    <!--Google fonts-->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!--Bootstrap CSS-->
+    <link href="css/bootstrap/bootstrap.min.css" rel="stylesheet">
+    <!--Fontawesome-->
+    <link rel="stylesheet" href="css/font-awesome/css/font-awesome.min.css">
+    <!--Custom CSS-->
+    <link href="css/style.css" rel="stylesheet">
+    <title>Notes Marketplace</title>
+    <!--Favicon-->
+    <link rel="shortcut icon" href="images/home/favicon.ico">
+</head>
+
+<body>
+    <section id="login-page">
+        <!--Logo-->
+        <div id="logo" class="text-center">
+            <img src="images/pre-login/top-logo.png" alt="logo">
+        </div>
+        <!--Login-->
+        <div class="container">
+            <div class="login text-center">
+                <h2>Login</h2>
+                <p>Enter your email address and password to login</p>
+            </div>
+            <!--Form-->
+            <form class="login01 justify-content-center">
+                <div class="row form-group" id="email">
+                    <div class="col-md-12">
+                        <label for="exampleInputEmail1">Email</label>
+                        <input type="email" class="form-control input-field" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                    </div>
+                </div>
+
+                <div class="row form-group" id="password">
+                    <div class="col-md-12">
+                        <label for="exampleInputPassword1">Password</label>
+                        <label for="exampleInputPassword1" id="FP"><a href="forgot.html" id="FP1">Forgot Password?</a></label>
+                        <input type="password" class="form-control input-field" id="exampleInputPassword1" placeholder="Enter your password">
+                        <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-md-12">
+                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                        <label class="form-check-label" for="exampleCheck1">Remember Me</label>
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-md-12">
+                        <button type="submit" class="btn btn-primary btn-lg btn-block" id="btn-login"><span>LOGIN</span></button>
+                    </div>
+                </div>
+                <div class="row text-center">
+                    <div class="col-md-12">
+                        <p id="acc"><span>Don't have an account?</span> <a id="Su" href="sign-up.html">Sign Up</a></p>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+    </section>
+    <!--Login Ends-->
+    <!--JQuery-->
+    <script src="js/jquery-min.js"></script>
+    <!--Bootstrap JS-->
+    <script src="js/bootstrap/bootstrap.min.js"></script>
+    <!--Custom JS-->
+    <script src="js/script.js"></script>
+</body>
+
+</html>

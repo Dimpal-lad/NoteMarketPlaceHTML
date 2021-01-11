@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- important meta tags-->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1.0,user-scalable=no">
+
+    <!--Google fonts-->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!--Bootstrap CSS-->
+    <link href="css/bootstrap/bootstrap.min.css" rel="stylesheet">
+    <!--Fontawesome-->
+    <link rel="stylesheet" href="css/font-awesome/css/font-awesome.min.css">
+    <!--Custom CSS-->
+    <link href="css/style.css" rel="stylesheet">
+    <title>Notes Marketplace</title>
+    <!--Favicon-->
+    <link rel="shortcut icon" href="images/home/favicon.ico">
+</head>
+
+<body>
+    <!-- Navigation-->
+    <!--Dashboard Page-->
+
+    <header>
+        <nav class="navbar">
+            <div class="container-fluid">
+                <div class="site-nav-wrapper">
+                    <div class="navbar-header">
+
+                        <!--Logo-->
+                        <a class="navbar-brand smooth-scroll" href="#">
+                            <img src="images/pre-login/logo-dark.png" alt="logo">
+                        </a>
+                    </div>
+
+                    <!--Main Menu-->
+                        <div class="collapse navbar-collapse">
+                            <ul class="nav navbar-nav pull-right">
+                                <li class="nav-item"><a href="#" class="nav-link">Dashboard</a></li>
+                                    
+                                <li class="nav-item dropdown">
+                                    
+                                       
+                                        <a  href="#" class=" dropdown-toggle nav-link"  id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                         <span>Notes</span>   
+                                        </a>
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenu">
+                                            <a class="dropdown-item" href="#">Notes Under Review</a>
+                                            <a class="dropdown-item" href="#">Published Notes</a>
+                                            <a class="dropdown-item" href="#">Downloaded Notes</a>
+                                            <a class="dropdown-item" href="#">Rejected Notes</a>
+                                        </div>
+                                        
+                                </li>
+                                <li class="nav-item"><a href="#" class="nav-link">Members</a></li>
+                                <li class="nav-item dropdown">
+                                    
+                                       
+                                        <a  href="#"class="dropdown-toggle nav-link"  id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                         <span>Reported</span>   
+                                        </a>
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenu">
+                                            <a class="dropdown-item" href="#">Spam Reports</a>
+                                        </div>
+                                     
+                                </li>
+                                <li class="nav-item"><a href="#" class="nav-link">Settings</a></li>
+                                <li class="nav-item dropdown">
+                                    
+                                       
+                                        <a  href="#" class=" dropdown-toggle nav-link"  id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <img src="images/assets/reviewer-1.png" alt="user" class="img-circle user-menu">
+                                        </a>
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenu">
+                                            <a class="dropdown-item" href="#">Update Profile</a><br>
+                                            <a class="dropdown-item" href="#">Change Password</a><br>
+                                            <a class="dropdown-item" href="#" style="color: #6255a5; font-weight: 600;">LOGOUT</a>
+                                        </div>
+                                       
+                                </li>
+                                <li class="nav-item"><a href="#" class="nav-link"><button class="btn btn-primary" id="btn-up-lg" type="submit">Logout</button></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+        
+        </nav>
+    </header>
+
+    <div class="container-db">
+        <h1>Add Category</h1>
+        <div class="row mp01">
+            <div class="col-md-6 form-group">
+                <label for="exampleInputtitle">First Name<span class="required">*</span></label>
+                <input type="text" class="form-control mp02" placeholder="Enter your first name" required>
+                
+                <label for="text-area"><span class="review-label">Description*</span></label>
+                <textarea class="form-control md03" placeholder="Enter your description" rows="5"></textarea>
+                
+            </div>
+        </div>
+        <button type="button" class="btn btn-primary btn-md btn-submit">SUBMIT</button>
+    </div>
+    <!--Footer-->
+    <div class="container-fluid main-footer">
+        <div class="row">
+            <div class="col-md-6 version">
+                <p>Version:1.1.24</p>
+            </div>
+            <div class="col-md-6 text-right">
+                <p>Copyright &copy; Tatvasoft All rights reserved.</p>
+            </div>
+        </div>
+    </div>
+
+
+
+        
+    
+    <!--JQuery-->
+    <script src="js/jquery-min.js"></script>
+    <!--Bootstrap JS-->
+    <script src="js/bootstrap/bootstrap.min.js"></script>
+    <!--Custom JS-->
+    <script src="js/script.js"></script>
+</body>
+
+</html>
