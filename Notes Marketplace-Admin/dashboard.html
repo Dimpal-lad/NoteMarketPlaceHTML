@@ -14,6 +14,8 @@
     <link rel="stylesheet" href="css/font-awesome/css/font-awesome.min.css">
     <!--Custom CSS-->
     <link href="css/style.css" rel="stylesheet">
+    <!--Responsive CSS-->
+    <link href="css/responsive.css" rel="stylesheet">
     <title>Notes Marketplace</title>
     <!--Favicon-->
     <link rel="shortcut icon" href="images/home/favicon.ico">
@@ -29,6 +31,9 @@
                 <div class="site-nav-wrapper">
                     <div class="navbar-header">
 
+                        <!--Mobile Menu Open Button-->
+                        <span id="mobile-nav-open-btn">&#9776;</span>
+
                         <!--Logo-->
                         <a class="navbar-brand smooth-scroll" href="#">
                             <img src="images/pre-login/logo-dark.png" alt="logo">
@@ -36,59 +41,113 @@
                     </div>
 
                     <!--Main Menu-->
-                        <div class="collapse navbar-collapse">
-                            <ul class="nav navbar-nav pull-right">
+                    <div class="collapse navbar-collapse">
+                        <ul class="nav navbar-nav pull-right">
+                            <li class="nav-item"><a href="#" class="nav-link">Dashboard</a></li>
+
+                            <li class="nav-item dropdown">
+
+
+                                <a href="#" class=" dropdown-toggle nav-link" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span>Notes</span>
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenu">
+                                    <a class="dropdown-item" href="#">Notes Under Review</a>
+                                    <a class="dropdown-item" href="#">Published Notes</a>
+                                    <a class="dropdown-item" href="#">Downloaded Notes</a>
+                                    <a class="dropdown-item" href="#">Rejected Notes</a>
+                                </div>
+
+                            </li>
+                            <li class="nav-item"><a href="#" class="nav-link">Members</a></li>
+                            <li class="nav-item dropdown">
+
+
+                                <a href="#" class="dropdown-toggle nav-link" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span>Reported</span>
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenu">
+                                    <a class="dropdown-item" href="#">Spam Reports</a>
+                                </div>
+
+                            </li>
+                            <li class="nav-item"><a href="#" class="nav-link">Settings</a></li>
+                            <li class="nav-item dropdown">
+
+
+                                <a href="#" class=" dropdown-toggle nav-link" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <img src="images/assets/reviewer-1.png" alt="user" class="img-circle user-menu">
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenu">
+                                    <a class="dropdown-item" href="#">Update Profile</a><br>
+                                    <a class="dropdown-item" href="#">Change Password</a><br>
+                                    <a class="dropdown-item" href="#" style="color: #6255a5; font-weight: 600;">LOGOUT</a>
+                                </div>
+
+                            </li>
+                            <li class="nav-item"><a href="#" class="nav-link"><button class="btn btn-primary" id="btn-up-lg" type="submit">Logout</button></a></li>
+                        </ul>
+                    </div>
+
+                    <!--Mobile Menu-->
+                    <div id="mobile-nav">
+                        <!--Mobile Menu Close Button-->
+                        <span id="mobile-nav-close-btn">&times;</span>
+                        <div id="mobile-nav-content">
+                            <ul class="nav">
                                 <li class="nav-item"><a href="#" class="nav-link">Dashboard</a></li>
-                                    
+
                                 <li class="nav-item dropdown">
-                                    
-                                       
-                                        <a  href="#" class=" dropdown-toggle nav-link"  id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                         <span>Notes</span>   
-                                        </a>
-                                        <div class="dropdown-menu" aria-labelledby="dropdownMenu">
-                                            <a class="dropdown-item" href="#">Notes Under Review</a>
-                                            <a class="dropdown-item" href="#">Published Notes</a>
-                                            <a class="dropdown-item" href="#">Downloaded Notes</a>
-                                            <a class="dropdown-item" href="#">Rejected Notes</a>
-                                        </div>
-                                        
+
+
+                                    <a href="#" class=" dropdown-toggle nav-link" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <span>Notes</span>
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenu">
+                                        <a class="dropdown-item" href="#">Notes Under Review</a>
+                                        <a class="dropdown-item" href="#">Published Notes</a>
+                                        <a class="dropdown-item" href="#">Downloaded Notes</a>
+                                        <a class="dropdown-item" href="#">Rejected Notes</a>
+                                    </div>
+
                                 </li>
                                 <li class="nav-item"><a href="#" class="nav-link">Members</a></li>
                                 <li class="nav-item dropdown">
-                                    
-                                       
-                                        <a  href="#"class="dropdown-toggle nav-link"  id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                         <span>Reported</span>   
-                                        </a>
-                                        <div class="dropdown-menu" aria-labelledby="dropdownMenu">
-                                            <a class="dropdown-item" href="#">Spam Reports</a>
-                                        </div>
-                                     
+
+
+                                    <a href="#" class="dropdown-toggle nav-link" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <span>Reported</span>
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenu">
+                                        <a class="dropdown-item" href="#">Spam Reports</a>
+                                    </div>
+
                                 </li>
                                 <li class="nav-item"><a href="#" class="nav-link">Settings</a></li>
                                 <li class="nav-item dropdown">
-                                    
-                                       
-                                        <a  href="#" class=" dropdown-toggle nav-link"  id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <img src="images/assets/reviewer-1.png" alt="user" class="img-circle user-menu">
-                                        </a>
-                                        <div class="dropdown-menu" aria-labelledby="dropdownMenu">
-                                            <a class="dropdown-item" href="#">Update Profile</a><br>
-                                            <a class="dropdown-item" href="#">Change Password</a><br>
-                                            <a class="dropdown-item" href="#" style="color: #6255a5; font-weight: 600;">LOGOUT</a>
-                                        </div>
-                                       
+
+
+                                    <a href="#" class=" dropdown-toggle nav-link" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <img src="images/assets/reviewer-1.png" alt="user" class="img-circle user-menu">
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenu">
+                                        <a class="dropdown-item" href="#">Update Profile</a><br>
+                                        <a class="dropdown-item" href="#">Change Password</a><br>
+                                        <a class="dropdown-item" href="#" style="color: #6255a5; font-weight: 600;">LOGOUT</a>
+                                    </div>
+
                                 </li>
                                 <li class="nav-item"><a href="#" class="nav-link"><button class="btn btn-primary" id="btn-up-lg" type="submit">Logout</button></a></li>
                             </ul>
                         </div>
                     </div>
+
                 </div>
-        
+            </div>
+
         </nav>
     </header>
-   
+
     <div class="container-db">
         <h1>Dashboard</h1>
         <div class="row">
@@ -111,31 +170,31 @@
                 </div>
             </div>
         </div>
-        
+
         <!--Published Notes-->
         <div class="progress-nots">
-                <div class="row ds02">
-                    <div class="col-md-6">
-                        <h3>Published Notes</h3>
-                    </div>
-                    <div class="col-md-3">
-                        <input type="text" class="form-control" id="search-db" placeholder="&#xf002;  Search">
-
-                    </div>
-                    <div class="col-md-1">
-                        <button type="button" class="form-control" id="search-db01">SEARCH</button>
-                    </div>
-                    
-                    <div class="col-md-2">
-                        <select id="month" class="form-control">
-                            <option value="" disabled selected hidden>Select month</option>
-                            <option value="">.</option>
-                            <option value="">..</option>
-                            <option value="">...</option>
-                        </select>
-                    </div>
+            <div class="row ds02">
+                <div class="col-md-6">
+                    <h3>Published Notes</h3>
                 </div>
-                
+                <div class="col-md-3">
+                    <input type="text" class="form-control" id="search-db" placeholder="&#xf002;  Search">
+
+                </div>
+                <div class="col-md-1">
+                    <button type="button" class="form-control" id="search-db01">SEARCH</button>
+                </div>
+
+                <div class="col-md-2">
+                    <select id="month" class="form-control">
+                        <option value="" disabled selected hidden>Select month</option>
+                        <option value="">.</option>
+                        <option value="">..</option>
+                        <option value="">...</option>
+                    </select>
+                </div>
+            </div>
+
             <table class="table border">
                 <thead>
                     <tr class="table11" style="height: 75px;">
@@ -258,17 +317,17 @@
                             </div>
                         </td>
                     </tr>
-            </tbody>
-            </table>   
-                
-                
+                </tbody>
+            </table>
+
+
         </div>
-    
-    
-    
-    
+
+
+
+
     </div>
-    
+
     <!--Pagination-->
     <div class="text-center">
         <ul class="pagination">
@@ -290,7 +349,7 @@
             </li>
         </ul>
     </div>
-    
+
     <!--Footer-->
     <div class="container-fluid main-footer">
         <div class="row">

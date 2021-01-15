@@ -1,36 +1,18 @@
 /*=============================================================
-                 Navigation
+                 Mobile Menu
 ===============================================================*/
-/* Show & Hide White Navigation */
-/*$(function () {
-    //show/hide nav on page load
-    showHideNav();
-    $(window).scroll(function () {
-        //show/hide nav on window's scroll
-        showHideNav();
+$(function () {
 
+    //Show mobile nav
+    $("#mobile-nav-open-btn").click(function () {
+        $("#mobile-nav").css("height", "100%");
     });
 
-    function showHideNav() {
-
-        if ($(window).scrollTop() > 50) {
-
-            //Show white nav
-            $("nav").addClass("white-nav-top");
-
-            //Show dark logo
-            $(".navbar-brand img").attr("src", "images/pre-login/logo-dark.png");
-        } else {
-            //Hide white nav
-            $("nav").removeClass("white-nav-top");
-
-            //Show normal logo
-            $(".navbar-brand img").attr("src", "images/pre-login/top-logo.png");
-
-        }
-
-    }
-});*/
+    //Hide mobile nav
+    $("#mobile-nav-close-btn, #mobile-nav a").click(function () {
+        $("#mobile-nav").css("height", "0%");
+    });
+});
 
 /*FAQ accrodion*/
 

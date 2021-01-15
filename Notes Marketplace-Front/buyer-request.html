@@ -14,6 +14,8 @@
     <link rel="stylesheet" href="css/font-awesome/css/font-awesome.min.css">
     <!--Custom CSS-->
     <link href="css/style.css" rel="stylesheet">
+    <!--Responsive CSS-->
+    <link href="css/responsive.css" rel="stylesheet">
     <title>Notes Marketplace</title>
     <!--Favicon-->
     <link rel="shortcut icon" href="images/home/favicon.ico">
@@ -28,6 +30,10 @@
             <div class="container-fluid">
                 <div class="site-nav-wrapper">
                     <div class="navbar-header">
+
+                        <!--Mobile Menu Open Button-->
+                        <span id="mobile-nav-open-btn">&#9776;</span>
+
 
                         <!--Logo-->
                         <a class="navbar-brand smooth-scroll" href="#">
@@ -44,7 +50,24 @@
                                 <li><a href="#">Buyer Requests</a></li>
                                 <li><a href="#">FAQ</a></li>
                                 <li><a href="#">Contact Us</a></li>
-                                <li><a href="#"><img src="images/User-Profile/user-1.jpg" alt="user" class="img-circle"></a></li>
+                                <li><a href="#"><img src="images/User-Profile/user-img.png" alt="user" class="menu-user"></a></li>
+                                <li><a href="#"><button class="btn btn-primary" id="btn-up-lg" type="submit">Logout</button></a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!--Mobile Menu-->
+                    <div id="mobile-nav">
+                        <!--Mobile Menu Close Button-->
+                        <span id="mobile-nav-close-btn">&times;</span>
+                        <div id="mobile-nav-content">
+                            <ul class="nav">
+                                <li><a href="#">Search Notes</a></li>
+                                <li><a href="#">Sell Your Notes</a></li>
+                                <li><a href="#">Buyer Requests</a></li>
+                                <li><a href="#">FAQ</a></li>
+                                <li><a href="#">Contact Us</a></li>
+                                <li><a href="#"><img src="images/User-Profile/user-img.png" alt="user" class="menu-user"></a></li>
                                 <li><a href="#"><button class="btn btn-primary" id="btn-up-lg" type="submit">Logout</button></a></li>
                             </ul>
                         </div>
@@ -55,9 +78,9 @@
     </header>
 
     <!--Buyer Requests-->
-    
-        <div class="container-ds02">
-           <div class="mydownloads">
+
+    <div class="container-ds02">
+        <div class="mydownloads">
             <div class="row">
                 <div class="col-md-6">
                     <h3>Buyer Requests</h3>
@@ -74,7 +97,7 @@
             <table class="table border">
                 <thead>
                     <tr class="table11" style="height: 75px;">
-                        <th scope="col" style="vertical-align: middle;">SR NO.</th>
+                        <th scope="col" style="vertical-align: middle;text-align: center;">SR NO.</th>
                         <th scope="col" style="vertical-align: middle;">NOTE TITLE</th>
                         <th scope="col" style="vertical-align: middle;">CATEGORY</th>
                         <th scope="col" style="vertical-align: middle;">BUYER</th>
@@ -88,7 +111,7 @@
                 </thead>
                 <tbody>
                     <tr class="table2">
-                        <td style="vertical-align: middle;">1</td>
+                        <td style="vertical-align: middle;text-align: center;">1</td>
                         <td style="color: #6255a5; vertical-align: middle;">Data Science</td>
                         <td style="vertical-align: middle;">Science</td>
                         <td style="vertical-align: middle;">testing123@gmail.com</td>
@@ -107,7 +130,7 @@
                     </tr>
 
                     <tr class="table2">
-                        <td style="vertical-align: middle;">2</td>
+                        <td style="vertical-align: middle;text-align: center;">2</td>
                         <td style="color: #6255a5; vertical-align: middle;">Accounts</td>
                         <td style="vertical-align: middle;">Commerce</td>
                         <td style="vertical-align: middle;">testing123@gmail.com</td>
@@ -127,7 +150,7 @@
 
                     </tr>
                     <tr class="table2">
-                        <td style="vertical-align: middle;">3</td>
+                        <td style="vertical-align: middle;text-align: center;">3</td>
                         <td style="color: #6255a5; vertical-align: middle;">Social Students</td>
                         <td style="vertical-align: middle;">social</td>
                         <td style="vertical-align: middle;">testing123@gmail.com</td>
@@ -146,7 +169,7 @@
                         </td>
                     </tr>
                     <tr class="table2">
-                        <td style="vertical-align: middle;">4</td>
+                        <td style="vertical-align: middle;text-align: center;">4</td>
                         <td style="color: #6255a5; vertical-align: middle;">AI</td>
                         <td style="vertical-align: middle;">IT</td>
                         <td style="vertical-align: middle;">testing123@gmail.com</td>
@@ -165,7 +188,7 @@
                         </td>
                     </tr>
                     <tr class="table2">
-                        <td style="vertical-align: middle;">5</td>
+                        <td style="vertical-align: middle;text-align: center;">5</td>
                         <td style="color: #6255a5; vertical-align: middle;">Lorem ipsum </td>
                         <td style="vertical-align: middle;">Lorem</td>
                         <td style="vertical-align: middle;">testing123@gmail.com</td>
@@ -184,7 +207,7 @@
                         </td>
                     </tr>
                     <tr class="table2">
-                        <td style="vertical-align: middle;">6</td>
+                        <td style="vertical-align: middle;text-align: center;">6</td>
                         <td style="color: #6255a5; vertical-align: middle;">Data Science</td>
                         <td style="vertical-align: middle;">Science</td>
                         <td style="vertical-align: middle;">testing123@gmail.com</td>
@@ -203,7 +226,7 @@
                         </td>
                     </tr>
                     <tr class="table2">
-                        <td style="vertical-align: middle;">7</td>
+                        <td style="vertical-align: middle;text-align: center;">7</td>
                         <td style="color: #6255a5; vertical-align: middle;">Accounts</td>
                         <td style="vertical-align: middle;">Commerce</td>
                         <td style="vertical-align: middle;">testing123@gmail.com</td>
@@ -224,7 +247,7 @@
 
                     </tr>
                     <tr class="table2">
-                        <td style="vertical-align: middle;">8</td>
+                        <td style="vertical-align: middle;text-align: center;">8</td>
                         <td style="color: #6255a5; vertical-align: middle;">Social Students</td>
                         <td style="vertical-align: middle;">social</td>
                         <td style="vertical-align: middle;">testing123@gmail.com</td>
@@ -243,7 +266,7 @@
                         </td>
                     </tr>
                     <tr class="table2">
-                        <td style="vertical-align: middle;">9</td>
+                        <td style="vertical-align: middle;text-align: center;">9</td>
                         <td style="color: #6255a5; vertical-align: middle;">AI</td>
                         <td style="vertical-align: middle;">IT</td>
                         <td style="vertical-align: middle;">testing123@gmail.com</td>
@@ -263,7 +286,7 @@
 
                     </tr>
                     <tr class="table2">
-                        <td style="vertical-align: middle;">10</td>
+                        <td style="vertical-align: middle;text-align: center;">10</td>
                         <td style="color: #6255a5; vertical-align: middle;">Lorem ipsum </td>
                         <td style="vertical-align: middle;">Lorem</td>
                         <td style="vertical-align: middle;">testing123@gmail.com</td>

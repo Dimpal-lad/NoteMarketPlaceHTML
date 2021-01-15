@@ -77,7 +77,6 @@ body {
 }
 
 #password label {
-    /*margin-top: 20px;*/
     color: #333333;
     font-size: 16px;
     font-weight: 500;
@@ -125,7 +124,7 @@ body {
     margin-top: -25px;
     position: relative;
     z-index: 2;
-    color: #8a8a8a;
+    color: #333333;
 }
 
 #exampleCheck1 {
@@ -304,15 +303,16 @@ body {
     background-position: center;
     background-size: cover;
     padding: 60px 0;
-}
-
-#userpro {
     color: #fff;
     line-height: 45px;
     text-align: center;
     font-family: "Open Sans";
     margin-top: -20px;
     margin-bottom: 80px;
+}
+
+.menu-user {
+    margin-top: -10px;
 }
 #userpro h1 {
     font-weight: 600;
@@ -349,8 +349,8 @@ body {
 
 .container-address,
 .container-uci {
-    padding-left: 150px;
-    padding-right: 150px;
+    padding-left: 130px;
+    padding-right: 130px;
     margin-top: 20px;
 }
 
@@ -371,7 +371,7 @@ body {
 
 #exampleInputph {
     margin-top: 5px;
-    width: 440px;
+    width: 455px;
 }
 
 .container-basic h3,
@@ -500,8 +500,6 @@ ul.navbar-nav > li > a:hover {
     background-position: center;
     background-size: cover;
     position: relative;
-    /*max-height: 900px;
-    height: 80%;*/
 }
 
 #hp .content-box-md {
@@ -584,8 +582,8 @@ ul.navbar-nav > li > a:hover {
 
 /*Scroll spy active state*/
 .white-nav-top ul.navbar-nav > li.active > a {
-    color: #f4c613;
-    font-weight: 500;
+    color: #6255a5;
+    font-weight: 600;
 }
 
 /*About*/
@@ -1175,7 +1173,9 @@ ul.nd05 li {
     padding: 40px 130px;
     border-top: 1px solid #d1d1d1;
 }
-
+.d-board {
+    margin-bottom: 0px;
+}
 .dashboard-title-section {
     margin-bottom: 20px;
 }
@@ -1301,7 +1301,7 @@ ul.nd05 li {
     font-weight: 600;
     line-height: 20px;
     color: #333333;
-    text-align: center;
+    text-align: left;
 }
 
 .table1 {
@@ -1310,7 +1310,7 @@ ul.nd05 li {
     font-weight: 400;
     line-height: 20px;
     color: #333333;
-    text-align: center;
+    text-align: left;
 }
 
 /*=============================================================
@@ -1379,12 +1379,18 @@ ul.nd05 li {
 }
 
 /*Selling Information*/
-.si {
+input.si {
     width: 42px;
     height: 42px;
     border: 1px solid #d1d1d1;
+    margin-right: 20px;
 }
-
+input.si:hover {
+    color: #6255a5;
+}
+span.si1 {
+    margin-right: 20px;
+}
 #exampleInputpicture03 {
     background: url(../images/Add-notes/upload-file.png) no-repeat;
     background-position: center;
@@ -1432,7 +1438,7 @@ ul.nd05 li {
     color: #333333;
     line-height: 20px;
     font-weight: 400;
-    text-align: center;
+    text-align: left;
 }
 
 .dropdown {
@@ -1721,6 +1727,36 @@ ul.nd05 li {
 .btn-contact {
     margin-top: -20px;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

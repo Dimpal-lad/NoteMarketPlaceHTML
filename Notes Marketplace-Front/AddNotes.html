@@ -14,6 +14,8 @@
     <link rel="stylesheet" href="css/font-awesome/css/font-awesome.min.css">
     <!--Custom CSS-->
     <link href="css/style.css" rel="stylesheet">
+    <!--Responsive CSS-->
+    <link href="css/responsive.css" rel="stylesheet">
     <title>Notes Marketplace</title>
     <!--Favicon-->
     <link rel="shortcut icon" href="images/home/favicon.ico">
@@ -27,6 +29,10 @@
             <div class="container-fluid">
                 <div class="site-nav-wrapper">
                     <div class="navbar-header">
+
+                        <!--Mobile Menu Open Button-->
+                        <span id="mobile-nav-open-btn">&#9776;</span>
+
 
                         <!--Logo-->
                         <a class="navbar-brand smooth-scroll" href="#">
@@ -43,7 +49,24 @@
                                 <li><a href="#">Buyer Requests</a></li>
                                 <li><a href="#">FAQ</a></li>
                                 <li><a href="#">Contact Us</a></li>
-                                <li><a href="#"><img src="images/User-Profile/user-1.jpg" alt="user" class="img-circle"></a></li>
+                                <li><a href="#"><img src="images/User-Profile/user-img.png" alt="user" class="menu-user"></a></li>
+                                <li><a href="#"><button class="btn btn-primary" id="btn-up-lg" type="submit">Logout</button></a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!--Mobile Menu-->
+                    <div id="mobile-nav">
+                        <!--Mobile Menu Close Button-->
+                        <span id="mobile-nav-close-btn">&times;</span>
+                        <div id="mobile-nav-content">
+                            <ul class="nav">
+                                <li><a href="#">Search Notes</a></li>
+                                <li><a href="#">Sell Your Notes</a></li>
+                                <li><a href="#">Buyer Requests</a></li>
+                                <li><a href="#">FAQ</a></li>
+                                <li><a href="#">Contact Us</a></li>
+                                <li><a href="#"><img src="images/User-Profile/user-img.png" alt="user" class="menu-user"></a></li>
                                 <li><a href="#"><button class="btn btn-primary" id="btn-up-lg" type="submit">Logout</button></a></li>
                             </ul>
                         </div>
@@ -73,7 +96,7 @@
                 <label for="exampleInputtitle">Title<span class="required">*</span></label>
                 <input type="text" class="form-control bn-detail" placeholder="Enter your notes title" required>
                 <label id="picture"><span>Display Picture</span></label>
-                <input type="picture" class="form-control" id="exampleInputpicture02" placeholder="Upload a picture"> 
+                <input type="picture" class="form-control" id="exampleInputpicture02" placeholder="Upload a picture">
                 <label for="type">Type</label><br>
                 <select class="form-control bn-detail bnd">
                     <option value="" disabled selected hidden>Select your note type</option>
@@ -152,15 +175,15 @@
             <h3>Selling Information</h3>
             <div class="row form-group bnd02">
                 <div class="col-md-6 ">
-                  <label for="exampleInputnop">Sell For<span class="required">*</span></label>
- 
+                    <label for="exampleInputnop">Sell For<span class="required">*</span></label>
+
                     <div class="input-group-prepend">
                         <div class="input-group-text">
                             <input type="radio" name="sell info" value="free" class="si"><span class="si1">Free</span>
                             <input type="radio" name="sell info" value="free" class="si"><span class="si1">Paid</span>
                         </div>
                     </div>
-                    
+
                     <label for="exampleInputnop">Sell Price<span class="required">*</span></label>
                     <input type="text" class="form-control bn-detail" placeholder="Enter your price">
 
@@ -168,15 +191,16 @@
 
                 <div class="col-md-6">
                     <label id="picture03"><span>Note Preview</span></label>
-                    <input type="picture" class="form-control" id="exampleInputpicture03" placeholder="Upload a file">    
+                    <input type="picture" class="form-control" id="exampleInputpicture03" placeholder="Upload a file">
                 </div>
             </div>
             <button type="button" class="btn btn-primary btn-md btn-save">SAVE</button>
             <button type="button" class="btn btn-primary btn-md btn-save">PUBLISH</button>
 
+        </div>
     </div>
-    </div><hr>
-    
+    <hr>
+
     <!--Footer-->
     <footer class="footer-hp">
 
@@ -197,8 +221,8 @@
             </div>
         </div>
     </footer>
-    
-    
+
+
     <!--Add Notes End-->
     <!--JQuery-->
     <script src="js/jquery-min.js"></script>

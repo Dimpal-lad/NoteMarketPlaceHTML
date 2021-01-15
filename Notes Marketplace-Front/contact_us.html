@@ -14,6 +14,8 @@
     <link rel="stylesheet" href="css/font-awesome/css/font-awesome.min.css">
     <!--Custom CSS-->
     <link href="css/style.css" rel="stylesheet">
+    <!--Responsive CSS-->
+    <link href="css/responsive.css" rel="stylesheet">
     <title>Notes Marketplace</title>
     <!--Favicon-->
     <link rel="shortcut icon" href="images/home/favicon.ico">
@@ -23,10 +25,14 @@
     <!--FAQ Page-->
 
     <header>
-        <nav class="navbar">
+        <nav class="navbar  d-board">
             <div class="container-fluid">
                 <div class="site-nav-wrapper">
                     <div class="navbar-header">
+
+                        <!--Mobile Menu Open Button-->
+                        <span id="mobile-nav-open-btn">&#9776;</span>
+
 
                         <!--Logo-->
                         <a class="navbar-brand smooth-scroll" href="#">
@@ -38,6 +44,21 @@
                     <div class="container-up">
                         <div class="collapse navbar-collapse">
                             <ul class="nav navbar-nav pull-right">
+                                <li><a href="#">Search Notes</a></li>
+                                <li><a href="#">Sell Your Notes</a></li>
+                                <li><a href="#">FAQ</a></li>
+                                <li><a href="#">Contact Us</a></li>
+                                <li><a href="#"><button class="btn btn-primary" id="btn-faq-lg" type="submit">Login</button></a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!--Mobile Menu-->
+                    <div id="mobile-nav">
+                        <!--Mobile Menu Close Button-->
+                        <span id="mobile-nav-close-btn">&times;</span>
+                        <div id="mobile-nav-content">
+                            <ul class="nav">
                                 <li><a href="#">Search Notes</a></li>
                                 <li><a href="#">Sell Your Notes</a></li>
                                 <li><a href="#">FAQ</a></li>
@@ -62,7 +83,7 @@
             </div>
         </div>
     </div>
-   
+
     <!--Get in touch-->
     <div class="container-contact1">
         <h3>Get In Touch</h3>
@@ -70,13 +91,13 @@
         <div class="row form-group bnd02">
             <div class="col-md-6">
                 <label for="exampleInputfname" id="f_name">Full Name<span class="required">*</span></label>
-                <input type="text" class="form-control" id="exampleInputfname" placeholder="Enter your full name" required> 
-                
+                <input type="text" class="form-control" id="exampleInputfname" placeholder="Enter your full name" required>
+
                 <label for="exampleInputemail" id="email_01">Email<span class="required">*</span></label>
                 <input type="email" class="form-control" id="exampleInputemail01" aria-describedby="emailHelp" placeholder="Enter your email address" required>
-                
+
                 <label for="exampleInputlname" id="l_name">Subject<span class="required">*</span></label>
-                <input type="text" class="form-control" id="exampleInputlname" placeholder="Enter your subject" required>   
+                <input type="text" class="form-control" id="exampleInputlname" placeholder="Enter your subject" required>
             </div>
             <div class="col-md-6">
                 <label for="text-area"><span class="review-label">Comments*</span></label>
@@ -85,7 +106,7 @@
         </div>
         <button type="button" class="btn-contact" value="SUBMIT">SUBMIT</button>
     </div>
-    
+
     <hr>
     <!--Footer-->
     <footer class="footer-hp">

@@ -281,6 +281,8 @@ p {
 }
 
 
+
+
 /*=============================================================
                   Dashboard Page
 ===============================================================*/
@@ -958,5 +960,10 @@ ul.nd05 li {
 .rate > label:hover ~ input:checked ~ label {
     color: #c59b08;
 }
-
+img.nd-delete {
+    width: 20px;
+    height: 20px;
+    float: right;
+    margin-top: 10px;
+}
 

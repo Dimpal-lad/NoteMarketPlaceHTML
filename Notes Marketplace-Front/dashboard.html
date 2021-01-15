@@ -14,6 +14,8 @@
     <link rel="stylesheet" href="css/font-awesome/css/font-awesome.min.css">
     <!--Custom CSS-->
     <link href="css/style.css" rel="stylesheet">
+    <!--Responsive CSS-->
+    <link href="css/responsive.css" rel="stylesheet">
     <title>Notes Marketplace</title>
     <!--Favicon-->
     <link rel="shortcut icon" href="images/home/favicon.ico">
@@ -24,10 +26,14 @@
     <!--Dashboard Page-->
 
     <header>
-        <nav class="navbar">
+        <nav class="navbar d-board">
             <div class="container-fluid">
                 <div class="site-nav-wrapper">
                     <div class="navbar-header">
+
+                        <!--Mobile Menu Open Button-->
+                        <span id="mobile-nav-open-btn">&#9776;</span>
+
 
                         <!--Logo-->
                         <a class="navbar-brand smooth-scroll" href="#">
@@ -44,7 +50,24 @@
                                 <li><a href="#">Buyer Requests</a></li>
                                 <li><a href="#">FAQ</a></li>
                                 <li><a href="#">Contact Us</a></li>
-                                <li><a href="#"><img src="images/User-Profile/user-1.jpg" alt="user" class="img-circle"></a></li>
+                                <li><a href="#"><img src="images/User-Profile/user-img.png" alt="user" class="menu-user"></a></li>
+                                <li><a href="#"><button class="btn btn-primary" id="btn-up-lg" type="submit">Logout</button></a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!--Mobile Menu-->
+                    <div id="mobile-nav">
+                        <!--Mobile Menu Close Button-->
+                        <span id="mobile-nav-close-btn">&times;</span>
+                        <div id="mobile-nav-content">
+                            <ul class="nav">
+                                <li><a href="#">Search Notes</a></li>
+                                <li><a href="#">Sell Your Notes</a></li>
+                                <li><a href="#">Buyer Requests</a></li>
+                                <li><a href="#">FAQ</a></li>
+                                <li><a href="#">Contact Us</a></li>
+                                <li><a href="#"><img src="images/User-Profile/user-img.png" alt="user" class="menu-user"></a></li>
                                 <li><a href="#"><button class="btn btn-primary" id="btn-up-lg" type="submit">Logout</button></a></li>
                             </ul>
                         </div>
@@ -87,24 +110,20 @@
                                             <h4>Number of Note Sold</h4>
                                         </div>
                                     </div>
-                                        <div class="col-md-6">
-                                            <div class="money text-center">
-                                               
-                                                    <p>&#36;10,00,000</p>
-                                                    <h4>Money Earned</h4>
-                                                </div>
-                                            </div>
+                                    <div class="col-md-6">
+                                        <div class="money text-center">
+
+                                            <p>&#36;10,00,000</p>
+                                            <h4>Money Earned</h4>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
-                        
-                        
-
-                        <div class="col-md-5">
-                            <div class="row dbright">
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="row dbright">
                         <div class="col-md-4">
                             <div class="download text-center">
                                 <div class="download01">
@@ -153,48 +172,48 @@
                 <table class="table border">
                     <thead>
                         <tr class="table11" style="height: 75px;">
-                            <th scope="col" style="vertical-align: middle;">ADDED DATE</th>
+                            <th scope="col" style="vertical-align: middle;text-align: center;">ADDED DATE</th>
                             <th scope="col" style="vertical-align: middle;">TITLE</th>
                             <th scope="col" style="vertical-align: middle;">CATEGORY</th>
                             <th scope="col" style="vertical-align: middle;">STATUS</th>
-                            <th scope="col" style="vertical-align: middle;">ACTIONS</th>
+                            <th scope="col" style="vertical-align: middle;text-align: center;">ACTIONS</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr class="table1">
-                            <td style="vertical-align: middle;">09-10-2020</td>
+                            <td style="vertical-align: middle;text-align: center;">09-10-2020</td>
                             <td style="vertical-align: middle;">Data Science</td>
                             <td style="vertical-align: middle;">Science</td>
                             <td style="vertical-align: middle;">Draft</td>
-                            <td style="vertical-align: middle;"><img src="images/Dashboard/edit.png" alt="edit" class="img-responsive"></td>
+                            <td style="vertical-align: middle;text-align: center;"><img src="images/Dashboard/edit.png" alt="edit"></td>
                         </tr>
                         <tr class="table1">
-                            <td style="vertical-align: middle;">10-10-2020</td>
+                            <td style="vertical-align: middle;text-align: center;">10-10-2020</td>
                             <td style="vertical-align: middle;">Accounts</td>
                             <td style="vertical-align: middle;">Commerce</td>
                             <td style="vertical-align: middle;">In Review</td>
-                            <td style="vertical-align: middle;"><img src="images/Dashboard/edit.png" alt="edit" class="img-responsive"></td>
+                            <td style="vertical-align: middle;text-align: center;"><img src="images/Dashboard/edit.png" alt="edit"></td>
                         </tr>
                         <tr class="table1">
-                            <td style="vertical-align: middle;">11-10-2020</td>
+                            <td style="vertical-align: middle;text-align: center;">11-10-2020</td>
                             <td style="vertical-align: middle;">Social Studies</td>
                             <td style="vertical-align: middle;">Social</td>
                             <td style="vertical-align: middle;">Submitted</td>
-                            <td style="vertical-align: middle;"><img src="images/Dashboard/edit.png" alt="edit" class="img-responsive"></td>
+                            <td style="vertical-align: middle;text-align: center;"><img src="images/Dashboard/edit.png" alt="edit"></td>
                         </tr>
                         <tr class="table1">
-                            <td style="vertical-align: middle;">12-10-2020</td>
+                            <td style="vertical-align: middle;text-align: center;">12-10-2020</td>
                             <td style="vertical-align: middle;">AI</td>
                             <td style="vertical-align: middle;">IT</td>
                             <td style="vertical-align: middle;">Submittd</td>
-                            <td style="vertical-align: middle;"><img src="images/Dashboard/edit.png" alt="edit" class="img-responsive"></td>
+                            <td style="vertical-align: middle;text-align: center;"><img src="images/Dashboard/edit.png" alt="edit"></td>
                         </tr>
                         <tr class="table1">
-                            <td style="vertical-align: middle;">13-10-2020</td>
+                            <td style="vertical-align: middle;text-align: center;">13-10-2020</td>
                             <td style="vertical-align: middle;">Lorem ipsum dolor sit ametsectetur</td>
                             <td style="vertical-align: middle;">Lorem</td>
                             <td style="vertical-align: middle;">Draft</td>
-                            <td style="vertical-align: middle;"><img src="images/Dashboard/edit.png" alt="edit" class="img-responsive"></td>
+                            <td style="vertical-align: middle;text-align: center;"><img src="images/Dashboard/edit.png" alt="edit"></td>
                         </tr>
                     </tbody>
                 </table>
@@ -222,9 +241,9 @@
                 </li>
             </ul>
         </div>
-    
-    
-    <!--Publish notes-->
+
+
+        <!--Publish notes-->
         <div class="progress-nots">
             <div class="container-ds02">
                 <div class="row">
@@ -243,61 +262,61 @@
                 <table class="table border">
                     <thead>
                         <tr class="table11" style="height: 75px;">
-                            <th scope="col">ADDED DATE</th>
-                            <th scope="col">TITLE</th>
-                            <th scope="col">CATEGORY</th>
-                            <th scope="col">SELL TYPE</th>
-                            <th scope="col">PRICE</th>
-                            <th scope="col">ACTIONS</th>
+                            <th scope="col" style="vertical-align: middle;text-align: center;">ADDED DATE</th>
+                            <th scope="col" style="vertical-align: middle;">TITLE</th>
+                            <th scope="col" style="vertical-align: middle;">CATEGORY</th>
+                            <th scope="col" style="vertical-align: middle;">SELL TYPE</th>
+                            <th scope="col" style="vertical-align: middle;">PRICE</th>
+                            <th scope="col" style="vertical-align: middle;text-align: center;">ACTIONS</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr class="table1">
-                            <td>09-10-2020</td>
-                            <td>Data Science</td>
-                            <td>Science</td>
-                            <td>Paid</td>
-                            <td>&#36;575</td>
-                            <td><i class="fa fa-fw fa-eye"></i></td>
+                            <td style="vertical-align: middle;text-align: center;">09-10-2020</td>
+                            <td style="vertical-align: middle;">Data Science</td>
+                            <td style="vertical-align: middle;">Science</td>
+                            <td style="vertical-align: middle;">Paid</td>
+                            <td style="vertical-align: middle;">&#36;575</td>
+                            <td style="vertical-align: middle;text-align: center;"><i class="fa fa-fw fa-eye"></i></td>
                         </tr>
                         <tr class="table1">
-                            <td>10-10-2020</td>
-                            <td>Accounts</td>
-                            <td>Commerce</td>
-                            <td>Free</td>
-                            <td>&#36;0</td>
-                            <td><i class="fa fa-fw fa-eye"></i></td>                        
+                            <td style="vertical-align: middle;text-align: center;">10-10-2020</td>
+                            <td style="vertical-align: middle;">Accounts</td>
+                            <td style="vertical-align: middle;">Commerce</td>
+                            <td style="vertical-align: middle;">Free</td>
+                            <td style="vertical-align: middle;">&#36;0</td>
+                            <td style="vertical-align: middle;text-align: center;"><i class="fa fa-fw fa-eye"></i></td>
                         </tr>
                         <tr class="table1">
-                            <td>11-10-2020</td>
-                            <td>Social Studies</td>
-                            <td>Social</td>
-                            <td>Free</td>
-                            <td>&#36;0</td>
-                            <td><i class="fa fa-fw fa-eye"></i></td>
+                            <td style="vertical-align: middle;text-align: center;">11-10-2020</td>
+                            <td style="vertical-align: middle;">Social Studies</td>
+                            <td style="vertical-align: middle;">Social</td>
+                            <td style="vertical-align: middle;">Free</td>
+                            <td style="vertical-align: middle;">&#36;0</td>
+                            <td style="vertical-align: middle;text-align: center;"><i class="fa fa-fw fa-eye"></i></td>
                         </tr>
                         <tr class="table1">
-                            <td>12-10-2020</td>
-                            <td>AI</td>
-                            <td>IT</td>
-                            <td>Paid</td>
-                            <td>&#36;3542</td>
-                            <td><i class="fa fa-fw fa-eye"></i></td>
+                            <td style="vertical-align: middle;text-align: center;">12-10-2020</td>
+                            <td style="vertical-align: middle;">AI</td>
+                            <td style="vertical-align: middle;">IT</td>
+                            <td style="vertical-align: middle;">Paid</td>
+                            <td style="vertical-align: middle;">&#36;3542</td>
+                            <td style="vertical-align: middle;text-align: center;"><i class="fa fa-fw fa-eye"></i></td>
                         </tr>
                         <tr class="table1">
-                            <td>13-10-2020</td>
-                            <td>Lorem ipsum dolor sit ametsectetur</td>
-                            <td>Lorem</td>
-                            <td>Free</td>
-                            <td>&#36;0</td>
-                            <td><i class="fa fa-fw fa-eye"></i></td>
+                            <td style="vertical-align: middle;text-align: center;">13-10-2020</td>
+                            <td style="vertical-align: middle;">Lorem ipsum dolor sit ametsectetur</td>
+                            <td style="vertical-align: middle;">Lorem</td>
+                            <td style="vertical-align: middle;">Free</td>
+                            <td style="vertical-align: middle;">&#36;0</td>
+                            <td style="vertical-align: middle;text-align: center;"><i class="fa fa-fw fa-eye"></i></td>
                         </tr>
                     </tbody>
                 </table>
             </div>
         </div>
-        
-    <!--Pagination-->
+
+        <!--Pagination-->
         <div class="text-center">
             <ul class="pagination">
                 <li class="page-item">
@@ -318,8 +337,8 @@
                 </li>
             </ul>
         </div>
-</div>   
-    
+    </div>
+
 
     <hr>
     <!--Footer-->

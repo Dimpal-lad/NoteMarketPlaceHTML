@@ -14,6 +14,8 @@
     <link rel="stylesheet" href="css/font-awesome/css/font-awesome.min.css">
     <!--Custom CSS-->
     <link href="css/style.css" rel="stylesheet">
+    <!--Responsive CSS-->
+    <link href="css/responsive.css" rel="stylesheet">
     <title>Notes Marketplace</title>
     <!--Favicon-->
     <link rel="shortcut icon" href="images/home/favicon.ico">
@@ -29,6 +31,10 @@
                 <div class="site-nav-wrapper">
                     <div class="navbar-header">
 
+                        <!--Mobile Menu Open Button-->
+                        <span id="mobile-nav-open-btn">&#9776;</span>
+
+
                         <!--Logo-->
                         <a class="navbar-brand smooth-scroll" href="#">
                             <img src="images/pre-login/logo-dark.png" alt="logo">
@@ -36,219 +42,273 @@
                     </div>
 
                     <!--Main Menu-->
-                        <div class="collapse navbar-collapse">
-                            <ul class="nav navbar-nav pull-right">
+                    <div class="collapse navbar-collapse">
+                        <ul class="nav navbar-nav pull-right">
+                            <li class="nav-item"><a href="#" class="nav-link">Dashboard</a></li>
+
+                            <li class="nav-item dropdown">
+
+
+                                <a href="#" class=" dropdown-toggle nav-link" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span>Notes</span>
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenu">
+                                    <a class="dropdown-item" href="#">Notes Under Review</a>
+                                    <a class="dropdown-item" href="#">Published Notes</a>
+                                    <a class="dropdown-item" href="#">Downloaded Notes</a>
+                                    <a class="dropdown-item" href="#">Rejected Notes</a>
+                                </div>
+
+                            </li>
+                            <li class="nav-item"><a href="#" class="nav-link">Members</a></li>
+                            <li class="nav-item dropdown">
+
+
+                                <a href="#" class="dropdown-toggle nav-link" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span>Reported</span>
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenu">
+                                    <a class="dropdown-item" href="#">Spam Reports</a>
+                                </div>
+
+                            </li>
+                            <li class="nav-item"><a href="#" class="nav-link">Settings</a></li>
+                            <li class="nav-item dropdown">
+
+
+                                <a href="#" class=" dropdown-toggle nav-link" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <img src="images/assets/reviewer-1.png" alt="user" class="img-circle user-menu">
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenu">
+                                    <a class="dropdown-item" href="#">Update Profile</a><br>
+                                    <a class="dropdown-item" href="#">Change Password</a><br>
+                                    <a class="dropdown-item" href="#" style="color: #6255a5; font-weight: 600;">LOGOUT</a>
+                                </div>
+
+                            </li>
+                            <li class="nav-item"><a href="#" class="nav-link"><button class="btn btn-primary" id="btn-up-lg" type="submit">Logout</button></a></li>
+                        </ul>
+                    </div>
+
+                    <!--Mobile Menu-->
+                    <div id="mobile-nav">
+                        <!--Mobile Menu Close Button-->
+                        <span id="mobile-nav-close-btn">&times;</span>
+                        <div id="mobile-nav-content">
+                            <ul class="nav">
                                 <li class="nav-item"><a href="#" class="nav-link">Dashboard</a></li>
-                                    
+
                                 <li class="nav-item dropdown">
-                                    
-                                       
-                                        <a  href="#" class=" dropdown-toggle nav-link"  id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                         <span>Notes</span>   
-                                        </a>
-                                        <div class="dropdown-menu" aria-labelledby="dropdownMenu">
-                                            <a class="dropdown-item" href="#">Notes Under Review</a>
-                                            <a class="dropdown-item" href="#">Published Notes</a>
-                                            <a class="dropdown-item" href="#">Downloaded Notes</a>
-                                            <a class="dropdown-item" href="#">Rejected Notes</a>
-                                        </div>
-                                        
+
+
+                                    <a href="#" class=" dropdown-toggle nav-link" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <span>Notes</span>
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenu">
+                                        <a class="dropdown-item" href="#">Notes Under Review</a>
+                                        <a class="dropdown-item" href="#">Published Notes</a>
+                                        <a class="dropdown-item" href="#">Downloaded Notes</a>
+                                        <a class="dropdown-item" href="#">Rejected Notes</a>
+                                    </div>
+
                                 </li>
                                 <li class="nav-item"><a href="#" class="nav-link">Members</a></li>
                                 <li class="nav-item dropdown">
-                                    
-                                       
-                                        <a  href="#"class="dropdown-toggle nav-link"  id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                         <span>Reported</span>   
-                                        </a>
-                                        <div class="dropdown-menu" aria-labelledby="dropdownMenu">
-                                            <a class="dropdown-item" href="#">Spam Reports</a>
-                                        </div>
-                                     
+
+
+                                    <a href="#" class="dropdown-toggle nav-link" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <span>Reported</span>
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenu">
+                                        <a class="dropdown-item" href="#">Spam Reports</a>
+                                    </div>
+
                                 </li>
                                 <li class="nav-item"><a href="#" class="nav-link">Settings</a></li>
                                 <li class="nav-item dropdown">
-                                    
-                                       
-                                        <a  href="#" class=" dropdown-toggle nav-link"  id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <img src="images/assets/reviewer-1.png" alt="user" class="img-circle user-menu">
-                                        </a>
-                                        <div class="dropdown-menu" aria-labelledby="dropdownMenu">
-                                            <a class="dropdown-item" href="#">Update Profile</a><br>
-                                            <a class="dropdown-item" href="#">Change Password</a><br>
-                                            <a class="dropdown-item" href="#" style="color: #6255a5; font-weight: 600;">LOGOUT</a>
-                                        </div>
-                                       
+
+
+                                    <a href="#" class=" dropdown-toggle nav-link" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <img src="images/assets/reviewer-1.png" alt="user" class="img-circle user-menu">
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenu">
+                                        <a class="dropdown-item" href="#">Update Profile</a><br>
+                                        <a class="dropdown-item" href="#">Change Password</a><br>
+                                        <a class="dropdown-item" href="#" style="color: #6255a5; font-weight: 600;">LOGOUT</a>
+                                    </div>
+
                                 </li>
                                 <li class="nav-item"><a href="#" class="nav-link"><button class="btn btn-primary" id="btn-up-lg" type="submit">Logout</button></a></li>
                             </ul>
                         </div>
                     </div>
+
                 </div>
-        
+            </div>
+
         </nav>
     </header>
-    
+
     <div class="container-m_ad">
         <h3>Downloaded Notes</h3>
         <div class="row notes-under">
-          <div class="col-md-2">
-           <label class="nur">Note</label>
-           </div> 
-           <div class="col-md-2">
-           <label class="nur">Seller</label>
-           </div> 
-           <div class="col-md-2">
-           <label class="nur">Buyer</label>
-           </div> 
-           <div class="col-md-6">
-           </div> 
+            <div class="col-md-2">
+                <label class="nur">Note</label>
+            </div>
+            <div class="col-md-2">
+                <label class="nur">Seller</label>
+            </div>
+            <div class="col-md-2">
+                <label class="nur">Buyer</label>
+            </div>
+            <div class="col-md-6">
+            </div>
         </div>
-        <div class="row">  
-            <div class="col-md-2"> 
-                        <select  class="form-control seller">
-                            <option value="" disabled selected hidden>Select note</option>
-                            <option value="">.</option>
-                            <option value="">..</option>
-                            <option value="">...</option>
-                        </select>  
-                    </div>
-                    <div class="col-md-2">
-                        <select  class="form-control seller">
-                            <option value="" disabled selected hidden>Select seller</option>
-                            <option value="">.</option>
-                            <option value="">..</option>
-                            <option value="">...</option>
-                        </select>      
-                    </div>
-                    <div class="col-md-2">
-                        <select  class="form-control seller">
-                            <option value="" disabled selected hidden>Select buyer</option>
-                            <option value="">.</option>
-                            <option value="">..</option>
-                            <option value="">...</option>
-                        </select>      
-                    </div>
-                    <div class="col-md-4">
-                        <input type="text" class="form-control" id="search-ds" placeholder="&#xf002;  Search">
+        <div class="row">
+            <div class="col-md-2">
+                <select class="form-control seller">
+                    <option value="" disabled selected hidden>Select note</option>
+                    <option value="">.</option>
+                    <option value="">..</option>
+                    <option value="">...</option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <select class="form-control seller">
+                    <option value="" disabled selected hidden>Select seller</option>
+                    <option value="">.</option>
+                    <option value="">..</option>
+                    <option value="">...</option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <select class="form-control seller">
+                    <option value="" disabled selected hidden>Select buyer</option>
+                    <option value="">.</option>
+                    <option value="">..</option>
+                    <option value="">...</option>
+                </select>
+            </div>
+            <div class="col-md-4">
+                <input type="text" class="form-control" id="search-ds" placeholder="&#xf002;  Search">
 
-                    </div>
-                    <div class="col-md-2">
-                        <button type="button" class="form-control" id="search-ds01">SEARCH</button>
-                    </div>
+            </div>
+            <div class="col-md-2">
+                <button type="button" class="form-control" id="search-ds01">SEARCH</button>
+            </div>
         </div>
-        
+
         <table class="table border">
-                <thead>
-                    <tr class="table11" style="height: 75px;">
-                        <th scope="col" style="vertical-align: middle; text-align: center;">SR NO.</th>
-                        <th scope="col" style="vertical-align: middle;">NOTE TITLE</th>
-                        <th scope="col" style="vertical-align: middle;">CATEGORY</th>
-                        <th scope="col" style="vertical-align: middle;">BUYER</th>
-                        <th scope="col" style="vertical-align: middle;">SELLER</th>
-                        <th scope="col" style="vertical-align: middle;">SELL TYPE</th>
-                        <th scope="col" style="vertical-align: middle;">PRICE</th>
-                        <th scope="col" style="vertical-align: middle;">DOWNLOADED<br>DATE/TIME</th>
-                        <th scope="col" style="vertical-align: middle;"></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr class="table2">
-                        <td style="vertical-align: middle; text-align: center;">1</td>
-                        <td style="vertical-align: middle; color: #6255a5;">Software Development</td>
-                        <td style="vertical-align: middle;">IT</td>
-                        <td style="vertical-align: middle;">Rahul Shah<img src="images/assets/eye.png" class="eye1"></td>
-                        <td style="vertical-align: middle;">Khayati Patel<img src="images/assets/eye.png" class="eye" style=" padding-left: 13px;"></td>
-                        <td style="vertical-align: middle;">Paid</td>
-                        <td style="vertical-align: middle;">&#36;145</td>
-                        <td style="vertical-align: middle;">25-11-2020,11:08</td>
-                        <td style="vertical-align: middle;">
-                            <div class="dropdown2"><img src="images/My Download/dots.png" class="dots">
-                                <div class="dropdown-content2">
-                                    <a data-toggle="modal" data-target="#exampleModal">Download Notes</a>
-                                    <a href="#">View More Details</a>
-                                </div>
+            <thead>
+                <tr class="table11" style="height: 75px;">
+                    <th scope="col" style="vertical-align: middle;">SR NO.</th>
+                    <th scope="col" style="vertical-align: middle;text-align: left;">NOTE TITLE</th>
+                    <th scope="col" style="vertical-align: middle;text-align: left;">CATEGORY</th>
+                    <th scope="col" style="vertical-align: middle;text-align: left;">BUYER</th>
+                    <th scope="col" style="vertical-align: middle;text-align: left;">SELLER</th>
+                    <th scope="col" style="vertical-align: middle;text-align: left;">SELL TYPE</th>
+                    <th scope="col" style="vertical-align: middle;text-align: left;">PRICE</th>
+                    <th scope="col" style="vertical-align: middle;">DOWNLOADED<br>DATE/TIME</th>
+                    <th scope="col" style="vertical-align: middle;"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="table2">
+                    <td style="vertical-align: middle; text-align: center;">1</td>
+                    <td style="vertical-align: middle; color: #6255a5;text-align: left;">Software Development</td>
+                    <td style="vertical-align: middle;text-align: left;">IT</td>
+                    <td style="vertical-align: middle;text-align: left;">Rahul Shah<img src="images/assets/eye.png" class="eye1"></td>
+                    <td style="vertical-align: middle;text-align: left;">Khayati Patel<img src="images/assets/eye.png" class="eye" style=" padding-left: 13px;"></td>
+                    <td style="vertical-align: middle;text-align: left;">Paid</td>
+                    <td style="vertical-align: middle;text-align: left;">&#36;145</td>
+                    <td style="vertical-align: middle;text-align: left;">25-11-2020,11:08</td>
+                    <td style="vertical-align: middle;">
+                        <div class="dropdown2"><img src="images/My Download/dots.png" class="dots">
+                            <div class="dropdown-content2">
+                                <a data-toggle="modal" data-target="#exampleModal">Download Notes</a>
+                                <a href="#">View More Details</a>
                             </div>
-                        </td>
-                    </tr>
+                        </div>
+                    </td>
+                </tr>
 
-                    <tr class="table2">
-                        <td style="vertical-align: middle; text-align: center;">2</td>
-                        <td style="vertical-align: middle; color: #6255a5;">Computer Basic</td>
-                        <td style="vertical-align: middle;">Computer</td>
-                        <td style="vertical-align: middle;">Rahul Shah<img src="images/assets/eye.png" class="eye1"></td>
-                        <td style="vertical-align: middle;">Nikunj Shah<img src="images/assets/eye.png" class="eye" style=" padding-left: 18px;"></td>
-                        <td style="vertical-align: middle;">Free</td>
-                        <td style="vertical-align: middle;">&#36;0</td>
-                        <td style="vertical-align: middle;">20-11-2020,12:30</td>
-                        <td style="vertical-align: middle;">
-                            <div class="dropdown2"><img src="images/My Download/dots.png" class="dots">
-                                <div class="dropdown-content2">
-                                    <a data-toggle="modal" data-target="#exampleModal">Download Notes</a>
-                                    <a href="#">View More Details</a>
-                                </div>
+                <tr class="table2">
+                    <td style="vertical-align: middle;">2</td>
+                    <td style="vertical-align: middle; color: #6255a5;text-align: left;">Computer Basic</td>
+                    <td style="vertical-align: middle;text-align: left;">Computer</td>
+                    <td style="vertical-align: middle;text-align: left;">Rahul Shah<img src="images/assets/eye.png" class="eye1"></td>
+                    <td style="vertical-align: middle;text-align: left;">Nikunj Shah<img src="images/assets/eye.png" class="eye" style=" padding-left: 18px;"></td>
+                    <td style="vertical-align: middle;text-align: left;">Free</td>
+                    <td style="vertical-align: middle;text-align: left;">&#36;0</td>
+                    <td style="vertical-align: middle;text-align: left;">20-11-2020,12:30</td>
+                    <td style="vertical-align: middle;">
+                        <div class="dropdown2"><img src="images/My Download/dots.png" class="dots">
+                            <div class="dropdown-content2">
+                                <a data-toggle="modal" data-target="#exampleModal">Download Notes</a>
+                                <a href="#">View More Details</a>
                             </div>
-                        </td>
-                    </tr>
-                    <tr class="table2">
-                        <td style="vertical-align: middle; text-align: center;">3</td>
-                        <td style="vertical-align: middle; color: #6255a5;">Human Body</td>
-                        <td style="vertical-align: middle;">Science</td>
-                        <td style="vertical-align: middle;">Rahul Shah<img src="images/assets/eye.png" class="eye1"></td>
-                        <td style="vertical-align: middle;">Raj Sheth<img src="images/assets/eye.png" class="eye" style=" padding-left: 35px;"></td>
-                        <td style="vertical-align: middle;">Paid</td>
-                        <td style="vertical-align: middle;">&#36;204</td>
-                        <td style="vertical-align: middle;">08-11-2020,04:07</td>
-                        <td style="vertical-align: middle;">
-                            <div class="dropdown2"><img src="images/My Download/dots.png" class="dots">
-                                <div class="dropdown-content2">
-                                    <a data-toggle="modal" data-target="#exampleModal">Download Notes</a>
-                                    <a href="#">View More Details</a>
-                                </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="table2">
+                    <td style="vertical-align: middle;">3</td>
+                    <td style="vertical-align: middle; color: #6255a5;text-align: left;">Human Body</td>
+                    <td style="vertical-align: middle;text-align: left;">Science</td>
+                    <td style="vertical-align: middle;text-align: left;">Rahul Shah<img src="images/assets/eye.png" class="eye1"></td>
+                    <td style="vertical-align: middle;text-align: left;">Raj Sheth<img src="images/assets/eye.png" class="eye" style=" padding-left: 35px;"></td>
+                    <td style="vertical-align: middle;text-align: left;">Paid</td>
+                    <td style="vertical-align: middle;text-align: left;">&#36;204</td>
+                    <td style="vertical-align: middle;text-align: left;">08-11-2020,04:07</td>
+                    <td style="vertical-align: middle;">
+                        <div class="dropdown2"><img src="images/My Download/dots.png" class="dots">
+                            <div class="dropdown-content2">
+                                <a data-toggle="modal" data-target="#exampleModal">Download Notes</a>
+                                <a href="#">View More Details</a>
                             </div>
-                        </td>
-                    </tr>
-                    <tr class="table2">
-                        <td style="vertical-align: middle; text-align: center;">4</td>
-                        <td style="vertical-align: middle; color: #6255a5;">world war 2</td>
-                        <td style="vertical-align: middle;">History</td>
-                        <td style="vertical-align: middle;">Rahul Shah<img src="images/assets/eye.png" class="eye1"></td>
-                        <td style="vertical-align: middle;">Niya Patel<img src="images/assets/eye.png" class="eye" style=" padding-left: 30px;"></td>
-                        <td style="vertical-align: middle;">Paid</td>
-                        <td style="vertical-align: middle;">&#36;58</td>
-                        <td style="vertical-align: middle;">17-10-2020,12:30</td>
-                        <td style="vertical-align: middle;">
-                            <div class="dropdown2"><img src="images/My Download/dots.png" class="dots">
-                                <div class="dropdown-content2">
-                                    <a data-toggle="modal" data-target="#exampleModal">Download Notes</a>
-                                    <a href="#">View More Details</a>
-                                </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="table2">
+                    <td style="vertical-align: middle;">4</td>
+                    <td style="vertical-align: middle; color: #6255a5;text-align: left;">world war 2</td>
+                    <td style="vertical-align: middle;text-align: left;">History</td>
+                    <td style="vertical-align: middle;text-align: left;">Rahul Shah<img src="images/assets/eye.png" class="eye1"></td>
+                    <td style="vertical-align: middle;text-align: left;">Niya Patel<img src="images/assets/eye.png" class="eye" style=" padding-left: 30px;"></td>
+                    <td style="vertical-align: middle;text-align: left;">Paid</td>
+                    <td style="vertical-align: middle;text-align: left;">&#36;58</td>
+                    <td style="vertical-align: middle;text-align: left;">17-10-2020,12:30</td>
+                    <td style="vertical-align: middle;">
+                        <div class="dropdown2"><img src="images/My Download/dots.png" class="dots">
+                            <div class="dropdown-content2">
+                                <a data-toggle="modal" data-target="#exampleModal">Download Notes</a>
+                                <a href="#">View More Details</a>
                             </div>
-                        </td>
-                    </tr>
-                    <tr class="table2">
-                        <td style="vertical-align: middle; text-align: center;">5</td>
-                        <td style="vertical-align: middle; color: #6255a5;">Accounting</td>
-                        <td style="vertical-align: middle;">Account</td>
-                        <td style="vertical-align: middle;">Rahul Shah<img src="images/assets/eye.png" class="eye1"></td>
-                        <td style="vertical-align: middle;">Rohit Gajera<img src="images/assets/eye.png" class="eye" style=" padding-left: 13px;"></td>
-                        <td style="vertical-align: middle;">Free</td>
-                        <td style="vertical-align: middle;">&#36;0</td>
-                        <td style="vertical-align: middle;">12-12-2020,17:45</td>
-                        <td style="vertical-align: middle;">
-                            <div class="dropdown2"><img src="images/My Download/dots.png" class="dots">
-                                <div class="dropdown-content2">
-                                    <a data-toggle="modal" data-target="#exampleModal">Download Notes</a>
-                                    <a href="#">View More Details</a>
-                                </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="table2">
+                    <td style="vertical-align: middle;">5</td>
+                    <td style="vertical-align: middle; color: #6255a5;text-align: left;">Accounting</td>
+                    <td style="vertical-align: middle;text-align: left;">Account</td>
+                    <td style="vertical-align: middle;text-align: left;">Rahul Shah<img src="images/assets/eye.png" class="eye1"></td>
+                    <td style="vertical-align: middle;text-align: left;">Rohit Gajera<img src="images/assets/eye.png" class="eye" style=" padding-left: 13px;"></td>
+                    <td style="vertical-align: middle;text-align: left;">Free</td>
+                    <td style="vertical-align: middle;text-align: left;">&#36;0</td>
+                    <td style="vertical-align: middle;text-align: left;">12-12-2020,17:45</td>
+                    <td style="vertical-align: middle;">
+                        <div class="dropdown2"><img src="images/My Download/dots.png" class="dots">
+                            <div class="dropdown-content2">
+                                <a data-toggle="modal" data-target="#exampleModal">Download Notes</a>
+                                <a href="#">View More Details</a>
                             </div>
-                        </td>
-                    </tr>
+                        </div>
+                    </td>
+                </tr>
             </tbody>
-            </table>   
-                
+        </table>
+
     </div>
-    
+
     <!--Pagination-->
     <div class="text-center">
         <ul class="pagination">
@@ -283,9 +343,9 @@
         </div>
     </div>
 
-   
-  
- <!--JQuery-->
+
+
+    <!--JQuery-->
     <script src="js/jquery-min.js"></script>
     <!--Bootstrap JS-->
     <script src="js/bootstrap/bootstrap.min.js"></script>

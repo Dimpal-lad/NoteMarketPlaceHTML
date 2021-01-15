@@ -14,6 +14,8 @@
     <link rel="stylesheet" href="css/font-awesome/css/font-awesome.min.css">
     <!--Custom CSS-->
     <link href="css/style.css" rel="stylesheet">
+    <!--Responsive CSS-->
+    <link href="css/responsive.css" rel="stylesheet">
     <title>Notes Marketplace</title>
     <!--Favicon-->
     <link rel="shortcut icon" href="images/home/favicon.ico">
@@ -27,6 +29,10 @@
             <div class="container-fluid">
                 <div class="site-nav-wrapper">
                     <div class="navbar-header">
+
+                        <!--Mobile Menu Open Button-->
+                        <span id="mobile-nav-open-btn">&#9776;</span>
+
 
                         <!--Logo-->
                         <a class="navbar-brand smooth-scroll" href="#">
@@ -43,7 +49,24 @@
                                 <li><a href="#">Buyer Requests</a></li>
                                 <li><a href="#">FAQ</a></li>
                                 <li><a href="#">Contact Us</a></li>
-                                <li><a href="#"><img src="images/User-Profile/user-1.jpg" alt="user" class="img-circle"></a></li>
+                                <li><a href="#"><img src="images/User-Profile/user-img.png" alt="user" class="menu-user"></a></li>
+                                <li><a href="#"><button class="btn btn-primary" id="btn-up-lg" type="submit">Logout</button></a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!--Mobile Menu-->
+                    <div id="mobile-nav">
+                        <!--Mobile Menu Close Button-->
+                        <span id="mobile-nav-close-btn">&times;</span>
+                        <div id="mobile-nav-content">
+                            <ul class="nav">
+                                <li><a href="#">Search Notes</a></li>
+                                <li><a href="#">Sell Your Notes</a></li>
+                                <li><a href="#">Buyer Requests</a></li>
+                                <li><a href="#">FAQ</a></li>
+                                <li><a href="#">Contact Us</a></li>
+                                <li><a href="#"><img src="images/User-Profile/user-img.png" alt="user" class="menu-user"></a></li>
                                 <li><a href="#"><button class="btn btn-primary" id="btn-up-lg" type="submit">Logout</button></a></li>
                             </ul>
                         </div>
@@ -106,8 +129,7 @@
             <div class="col-md-5">
                 <h4>Notes Preview</h4>
                 <div id="Iframe-Cicis-Menu-To-Go" class="set-margin-cicis-menu-to-go set-padding-cicis-menu-to-go set-border-cicis-menu-to-go set-box-shadow-cicis-menu-to-go center-block-horiz">
-                    <div class="responsive-wrapper 
-     responsive-wrapper-padding-bottom-90pct" style="-webkit-overflow-scrolling: touch; overflow: auto;">
+                    <div class="responsive-wrapper responsive-wrapper-padding-bottom-90pct" style="-webkit-overflow-scrolling: touch; overflow: auto;">
                         <iframe src="http://unec.edu.az/application/uploads/2014/12/pdf-sample.pdf">
                             <p style="font-size: 110%;"><em><strong>ERROR: </strong>
                                     An &#105;frame should be displayed here but your browser version does not support &#105;frames.</em> Please update your browser to its most recent version and try again, or access the file <a href="http://unec.edu.az/application/uploads/2014/12/pdf-sample.pdf">with this link.</a></p>
@@ -119,62 +141,64 @@
             <div class="col-md-7">
                 <h4>Customer Reviews</h4>
                 <div class="cr">
-                <div class="row nd08 text-left">
-                    <div class="col-md-2 nd07">
-                        <img src="images/Notes Details/reviewer-1.png" alt="reviewer-1" class="img-responsive " id="reviewer">
+                    <div class="row nd08 text-left">
+                        <div class="col-md-2 nd07">
+                            <img src="images/Notes Details/reviewer-1.png" alt="reviewer-1" class="img-responsive " id="reviewer">
+                        </div>
+                        <div class="col-md-10 nd06">
+                            <h5><strong>Richard Brown</strong></h5>
+                            <ul class="nd05">
+                                <li><span><i class="fa fa-star star0"></i>
+                                        <i class="fa fa-star star0"></i>
+                                        <i class="fa fa-star star0"></i>
+                                        <i class="fa fa-star star0"></i>
+                                        <i class="fa fa-star-o"></i></span>
+                                </li>
+                            </ul>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Excepturi totam est obcaecati voluptas.</p>
+                        </div>
                     </div>
-                    <div class="col-md-10 nd06">
-                        <h5><strong>Richard Brown</strong></h5>
-                        <ul  class="nd05">
-                        <li><span><i class="fa fa-star star0"></i>
-                                    <i class="fa fa-star star0"></i>
-                                    <i class="fa fa-star star0"></i>
-                                    <i class="fa fa-star star0"></i>
-                                    <i class="fa fa-star-o"></i></span>
-                        </li>
-                        </ul>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Excepturi totam est obcaecati voluptas.</p>            
+                    <hr>
+
+                    <div class="row">
+                        <div class="col-md-2 nd07">
+                            <img src="images/Notes Details/reviewer-2.png" alt="reviewer-1" class="img-responsive " id="reviewer">
+                        </div>
+                        <div class="col-md-10 nd06 text-left">
+                            <h5><strong>Alice Ortiaz</strong></h5>
+                            <ul class="nd05">
+                                <li><span><i class="fa fa-star star0"></i>
+                                        <i class="fa fa-star star0"></i>
+                                        <i class="fa fa-star star0"></i>
+                                        <i class="fa fa-star star0"></i>
+                                        <i class="fa fa-star-o"></i></span>
+                                </li>
+                            </ul>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Excepturi totam est obcaecati voluptas.</p>
+                        </div>
                     </div>
-                </div><hr>
-    
-                <div class="row">
-                    <div class="col-md-2 nd07">
-                        <img src="images/Notes Details/reviewer-2.png" alt="reviewer-1" class="img-responsive " id="reviewer">
+                    <hr>
+
+                    <div class="row">
+                        <div class="col-md-2 nd07">
+                            <img src="images/Notes Details/reviewer-3.png" alt="reviewer-1" class="img-responsive " id="reviewer">
+                        </div>
+                        <div class="col-md-10 nd06 text-left">
+                            <h5><strong>Sara Passmore</strong></h5>
+                            <ul class="nd05 ">
+                                <li><span><i class="fa fa-star star0"></i>
+                                        <i class="fa fa-star star0"></i>
+                                        <i class="fa fa-star star0"></i>
+                                        <i class="fa fa-star star0"></i>
+                                        <i class="fa fa-star-o"></i></span>
+                                </li>
+                            </ul>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+
+                        </div>
                     </div>
-                    <div class="col-md-10 nd06 text-left">
-                        <h5><strong>Alice Ortiaz</strong></h5>
-                        <ul class="nd05">
-                        <li><span><i class="fa fa-star star0"></i>
-                                    <i class="fa fa-star star0"></i>
-                                    <i class="fa fa-star star0"></i>
-                                    <i class="fa fa-star star0"></i>
-                            <i class="fa fa-star-o"></i></span>
-                        </li>
-                        </ul>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Excepturi totam est obcaecati voluptas.</p>
-                    </div>
-                </div><hr>
-                
-                <div class="row">
-                    <div class="col-md-2 nd07">
-                        <img src="images/Notes Details/reviewer-3.png" alt="reviewer-1" class="img-responsive " id="reviewer">
-                    </div>
-                    <div class="col-md-10 nd06 text-left">
-                        <h5><strong>Sara Passmore</strong></h5>
-                        <ul class="nd05 ">
-                        <li><span><i class="fa fa-star star0"></i>
-                                    <i class="fa fa-star star0"></i>
-                                    <i class="fa fa-star star0"></i>
-                                    <i class="fa fa-star star0"></i>
-                                    <i class="fa fa-star-o"></i></span>
-                        </li>
-                        </ul>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                                     
-                    </div>
+
                 </div>
-                
-            </div>
             </div>
         </div>
     </div>
