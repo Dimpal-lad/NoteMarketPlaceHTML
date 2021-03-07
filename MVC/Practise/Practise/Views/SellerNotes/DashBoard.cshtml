@@ -1,0 +1,358 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+
+@model IEnumerable<Practise.Models.DashboardModel>
+@{
+    Layout = "~/Views/Shared/_Notes.cshtml";
+}
+
+<!-- Navigation-->
+<!--Dashboard Page-->
+
+<header>
+    <nav class="navbar d-board">
+        <div class="container-fluid">
+            <div class="site-nav-wrapper">
+                <div class="navbar-header">
+
+                    <!--Mobile Menu Open Button-->
+                    <span id="mobile-nav-open-btn">&#9776;</span>
+
+
+                    <!--Logo-->
+                    <a class="navbar-brand smooth-scroll" href="#">
+                        @*<img src="images/pre-login/logo-dark.png" alt="logo">*@
+                        <img src="~/Content/images/pre-login/logo-dark.png" />
+                    </a>
+                </div>
+
+                <!--Main Menu-->
+                <div class="container-up">
+                    <div class="collapse navbar-collapse">
+                        <ul class="nav navbar-nav pull-right">
+                            <li><a href="/SellerNotes/SearchNotes">Search Notes</a></li>
+                            <li><a href="/SellerNotes/DashBoard">Sell Your Notes</a></li>
+                            <li><a href="/BuyerRequest/BuyerRequest">Buyer Requests</a></li>
+                            <li><a href="/Home/FAQ">FAQ</a></li>
+                            <li><a href="/Home/ContactUs">Contact Us</a></li>
+                            <li><a href="#"><img src="~/Content/images/User-Profile/user-img.png" alt="user" class="menu-user"></a></li>
+                            <li><a href="/User/Logout"><button class="btn btn-primary" id="btn-up-lg" type="submit">Logout</button></a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!--Mobile Menu-->
+                <div id="mobile-nav">
+                    <!--Mobile Menu Close Button-->
+                    <span id="mobile-nav-close-btn">&times;</span>
+                    <div id="mobile-nav-content">
+                        <ul class="nav">
+                            <li><a href="/SellerNotes/SearchNotes">Search Notes</a></li>
+                            <li><a href="/SellerNotes/DashBoard">Sell Your Notes</a></li>
+                            <li><a href="/BuyerRequest/BuyerRequest">Buyer Requests</a></li>
+                            <li><a href="/Home/FAQ">FAQ</a></li>
+                            <li><a href="/Home/ContactUs">Contact Us</a></li>
+                            <li><a href="#"><img src="~/Content/images/User-Profile/user-img.png" alt="user" class="menu-user"></a></li>
+                            <li><a href="/User/Logout"><button class="btn btn-primary" id="btn-up-lg" type="submit">Logout</button></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<div class="dashboard-title-wrapper">
+    <div class="container-ds01">
+        <!--Dashboard-->
+        <div class="dashboard-title-section">
+            <div class="row">
+                <div class="col-md-6">
+                    <h1>Dashboard</h1>
+                </div>
+                <div class="col-md-6 text-right">
+                    <button class="btn btn-primary" id="btn-up-add" type="submit"><a href="/AddNotes/AddNotes">ADD NOTE</a></button>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-7">
+                <div class="row dbleft">
+                    <div class="col-md-4">
+                        <div class="earning-detail">
+                            <div class="earning-image">
+                                <img src="~/Content/images/Dashboard/earning-icon.svg" alt="earning-icon" class="img-responsive">
+                            </div>
+                            <h3>My Earning</h3>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="number-detail text-center">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="number-sold">
+                                        <p>100</p>
+                                        <h4>Number of Note Sold</h4>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="money text-center">
+
+                                        <p>&#36;10,00,000</p>
+                                        <h4>Money Earned</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-5">
+                <div class="row dbright">
+                    <div class="col-md-4">
+                        <div class="download text-center">
+                            <div class="download01">
+                                <p>38</p>
+                                <h4>My Downlods</h4>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="reject-detail text-center">
+                            <div class="reject-note">
+                                <p>12</p>
+                                <h4>My Rejected Notes</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="Buyer-detail text-center">
+                            <div class="buyer-note">
+                                <p>102</p>
+                                <h4>Buyer Requests</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--In progress notes-->
+    <div class="progress-nots">
+        <div class="container-ds02">
+            @using (Html.BeginForm("DashBoard", "SellerNotes", FormMethod.Get))
+            {
+            <div class="row">
+                <div class="col-md-6">
+                    <h3>In Progress Notes</h3>
+                </div>
+                <div class="col-md-4">
+                    <input type="text" name="searchTxt" class="form-control" id="search-ds" placeholder="&#xf002;  Search">                    
+                </div>
+                <div class="col-md-2">
+                    <button type="submit" class="form-control" id="search-ds01">SEARCH</button>
+                </div>
+            </div>
+            }
+            <table class="table border">
+                <thead>
+                    <tr class="table11" style="height: 75px;">
+                        <th scope="col" style="vertical-align: middle;text-align: center;">ADDED DATE</th>
+                        <th scope="col" style="vertical-align: middle;">TITLE</th>
+                        <th scope="col" style="vertical-align: middle;">CATEGORY</th>
+                        <th scope="col" style="vertical-align: middle;">STATUS</th>
+                        <th scope="col" style="vertical-align: middle;text-align: center;">ACTIONS</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr class="table1">
+                            <td style="vertical-align: middle;text-align: center;">@item.sellernoteinfo.CreatedDate</td>
+                            <td style="vertical-align: middle;">@item.sellernoteinfo.Title</td>
+                            <td style="vertical-align: middle;">@item.noteCategoryinfo.Name</td>
+                            <td style="vertical-align: middle;">@item.referenceDatainfo.Value</td>
+                            <td style="vertical-align: middle;text-align: center;"><a href="/AddNotes/EditNotes"><img src="~/Content/images/Dashboard/edit.png" alt="edit" role="button"></a></td>
+                            @*<td style="vertical-align: middle;text-align: center;">09-10-2020</td>
+                <td style="vertical-align: middle;">Data Science</td>
+                <td style="vertical-align: middle;">Science</td>
+                <td style="vertical-align: middle;">Draft</td>
+                <td style="vertical-align: middle;text-align: center;"><img src="images/Dashboard/edit.png" alt="edit"></td>*@
+                        </tr>
+                    }
+                    @*<tr class="table1">
+            <td style="vertical-align: middle;text-align: center;">10-10-2020</td>
+            <td style="vertical-align: middle;">Accounts</td>
+            <td style="vertical-align: middle;">Commerce</td>
+            <td style="vertical-align: middle;">In Review</td>
+            <td style="vertical-align: middle;text-align: center;"><img src="images/Dashboard/edit.png" alt="edit"></td>
+        </tr>
+        <tr class="table1">
+            <td style="vertical-align: middle;text-align: center;">11-10-2020</td>
+            <td style="vertical-align: middle;">Social Studies</td>
+            <td style="vertical-align: middle;">Social</td>
+            <td style="vertical-align: middle;">Submitted</td>
+            <td style="vertical-align: middle;text-align: center;"><img src="images/Dashboard/edit.png" alt="edit"></td>
+        </tr>
+        <tr class="table1">
+            <td style="vertical-align: middle;text-align: center;">12-10-2020</td>
+            <td style="vertical-align: middle;">AI</td>
+            <td style="vertical-align: middle;">IT</td>
+            <td style="vertical-align: middle;">Submittd</td>
+            <td style="vertical-align: middle;text-align: center;"><img src="images/Dashboard/edit.png" alt="edit"></td>
+        </tr>
+        <tr class="table1">
+            <td style="vertical-align: middle;text-align: center;">13-10-2020</td>
+            <td style="vertical-align: middle;">Lorem ipsum dolor sit ametsectetur</td>
+            <td style="vertical-align: middle;">Lorem</td>
+            <td style="vertical-align: middle;">Draft</td>
+            <td style="vertical-align: middle;text-align: center;"><img src="images/Dashboard/edit.png" alt="edit"></td>
+        </tr>*@
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!--Pagination-->
+    <div class="text-center">
+        <ul class="pagination">
+            <li class="page-item">
+                <a class="page-link langle" href="#" aria-label="Previous">
+                    <span aria-hidden="true" class="fa fa-angle-left"></span>
+                </a>
+            </li>
+            <li class="page-item"><a class="page-link page-item" href="#">1</a></li>
+            <li class="page-item"><a class="page-link page-item" href="#">2</a></li>
+            <li class="page-item"><a class="page-link page-item" href="#">3</a></li>
+            <li class="page-item"><a class="page-link page-item" href="#">4</a></li>
+            <li class="page-item"><a class="page-link page-item" href="#">5</a></li>
+
+            <li class="page-item">
+                <a class="page-link rangle" href="#" aria-label="Next">
+                    <span aria-hidden="true" class="fa fa-angle-right"></span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+
+    <!--Publish notes-->
+    <div class="progress-nots">
+        <div class="container-ds02">
+            <div class="row">
+                <div class="col-md-6">
+                    <h3>Published Notes</h3>
+                </div>
+                <div class="col-md-4">
+                    <input type="text" class="form-control" id="search-ds" placeholder="&#xf002;  Search">
+
+                </div>
+                <div class="col-md-2">
+                    <button type="button" class="form-control" id="search-ds01">SEARCH</button>
+                </div>
+            </div>
+
+            <table class="table border">
+                <thead>
+                    <tr class="table11" style="height: 75px;">
+                        <th scope="col" style="vertical-align: middle;text-align: center;">ADDED DATE</th>
+                        <th scope="col" style="vertical-align: middle;">TITLE</th>
+                        <th scope="col" style="vertical-align: middle;">CATEGORY</th>
+                        <th scope="col" style="vertical-align: middle;">SELL TYPE</th>
+                        <th scope="col" style="vertical-align: middle;">PRICE</th>
+                        <th scope="col" style="vertical-align: middle;text-align: center;">ACTIONS</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="table1">
+                        <td style="vertical-align: middle;text-align: center;">09-10-2020</td>
+                        <td style="vertical-align: middle;">Data Science</td>
+                        <td style="vertical-align: middle;">Science</td>
+                        <td style="vertical-align: middle;">Paid</td>
+                        <td style="vertical-align: middle;">&#36;575</td>
+                        <td style="vertical-align: middle;text-align: center;"><i class="fa fa-fw fa-eye"></i></td>
+                    </tr>
+                    <tr class="table1">
+                        <td style="vertical-align: middle;text-align: center;">10-10-2020</td>
+                        <td style="vertical-align: middle;">Accounts</td>
+                        <td style="vertical-align: middle;">Commerce</td>
+                        <td style="vertical-align: middle;">Free</td>
+                        <td style="vertical-align: middle;">&#36;0</td>
+                        <td style="vertical-align: middle;text-align: center;"><i class="fa fa-fw fa-eye"></i></td>
+                    </tr>
+                    <tr class="table1">
+                        <td style="vertical-align: middle;text-align: center;">11-10-2020</td>
+                        <td style="vertical-align: middle;">Social Studies</td>
+                        <td style="vertical-align: middle;">Social</td>
+                        <td style="vertical-align: middle;">Free</td>
+                        <td style="vertical-align: middle;">&#36;0</td>
+                        <td style="vertical-align: middle;text-align: center;"><i class="fa fa-fw fa-eye"></i></td>
+                    </tr>
+                    <tr class="table1">
+                        <td style="vertical-align: middle;text-align: center;">12-10-2020</td>
+                        <td style="vertical-align: middle;">AI</td>
+                        <td style="vertical-align: middle;">IT</td>
+                        <td style="vertical-align: middle;">Paid</td>
+                        <td style="vertical-align: middle;">&#36;3542</td>
+                        <td style="vertical-align: middle;text-align: center;"><i class="fa fa-fw fa-eye"></i></td>
+                    </tr>
+                    <tr class="table1">
+                        <td style="vertical-align: middle;text-align: center;">13-10-2020</td>
+                        <td style="vertical-align: middle;">Lorem ipsum dolor sit ametsectetur</td>
+                        <td style="vertical-align: middle;">Lorem</td>
+                        <td style="vertical-align: middle;">Free</td>
+                        <td style="vertical-align: middle;">&#36;0</td>
+                        <td style="vertical-align: middle;text-align: center;"><i class="fa fa-fw fa-eye"></i></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!--Pagination-->
+    <div class="text-center">
+        <ul class="pagination">
+            <li class="page-item">
+                <a class="page-link langle" href="#" aria-label="Previous">
+                    <span aria-hidden="true" class="fa fa-angle-left"></span>
+                </a>
+            </li>
+            <li class="page-item"><a class="page-link page-item" href="#">1</a></li>
+            <li class="page-item"><a class="page-link page-item" href="#">2</a></li>
+            <li class="page-item"><a class="page-link page-item" href="#">3</a></li>
+            <li class="page-item"><a class="page-link page-item" href="#">4</a></li>
+            <li class="page-item"><a class="page-link page-item" href="#">5</a></li>
+
+            <li class="page-item">
+                <a class="page-link rangle" href="#" aria-label="Next">
+                    <span aria-hidden="true" class="fa fa-angle-right"></span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+
+<hr>
+<!--Footer-->
+<footer class="footer-hp">
+
+    <div class="container-footer-hp">
+        <div class="row">
+            <div class="col-md-6 text-left">
+                <p>Copyright &copy; Tatvasoft All rights reserved.</p>
+            </div>
+            <div class="col-md-6">
+                <div class="row">
+                    <ul class="social-list text-center">
+                        <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                        <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                        <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+

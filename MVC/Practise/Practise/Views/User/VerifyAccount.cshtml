@@ -1,0 +1,70 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title NotesMarketPlace</title>
+    <!-- important meta tags-->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1.0,user-scalable=no">
+    <!--Google fonts-->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!--Bootstrap CSS-->
+    <link href="~/Content/css/bootstrap/bootstrap.min.css" rel="stylesheet" />
+    @*<link href="css/bootstrap/bootstrap.min.css" rel="stylesheet">*@
+    <!--Fontawesome-->
+    <link href="~/Content/css/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    @*<link rel="stylesheet" href="css/font-awesome/css/font-awesome.min.css">*@
+    <!--Custom CSS-->
+    @*<link href="css/style.css" rel="stylesheet">*@
+    <link href="~/Content/css/style.css" rel="stylesheet" />
+    @*<title>Notes Marketplace</title>*@
+    <!--Favicon-->
+    <link href="~/Content/images/home/favicon.ico" rel="shortcut icon" />
+    @*<link rel="shortcut icon" href="images/home/favicon.ico">*@
+</head>
+<body>
+    <!--Email Verification Page-->
+    <section id="ev-page">
+        <div class="container-ev">
+            <!--Logo-->
+            <div id="logo-ev">
+
+                <img src="~/Content/images/pre-login/logo-dark.png" alt="logo" />
+            </div>
+
+            <div class="ev">
+                <h2>Email Verification</h2>
+                <h4><strong>Dear @ViewBag.firstname,</strong></h4>
+                <h4><span>Thanks for signing up!</span></h4>
+                <h4><span>Simply click below for email verification.</span></h4>
+            </div><br><br>
+            <!--Form-->
+            <form>
+                <div class="row">
+                    <div class="col-md-12">
+                        <button type="submit" class="btn btn-primary btn-lg btn-block" id="btn-ev"><a href="/User/Login">VERIFY EMAIL ADDRESS</a></button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+    </section>
+    <!--Forgot Password Ends-->
+    <!--JQuery-->
+    <script src="~/Scripts/js/jquery-min.js"></script>
+    @*<script src="js/jquery-min.js"></script>*@
+    <!--Bootstrap JS-->
+    <script src="~/Scripts/js/bootstrap/bootstrap.min.js"></script>
+    @*<script src="js/bootstrap/bootstrap.min.js"></script>*@
+    <!--Custom JS-->
+    <script src="~/Scripts/js/script.js"></script>
+    @*<script src="js/script.js"></script>*@
+</body>
+
+</html>

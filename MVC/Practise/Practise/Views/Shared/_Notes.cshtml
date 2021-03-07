@@ -1,0 +1,69 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title NotesMarketPlace</title>
+    <!-- important meta tags-->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1.0,user-scalable=no">
+    <!--Google fonts-->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!--Bootstrap CSS-->
+    <link href="~/Content/css/bootstrap/bootstrap.min.css" rel="stylesheet" />
+    @*<link href="css/bootstrap/bootstrap.min.css" rel="stylesheet">*@
+    <!--Fontawesome-->
+    <link href="~/Content/css/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    @*<link rel="stylesheet" href="css/font-awesome/css/font-awesome.min.css">*@
+    <!--Custom CSS-->
+    @*<link href="css/style.css" rel="stylesheet">*@
+    <link href="~/Content/css/style.css" rel="stylesheet" />
+    <!--Responsive CSS-->
+    <link href="~/Content/css/responsive.css" rel="stylesheet" />
+    @*<link href="css/responsive.css" rel="stylesheet">*@
+    @*<title>Notes Marketplace</title>*@
+    <title>@ViewBag.Title NotesMarketPlace</title>
+    <!--Favicon-->
+    <link href="~/Content/images/home/favicon.ico" rel="shortcut icon" />
+    @*<link rel="shortcut icon" href="images/home/favicon.ico">*@
+
+    
+</head>
+<body>
+
+    @RenderBody()
+
+    <script>
+        function fileValidation() {
+            var fileInput = document.getElementById('DisplayPicture');
+            var filePath = fileInput.value;
+
+            var allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i;
+
+            if (!allowedExtensions.exec(filePath)) {
+                alert('Please upload file having extensions .jpeg/.jpg/.png/ only.');
+                fileInput.value = '';
+                document.getElementById('DisplayPicture-error').innerHTML = "Select .png, .jpg or .jpeg file only";
+                document.getElementById('DisplayPicture').focus;
+                return false;
+            }
+        }
+
+    </script>
+
+
+    <!--JQuery-->
+    <script src="~/Scripts/js/jquery-min.js"></script>
+    @*<script src="js/jquery-min.js"></script>*@
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+
+    <!--Bootstrap JS-->
+    <script src="~/Scripts/js/bootstrap/bootstrap.min.js"></script>
+    @*<script src="js/bootstrap/bootstrap.min.js"></script>*@
+    <!--Custom JS-->
+    @*<script src="js/script.js"></script>*@
+    <script src="~/Scripts/js/script.js"></script>
+</body>
+</html>

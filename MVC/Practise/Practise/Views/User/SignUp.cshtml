@@ -1,0 +1,110 @@
+﻿@model Practise.Models.UsersMetadata
+
+@{
+    Layout = "~/Views/Shared/_LoginRegisterLayout.cshtml";
+}
+
+    <section id="login-page">
+        <!--Logo-->
+        <div id="logo-signup" class="text-center">
+            <img src="~/Content/images/pre-login/top-logo.png" alt="logo" />
+            @*<img src="images/pre-login/top-logo.png" alt="logo">*@
+        </div>
+        <!--Sign Up-->
+        <div class="container">
+            <div class="cp text-center">
+                <h2>Create an Account</h2>
+                <p>Enter your details to signup</p>
+            </div>
+            @if (ViewBag.Status != null && Convert.ToBoolean(ViewBag.Status))
+            {
+                <div class="text-success">
+                    <strong>Your Account has benn successfully created!</strong>@ViewBag.Message
+                </div>
+            }
+            else
+            {
+                <!--Form-->
+                using (Html.BeginForm("SignUp", "User", FormMethod.Post, new { }))
+                {
+                    <div class="signup">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label for="exampleInputfname" id="f_name">First Name<span class="required">*</span></label>
+                                @*<input type="text" class="form-control" id="exampleInputfname" placeholder="Enter your first name" required>*@
+                                @Html.TextBoxFor(x => x.FirstName, new { @class = "form-control", @id = "exampleInputfname", @placeholder = "Enter your first name" })
+                                @Html.ValidationMessageFor(x => x.FirstName, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label for="exampleInputlname" id="l_name">Last Name<span class="required">*</span></label>
+                                @*<input type="text" class="form-control" id="exampleInputlname" placeholder="Enter your last name" required>*@
+                                @Html.TextBoxFor(x => x.LastName, new { @class = "form-control", @id = "exampleInputlname", @placeholder = "Enter your last name" })
+                                @Html.ValidationMessageFor(x => x.LastName, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label for="exampleInputemail" id="email_01">Email<span class="required">*</span></label>
+                                @*<input type="email" class="form-control" id="exampleInputemail01" aria-describedby="emailHelp" placeholder="Enter your email address" required>*@
+                                @Html.TextBoxFor(x => x.EmailID, new { @class = "form-control", @id = "exampleInputemail01", @placeholder = "Enter your email address" })
+                                @Html.ValidationMessageFor(x => x.EmailID, "", new { @class = "text-danger" })
+                                @Html.ValidationMessage("EmailExist",new { @class="text-denger"})
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="signup01">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label for="exampleInputPassword4" id="pass">Password<span class="required">*</span></label>
+                                @*<input type="password" class="form-control show-pass" id="exampleInputPassword4" placeholder="Enter your password">*@
+                                @Html.TextBoxFor(x => x.Password, new { @class = "form-control show-pass", @id = "exampleInputPassword4", @placeholder = "Enter your password", @Type = "password" })
+                                @Html.ValidationMessageFor(x => x.Password, "", new { @class = "text-danger" })
+                                <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label for="exampleInputPassword5" id="cpass">Confirm Password<span class="required">*</span></label>
+                                @*<input type="password" class="form-control show-pass" id="exampleInputPassword5" placeholder="Re enter your password">*@
+                                @Html.TextBoxFor(x => x.ConfirmPassword, new { @class = "form-control show-pass", @id = "exampleInputPassword5", @placeholder = "Re-enter your password", @Type = "password" })
+                                @Html.ValidationMessageFor(x => x.ConfirmPassword, "", new { @class = "text-danger" })
+                                <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button type="submit" class="btn btn-primary btn-lg btn-block" id="btn-cp"><span>SIGN UP</span></button>
+                        </div>
+                    </div>
+                    <div class="row text-center">
+                        <div class="col-md-12">
+                            <p id="acc"><span>Already have an account?</span> <a id="Su">@Html.ActionLink("Log In", "Login", "User", null, new { @class = "page-scroll" })</a></p>
+                        </div>
+                    </div>
+
+                    //Error
+                    if (ViewBag.Message != null)
+                    {
+                        <div class="alert alert-danger">
+                            <strong>Error!</strong>@ViewBag.Message
+                        </div>
+                    }
+
+                }
+
+
+
+            }
+        </div>
+    </section>
+<!--Sign Up Ends-->
