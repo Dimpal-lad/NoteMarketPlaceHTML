@@ -45,6 +45,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DotNetZip, Version=1.15.0.0, Culture=neutral, PublicKeyToken=6583c7c814667745, processorArchitecture=MSIL">
+      <HintPath>..\packages\DotNetZip.1.15.0\lib\net40\DotNetZip.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -138,12 +141,15 @@
     <Compile Include="Controllers\BuyerRequestController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SellerNotesController.cs" />
+    <Compile Include="Controllers\UserActivityStatusController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="CryptoPassword.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Addnote.cs" />
+    <Compile Include="Models\BuyerRequestModal.cs" />
+    <Compile Include="Models\ChangePassword.cs" />
     <Compile Include="Models\ContactUsModel.cs" />
     <Compile Include="Models\DashboardModel.cs" />
     <Compile Include="Models\ForgotPsw.cs" />
@@ -162,6 +168,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>NotesMarketPlace.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\SearchNoteModel.cs" />
     <Compile Include="Models\tblCountry.cs">
       <DependentUpon>NotesMarketPlace.tt</DependentUpon>
     </Compile>
@@ -201,6 +208,7 @@
     <Compile Include="Models\tblUserRole.cs">
       <DependentUpon>NotesMarketPlace.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\UserProfile.cs" />
     <Compile Include="Models\UsersMetadata.cs" />
     <Compile Include="Models\VerifyLogin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -226,6 +234,7 @@
     <Content Include="Content\images\Contact-Us\banner-with-overlay.jpg" />
     <Content Include="Content\images\Contact-Us\banner.jpg" />
     <Content Include="Content\images\Contact-Us\logo.png" />
+    <Content Include="Content\images\Dashboard\delete.png" />
     <Content Include="Content\images\Dashboard\earning-icon.svg" />
     <Content Include="Content\images\Dashboard\edit.png" />
     <Content Include="Content\images\Dashboard\eye.png" />
@@ -358,6 +367,10 @@
     <Content Include="Views\Shared\_Notes.cshtml" />
     <Content Include="Views\AddNotes\EditNotes.cshtml" />
     <Content Include="Views\BuyerRequest\BuyerRequest.cshtml" />
+    <Content Include="Views\User\ChangePassWord.cshtml" />
+    <Content Include="Views\UserActivityStatus\MyDownload.cshtml" />
+    <Content Include="Views\UserActivityStatus\MyRejectedNotes.cshtml" />
+    <Content Include="Views\UserActivityStatus\MySoldNotes.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

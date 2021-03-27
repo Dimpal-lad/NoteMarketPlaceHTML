@@ -8,7 +8,6 @@
     <div id="logo" class="text-center">
 
         <img src="~/Content/images/pre-login/top-logo.png" alt="logo" />
-        @*<img src="images/pre-login/top-logo.png" alt="logo">*@
     </div>
     <!--Login-->
     <div class="container" style="margin-bottom: 0px;">
@@ -28,7 +27,6 @@
             <div class="row form-group" id="email">
                 <div class="col-md-12">
                     <label for="exampleInputEmail1">Email</label>
-                    @*<input type="email" class="form-control input-field" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">*@
                     @Html.TextBoxFor(x => x.EmailID, new { @class = "form-control", @id = "exampleInputEmail1", @placeholder = "Enter email" })
                     @Html.ValidationMessageFor(x => x.EmailID, "", new { @class = "text-danger" })
 
@@ -39,7 +37,7 @@
                 <div class="col-md-12">
                     <label for="exampleInputPassword1">Password</label>
                     <label for="exampleInputPassword1" id="FP"><a id="FP1">@Html.ActionLink("Forgot Password?", "ForgotPassword", "User", null, new { @class = "page-scroll" })</a></label>
-                    @*<input type="password" class="form-control input-field show-pass" id="exampleInputPassword1" placeholder="Enter your password">*@
+
                     @Html.TextBoxFor(x => x.Password, new { @class = "form-control input-field show-pass", @id = "exampleInputPassword1", @placeholder = "Enter your password", @Type = "password" })
                     @Html.ValidationMessageFor(x => x.Password, "", new { @class = "text-danger" })
                     <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
@@ -52,9 +50,6 @@
                     <label class="form-check-label">
                         Remember Me
                     </label>
-
-                    @*<input type="checkbox" class="form-check-input" id="exampleCheck1">*@
-                    @*<label class="form-check-label" for="exampleCheck1">Remember Me</label>*@
 
                 </div>
             </div>

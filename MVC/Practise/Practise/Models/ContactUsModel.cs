@@ -9,7 +9,8 @@ namespace Practise.Models
     public class ContactUsModel
     {
         [Required(ErrorMessage = "Full Name is Required")]
-        [RegularExpression(@"^[a-zA-Z\\s]*$", ErrorMessage = "Use letters only please")]
+        [StringLength(20,MinimumLength =5)]
+        //[RegularExpression(@"^[a-zA-Z\\s]*$", ErrorMessage = "Use letters only please")]
         public string FullName { get; set; }
 
         [Required(ErrorMessage = "Please Enter Email Address")]

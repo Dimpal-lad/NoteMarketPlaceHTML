@@ -39,6 +39,7 @@
     <NavigationProperty Name="tblUser" Relationship="Self.FK_tblDownloads_tblUsers" FromRole="tblDownloads" ToRole="tblUsers" />
     <NavigationProperty Name="tblSellerNotesReportedIssues" Relationship="Self.FK_tblSellerNotesReportedIssues_tblDownloads" FromRole="tblDownloads" ToRole="tblSellerNotesReportedIssues" />
     <NavigationProperty Name="tblSellerNotesReviews" Relationship="Self.FK_tblSellerNotesReviews_tblDownloads" FromRole="tblDownloads" ToRole="tblSellerNotesReviews" />
+    <NavigationProperty Name="tblUser1" Relationship="NotesMarketPlaceModel.FK_tblDownloads_tblUsers1" FromRole="tblDownload" ToRole="tblUser" />
   </EntityType>
   <EntityType Name="tblNoteCategory">
     <Key>
@@ -200,11 +201,11 @@
     <Property Name="CountryCode" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="PhoneNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="ProfilePicture" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-    <Property Name="AddressLine1" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="AddressLine2" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="State" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="ZipCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="AddressLine1" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="AddressLine2" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="State" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ZipCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="Country" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="University" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
     <Property Name="College" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
@@ -253,6 +254,7 @@
     <NavigationProperty Name="tblSellerNotesReviews" Relationship="Self.FK_tblSellerNotesReviews_tblUsers" FromRole="tblUsers" ToRole="tblSellerNotesReviews" />
     <NavigationProperty Name="tblUserProfiles" Relationship="Self.FK_tblUserProfile_tblUsers" FromRole="tblUsers" ToRole="tblUserProfile" />
     <NavigationProperty Name="tblUserRole" Relationship="Self.FK_tblUsers_tblUserRoles" FromRole="tblUsers" ToRole="tblUserRoles" />
+    <NavigationProperty Name="tblDownloads1" Relationship="NotesMarketPlaceModel.FK_tblDownloads_tblUsers1" FromRole="tblUser" ToRole="tblDownload" />
   </EntityType>
   <Association Name="FK_tblSellerNotes_tblCountries">
     <End Role="tblCountries" Type="Self.tblCountry" Multiplicity="0..1" />
@@ -572,5 +574,21 @@
       <End Role="tblUserRoles" EntitySet="tblUserRoles" />
       <End Role="tblUsers" EntitySet="tblUsers" />
     </AssociationSet>
+    <AssociationSet Name="FK_tblDownloads_tblUsers1" Association="NotesMarketPlaceModel.FK_tblDownloads_tblUsers1">
+      <End Role="tblUser" EntitySet="tblUsers" />
+      <End Role="tblDownload" EntitySet="tblDownloads" />
+    </AssociationSet>
   </EntityContainer>
+  <Association Name="FK_tblDownloads_tblUsers1">
+    <End Type="NotesMarketPlaceModel.tblUser" Role="tblUser" Multiplicity="1" />
+    <End Type="NotesMarketPlaceModel.tblDownload" Role="tblDownload" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblUser">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="tblDownload">
+        <PropertyRef Name="Downloader" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>

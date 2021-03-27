@@ -55,7 +55,6 @@ $(function () {
             $("#selling").focus();
         } else {
             if ($("#free").is(":checked")) {
-                $("#selling").attr("disabled", "disabled");
                 $("#selling").val(0);
             }
         }

@@ -23,6 +23,7 @@ namespace Practise.Models
             this.tblSellerNotesReportedIssues = new HashSet<tblSellerNotesReportedIssue>();
             this.tblSellerNotesReviews = new HashSet<tblSellerNotesReview>();
             this.tblUserProfiles = new HashSet<tblUserProfile>();
+            this.tblDownloads1 = new HashSet<tblDownload>();
         }
     
         public int ID { get; set; }
@@ -51,5 +52,7 @@ namespace Practise.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblUserProfile> tblUserProfiles { get; set; }
         public virtual tblUserRole tblUserRole { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblDownload> tblDownloads1 { get; set; }
     }
 }

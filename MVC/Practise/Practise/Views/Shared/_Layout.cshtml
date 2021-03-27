@@ -1,42 +1,213 @@
 ﻿<!DOCTYPE html>
+
 <html>
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title NotesMarketPlace</title>
+    <!-- important meta tags-->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1.0,user-scalable=no">
+    <!--Google fonts-->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!--Bootstrap CSS-->
+    <link href="~/Content/css/bootstrap/bootstrap.min.css" rel="stylesheet" />
+    <!--Fontawesome-->
+    <link href="~/Content/css/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <!--Custom CSS-->
+    <link href="~/Content/css/style.css" rel="stylesheet" />
+    <!--Responsive CSS-->
+    <link href="~/Content/css/responsive.css" rel="stylesheet" />
+    <title>@ViewBag.Title NotesMarketPlace</title>
+    <!--Favicon-->
+    <link href="~/Content/images/home/favicon.ico" rel="shortcut icon" />
+    
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+    <header>
+        <nav class="navbar d-board">
+            <div class="container-fluid">
+                <div class="site-nav-wrapper">
+                    <div class="navbar-header">
+
+                        <!--Mobile Menu Open Button-->
+                        <span id="mobile-nav-open-btn">&#9776;</span>
+
+
+                        <!--Logo-->
+                        <a class="navbar-brand smooth-scroll" href="#">
+
+                            <img src="~/Content/images/pre-login/logo-dark.png" />
+                        </a>
+                    </div>
+
+                    <!--Main Menu-->
+                    <div class="container-up">
+                        <div class="collapse navbar-collapse">
+                            <ul class="nav navbar-nav pull-right">
+                                <li><a href="/SellerNotes/SearchNotes">Search Notes</a></li>
+                                <li><a href="/SellerNotes/DashBoard">Sell Your Notes</a></li>
+                                @if (User.Identity.IsAuthenticated)
+                                {
+                                    <li><a href="/BuyerRequest/BuyerRequest">Buyer Requests</a></li>
+                                }
+
+                                <li><a href="/Home/FAQ">FAQ</a></li>
+                                <li><a href="/Home/ContactUs">Contact Us</a></li>
+                                @if (User.Identity.IsAuthenticated)
+                                {
+                                    <li class="nav-item dropdown">
+
+                                        <a href="#" class=" dropdown-toggle nav-link" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <img src="TempData[" ProfilePicture"]" alt="user" class="user-menu">
+                                            @{
+                                                TempData.Keep("ProfilePicture");
+                                            }
+                                        </a>
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenu">
+                                            <a class="dropdown-item" href="/User/UserProfile">My Profile</a><br>
+                                            <a class="dropdown-item" href="/UserActivityStatus/MyDownload">My Downloads</a><br>
+                                            <a class="dropdown-item" href="/UserActivityStatus/MySoldNotes">My Sold Notes</a><br>
+                                            <a class="dropdown-item" href="/UserActivityStatus/MyRejectedNotes">My Rejected Notes</a><br>
+                                            <a class="dropdown-item" href="/User/ChangePassWord">Change Password</a><br>
+                                            <a class="dropdown-item" href="#" style="color: #6255a5; font-weight: 600;">LOGOUT</a>
+                                        </div>
+
+                                    </li>
+                                    <li><a href="/User/Logout"><button class="btn btn-primary" id="btn-up-lg" type="submit" onclick="return confirm('Are you sure you want to Logout?');">Logout</button></a></li>
+
+                                }
+                                else
+                                {
+                                    <li><a href="/User/Login"><button class="btn btn-primary" id="btn-faq-lg" type="submit">Login</button></a></li>
+                                }
+                                
+
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!--Mobile Menu-->
+                    <div id="mobile-nav">
+                        <!--Mobile Menu Close Button-->
+                        <span id="mobile-nav-close-btn">&times;</span>
+                        <div id="mobile-nav-content">
+                            <ul class="nav">
+                                <li><a href="/SellerNotes/SearchNotes">Search Notes</a></li>
+                                <li><a href="/SellerNotes/DashBoard">Sell Your Notes</a></li>
+                                @if (User.Identity.IsAuthenticated)
+                                {
+                                    <li><a href="/BuyerRequest/BuyerRequest">Buyer Requests</a></li>
+                                }
+
+                                <li><a href="/Home/FAQ">FAQ</a></li>
+                                <li><a href="/Home/ContactUs">Contact Us</a></li>
+                                @if (User.Identity.IsAuthenticated)
+                                {
+                                    <li class="nav-item dropdown">
+
+                                        <a href="#" class=" dropdown-toggle nav-link" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <img src="@ViewBag.ProfilePicture" alt="user" class="user-menu">
+                                        </a>
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenu">
+                                            <a class="dropdown-item" href="/User/UserProfile">My Profile</a><br>
+                                            <a class="dropdown-item" href="/UserActivityStatus/MyDownload">My Downloads</a><br>
+                                            <a class="dropdown-item" href="/UserActivityStatus/MySoldNotes">My Sold Notes</a><br>
+                                            <a class="dropdown-item" href="/UserActivityStatus/MyRejectedNotes">My Rejected Notes</a><br>
+                                            <a class="dropdown-item" href="/User/ChangePassWord">Change Password</a><br>
+                                            <a class="dropdown-item" href="#" style="color: #6255a5; font-weight: 600;">LOGOUT</a>
+                                        </div>
+
+                                    </li>
+                                    <li><a href="/User/Logout"><button class="btn btn-primary" id="btn-up-lg" type="submit">Logout</button></a></li>
+
+                                }
+                                else
+                                {
+                                    <li><a href="/User/Login"><button class="btn btn-primary" id="btn-faq-lg" type="submit">Login</button></a></li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                </ul>
+        </nav>
+    </header>
+
+
+    @RenderBody()
+
+
+    <hr />
+    <!--Footer-->
+    <footer class="footer-hp">
+
+        <div class="container-footer-hp">
+            <div class="row">
+                <div class="col-md-6 text-left">
+                    <p>Copyright &copy; Tatvasoft All rights reserved.</p>
+                </div>
+                <div class="col-md-6">
+                    <div class="row">
+                        <ul class="social-list text-center">
+                            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                            <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
-    </div>
+    </footer>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
+
+
+    <script>
+        function fileValidation() {
+            var fileInput = document.getElementById('DisplayPicture');
+            var filePath = fileInput.value;
+
+            var allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i;
+
+            if (!allowedExtensions.exec(filePath)) {
+                alert('Please upload file having extensions .jpeg/.jpg/.png/ only.');
+                fileInput.value = '';
+                document.getElementById('DisplayPicture-error').innerHTML = "Select .png, .jpg or .jpeg file only";
+                document.getElementById('DisplayPicture').focus;
+                return false;
+            }
+        }
+
+        function profileValidation() {
+
+            var fileInput = document.getElementById('exampleInputpicture');
+            var filePath = fileInput.value;
+
+            var allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i;
+
+            if (!allowedExtensions.exec(filePath)) {
+                alert('Please upload file having extensions .jpeg/.jpg/.png/ only.');
+                fileInput.value = '';
+                document.getElementById('exampleInputpicture-error').innerHTML = "Select .png, .jpg or .jpeg file only";
+                document.getElementById('exampleInputpicture').focus;
+                return false;
+            }
+        }
+
+    </script>
+
+
+    <!--JQuery-->
+    <script src="~/Scripts/js/jquery-min.js"></script>
+    @*<script src="js/jquery-min.js"></script>*@
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+
+    <!--Bootstrap JS-->
+    <script src="~/Scripts/js/bootstrap/bootstrap.min.js"></script>
+    @*<script src="js/bootstrap/bootstrap.min.js"></script>*@
+    <!--Custom JS-->
+    @*<script src="js/script.js"></script>*@
+    <script src="~/Scripts/js/script.js"></script>
 </body>
 </html>

@@ -85,3 +85,6 @@ D:\.Net\Practise\Practise\bin\PagedList.dll
 D:\.Net\Practise\Practise\bin\PagedList.Mvc.dll
 D:\.Net\Practise\Practise\bin\PagedList.xml
 D:\.Net\Practise\Practise\bin\PagedList.Mvc.xml
+D:\.Net\Practise\Practise\bin\DotNetZip.dll
+D:\.Net\Practise\Practise\bin\DotNetZip.pdb
+D:\.Net\Practise\Practise\bin\DotNetZip.xml

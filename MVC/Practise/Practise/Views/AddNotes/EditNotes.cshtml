@@ -5,57 +5,6 @@
 
 <!--Add Notes Page-->
 
-<header>
-    <nav class="navbar">
-        <div class="container-fluid">
-            <div class="site-nav-wrapper">
-                <div class="navbar-header">
-
-                    <!--Mobile Menu Open Button-->
-                    <span id="mobile-nav-open-btn">&#9776;</span>
-
-
-                    <!--Logo-->
-                    <a class="navbar-brand smooth-scroll" href="#">
-                        <img src="~/Content/images/pre-login/logo-dark.png" alt="logo" />
-                    </a>
-                </div>
-
-                <!--Main Menu-->
-                <div class="container-up">
-                    <div class="collapse navbar-collapse">
-                        <ul class="nav navbar-nav pull-right">
-                            <li><a href="/SellerNotes/SearchNotes">Search Notes</a></li>
-                            <li><a href="/SellerNotes/DashBoard">Sell Your Notes</a></li>
-                            <li><a href="/BuyerRequest/BuyerRequest">Buyer Requests</a></li>
-                            <li><a href="/Home/FAQ">FAQ</a></li>
-                            <li><a href="/Home/ContactUs">Contact Us</a></li>
-                            <li><a href="#"><img src="~/Content/images/User-Profile/user-img.png" alt="user" class="menu-user"></a></li>
-                            <li><a href="/User/Logout"><button class="btn btn-primary" id="btn-up-lg" type="submit">Logout</button></a></li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!--Mobile Menu-->
-                <div id="mobile-nav">
-                    <!--Mobile Menu Close Button-->
-                    <span id="mobile-nav-close-btn">&times;</span>
-                    <div id="mobile-nav-content">
-                        <ul class="nav">
-                            <li><a href="/SellerNotes/SearchNotes">Search Notes</a></li>
-                            <li><a href="/SellerNotes/DashBoard">Sell Your Notes</a></li>
-                            <li><a href="/BuyerRequest/BuyerRequest">Buyer Requests</a></li>
-                            <li><a href="/Home/FAQ">FAQ</a></li>
-                            <li><a href="/Home/ContactUs">Contact Us</a></li>
-                            <li><a href="#"><img src="~/Content/images/User-Profile/user-img.png" alt="user" class="menu-user"></a></li>
-                            <li><a href="/User/Logout"><button class="btn btn-primary" id="btn-up-lg" type="submit">Logout</button></a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </nav>
-</header>
 <div id="userpro">
     <div class="content-box-md">
         <div class="container-up">
@@ -78,39 +27,27 @@
 
             <div class="col-md-6">
                 <label for="exampleInputtitle">Title<span class="required">*</span></label>
-                @*<input type="text" class="form-control bn-detail" placeholder="Enter your notes title" required>*@
                 @Html.TextBoxFor(x => x.Title, new { @class = "form-control bn-detail", @placeholder = "Enter your notes title" })
                 @Html.ValidationMessageFor(x => x.Title, "", new { @class = "text-danger" })
-                <label id="picture"><span>Display Picture</span></label>
 
+                <label id="picture"><span>Display Picture</span></label>@ViewBag.DisplayPicture
                 <input type="file" class="form-control exampleInputpicture02" name="DisplayPicture" id="DisplayPicture" placeholder="Upload a picture" onchange="return fileValidation()">
                 <span id="DisplayPicture-error" class="text-danger"></span>
+
                 <label for="type">Type</label><br>
-                @*<select class="form-control bn-detail bnd">
-                        <option value="" disabled selected hidden>Select your note type</option>
-                        <option value="male">..</option>
-                        <option value="female">...</option>
-                        <option value="other">......</option>
-                    </select>*@
                 @Html.DropDownList("Type", new SelectList(ViewBag.NotesType, "ID", "Name"), "Select your note type", new { name = "NoteType", @class = "form-control bn-detail bnd" })
 
             </div>
             <div class="col-md-6">
                 <label for="type">Category<span class="required">*</span></label><br>
-                @*<select class="form-control bn-detail bnd">
-                            <option value="" disabled selected hidden>Select your category</option>
-                            <option value="male">..</option>
-                            <option value="female">...</option>
-                            <option value="other">......</option>
-                    </select>*@
-
                 @Html.DropDownList("Category", new SelectList(ViewBag.NotesCategory, "ID", "Name"), "Select your category", new { name = "Category", @class = "form-control bn-detail bnd" })
                 @Html.ValidationMessageFor(x => x.Category, "", new { @class = "text-danger" })
-                <label id="picture01">Upload Notes<span class="required">*</span></label>
+
+                <label id="picture01">Upload Notes<span class="required">*</span></label>@ViewBag.UploadNote
                 <input type="file" class="form-control" name="UploadNotes" id="exampleInputpicture01" placeholder="Upload your notes" accept="application/pdf" multiple>
                 @Html.ValidationMessageFor(x => x.UploadNotes, " ", new { @class = "text-danger" })
+
                 <label for="exampleInputnop">Number of Pages</label>
-                @*<input type="text" class="form-control bn-detail" placeholder="Enter number of note pages">*@
                 @Html.TextBoxFor(x => x.NumberofPages, new { @class = "form-control bn-detail", @placeholder = "Enter number of note pages" })
                 @Html.ValidationMessageFor(x => x.NumberofPages, "", new { @class = "text-danger" })
 
@@ -120,7 +57,6 @@
         <div class="row bnd03 form-group">
             <div class="col-md-12">
                 <label for="exampleInputdp">Description<span class="required">*</span></label>
-                @*<textarea type="text" class="form-control" id="exampleInputdp" placeholder="Enter your description" required></textarea>*@
                 @Html.TextAreaFor(x => x.Description, new { @class = "form-control", @id = "exampleInputdp", @placeholder = "Enter your description" })
                 @Html.ValidationMessageFor(x => x.Description, "", new { @class = "text-danger" })
             </div>
@@ -132,19 +68,11 @@
             <div class="row form-group bnd02">
                 <div class="col-md-6">
                     <label for="type">Country</label><br>
-                    @*<select class="form-control bn-detail bnd">
-                            <option value="" disabled selected hidden>Select your country</option>
-                            <option value="male">..</option>
-                            <option value="female">...</option>
-                            <option value="other">......</option>
-                        </select>*@
-
                     @Html.DropDownList("Country", new SelectList(ViewBag.NotesCountry, "ID", "Name"), "Select your country", new { name = "Country", @class = "form-control bn-detail bnd" })
 
                 </div>
                 <div class="col-md-6">
                     <label for="exampleInputnop">Institution Name</label>
-                    @*<input type="text" class="form-control bn-detail" placeholder="Enter your institution name">*@
                     @Html.TextBoxFor(x => x.UniversityName, new { @class = "form-control bn-detail", @placeholder = "Enter your institution name" })
                     @Html.ValidationMessageFor(x => x.UniversityName, "", new { @class = "text-danger" })
                 </div>
@@ -157,18 +85,16 @@
             <div class="row form-group bnd02">
                 <div class="col-md-6">
                     <label for="exampleInputnop">Course Name</label>
-                    @*<input type="text" class="form-control bn-detail" placeholder="Enter your course name">*@
                     @Html.TextBoxFor(x => x.Course, new { @class = "form-control bn-detail", @placeholder = "Enter your course name" })
                     @Html.ValidationMessageFor(x => x.Course, "", new { @class = "text-danger" })
+
                     <label for="exampleInputnop">Professor/Lecturer</label>
-                    @*<input type="text" class="form-control bn-detail" placeholder="Enter your professor name">*@
                     @Html.TextBoxFor(x => x.Professor, new { @class = "form-control bn-detail", @placeholder = "Enter your professor name" })
                     @Html.ValidationMessageFor(x => x.Professor, "", new { @class = "text-danger" })
                 </div>
 
                 <div class="col-md-6">
                     <label for="exampleInputnop">Course Code</label>
-                    @*<input type="text" class="form-control bn-detail" placeholder="Enter your course code">*@
                     @Html.TextBoxFor(x => x.CourseCode, new { @class = "form-control bn-detail", @placeholder = "Enter your course code" })
                     @Html.ValidationMessageFor(x => x.CourseCode, "", new { @class = "text-danger" })
                 </div>
@@ -183,18 +109,15 @@
                     <label for="exampleInputnop">Sell For<span class="required">*</span></label>
                     <div class="input-group-prepend">
                         <div class="input-group-text">
-                            @*<input type="radio" name="sell info" value="free" class="si">*@
                             @Html.RadioButtonFor(x => x.IsPaid, "false", new { @class = "si", @name = "IsPaid", @id = "free" })
                             <span class="si1">Free</span>
-                            @*<input type="radio" name="sell info" value="free" class="si">*@
-
+                            
                             @Html.RadioButtonFor(x => x.IsPaid, "true", new { @class = "si", @name = "IsPaid", @id = "paid" })
                             <span class="si1">Paid</span>
                         </div>
                     </div>
 
                     <label for="exampleInputnop">Sell Price<span class="required">*</span></label>
-                    @*<input type="text" class="form-control bn-detail" placeholder="Enter your price">*@
                     @Html.TextBoxFor(x => x.SellingPrice, new { @class = "form-control bn-detail", @placeholder = "Enter your price", @id = "selling" })
 
                 </div>
@@ -208,35 +131,11 @@
                     }
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary btn-md btn-save">SAVE</button>
-            <button type="submit" class="btn btn-primary btn-md btn-save">PUBLISH</button>
+            <button type="submit" class="btn btn-primary btn-md btn-save" name="save" value="Save">SAVE</button>
+            <button type="submit" class="btn btn-primary btn-md btn-save" name="save" value="Publish">PUBLISH</button>
 
         </div>
     }
 </div>
-
-<hr>
-
-<!--Footer-->
-<footer class="footer-hp">
-
-    <div class="container-footer-hp">
-        <div class="row">
-            <div class="col-md-6 text-left">
-                <p>Copyright &copy; Tatvasoft All rights reserved.</p>
-            </div>
-            <div class="col-md-6">
-                <div class="row">
-                    <ul class="social-list text-center">
-                        <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                        <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                        <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-</footer>
-
 
 <!--Add Notes End-->

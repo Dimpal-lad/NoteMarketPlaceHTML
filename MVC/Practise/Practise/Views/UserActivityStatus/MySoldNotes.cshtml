@@ -1,0 +1,103 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+
+@model IPagedList<Practise.Models.BuyerRequestModal>
+@{
+    Layout = "~/Views/Shared/_Notes.cshtml";
+}
+
+<!--My SoldNotes-->
+
+<div class="container-ds02">
+    <div class="mydownloads">
+        @using (Html.BeginForm("MySoldNotes", "UserActivityStatus", FormMethod.Get))
+        {
+            <div class="row">
+                <div class="col-md-6">
+                    <h3>My Sold Notes</h3>
+                </div>
+                <div class="col-md-4">
+                    <input type="text" class="form-control" id="search-ds" name="searchTxt" placeholder="&#xf002;  Search">
+
+                </div>
+                <div class="col-md-2">
+                    <button type="submit" class="form-control" id="search-ds01">SEARCH</button>
+                </div>
+            </div>
+        }
+            <table class="table border">
+                <thead>
+                    <tr class="table11" style="height: 75px;">
+                        <th scope="col" style="vertical-align: middle;text-align: center;">SR NO.</th>
+                        <th scope="col" style="vertical-align: middle;"> @Html.ActionLink("NOTE TITLE", "MySoldNotes", new { sortOrder = ViewBag.TitleSortParm })</th>
+                        <th scope="col" style="vertical-align: middle;"> @Html.ActionLink("CATEGORY", "MySoldNotes", new { sortOrder = ViewBag.CategorySortParm })</th>
+                        <th scope="col" style="vertical-align: middle;">BUYER</th>
+                        <th scope="col" style="vertical-align: middle;"> @Html.ActionLink("SELL TYPE", "MySoldNotes", new { sortOrder = ViewBag.SellTypeParm })</th>
+                        <th scope="col" style="vertical-align: middle;"> @Html.ActionLink("PRICE", "MySoldNotes", new { sortOrder = ViewBag.PriceParm })</th>
+                        <th scope="col" style="vertical-align: middle;"> @Html.ActionLink("DOWNLOADED DATE/TIME", "MySoldNotes", new { sortOrder = ViewBag.AttachmentDateSortParm })</th>
+                        <th scope="col" style="vertical-align: middle;"> </th>
+                        <th scope="col" style="vertical-align: middle;"> </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        var count = 0;
+                    }
+                    @if (Model.Count() == 0)
+                    {
+                        <tr>
+                            <td colspan="6" class="text-center">
+                                No record found
+                            </td>
+                        </tr>
+                    }
+                    @foreach (var item in Model)
+                    {
+                        <tr class="table2">
+                            <td style="vertical-align: middle;text-align: center;">@(count + ((Model.PageNumber - 1) * Model.PageSize) + 1)</td>
+                            <td style="color: #6255a5; vertical-align: middle;"><a href="/SellerNotes/NoteDetails/@item.objdownload.NoteID">@item.objdownload.NoteTitle</a></td>
+                            <td style="vertical-align: middle;">@item.objdownload.NoteCategory</td>
+                            <td style="vertical-align: middle;">@item.objuser.EmailID</td>
+                            @if (@item.objdownload.IsPaid == true)
+                            {
+                                <td style="vertical-align: middle;">Paid</td>
+                            }
+                            else
+                            {
+                                <td style="vertical-align: middle;">Free</td>
+                            }
+                            <td style="vertical-align: middle;">&#36;@item.objdownload.PurchasedPrice</td>
+                            <td style="vertical-align: middle;">@item.objdownload.AttachmentDownloadedDate</td>
+                            <td style="vertical-align: middle;"><a href="/SellerNotes/NoteDetails/@item.objdownload.NoteID"><img src="~/Content/images/My Download/eye.png"></a></td>
+                            <td style="vertical-align: middle;">
+                                <div class="dropdown">
+                                    <img src="~/Content/images/My Download/dots.png" class="dots">
+                                    <div class="dropdown-content">
+                                        <a href="/UserActivityStatus/DownloadNote/@item.objdownload.NoteID">Download Note</a>
+                                        <a data-toggle="modal" data-target="#exampleModal">Add Reviews/Feedback</a>
+                                        <a href="#">Report as inappropriate</a>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        count++;
+                    }
+                    
+                </tbody>
+            </table>
+        </div>
+</div>
+
+
+<!--Pagination-->
+<div class="text-center">
+    <ul class="pagination">
+        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+        @Html.PagedListPager(Model, page => Url.Action("MySoldNotes",
+            new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }),
+            new PagedListRenderOptions() { Display = PagedListDisplayMode.IfNeeded, MaximumPageNumbersToDisplay = 5 })
+
+    </ul>
+</div>
+<!--My sold notes End-->

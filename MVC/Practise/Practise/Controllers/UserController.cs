@@ -1,6 +1,8 @@
 ﻿using Practise.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
@@ -107,7 +109,6 @@ namespace Practise.Controllers
                     Password = user.Password,
                     CreatedDate = DateTime.Now,
                     IsActive = true,
-                    //IsEmailVarified = false
                 };
                 dbObj.tblUsers.Add(objtblUser);
                 dbObj.SaveChanges();
@@ -116,8 +117,7 @@ namespace Practise.Controllers
                 SendVerificationLinkEmail(user.EmailID.ToString());
                 message = "Registration Successfully done.Account activation link" + "has been sent to your email id:" + user.EmailID;
                 Status = true;
-                //return RedirectToAction("Login", "User");
-
+                
             }
 
             ViewBag.Message = message;
@@ -146,7 +146,7 @@ namespace Practise.Controllers
             var link = Request.Url.AbsoluteUri + verifyUrl;
             var fromEmail = new MailAddress("dnlad22@gmail.com", "Notes Marketplace"); //need system email
             var toEmail = new MailAddress(emailID);
-            var fromEmailPassword = "rishi0712"; // Replace with actual password
+            var fromEmailPassword = "jkqobpmshhmlgumw"; // Replace with actual password
             string subject = "Your account is successfully created";
             string body = "<br/>Thank you for signing up with us.Please click on below link to verify your email address and to do login.<br/>";
             body += "<a href='" + link + "'> Click To VerifyEmail</a>";
@@ -171,16 +171,12 @@ namespace Practise.Controllers
                 smtp.Send(message);
         }
 
-        public ActionResult VerifyAccount()
-        {
-            return View();
-        }
-
+        
         [HttpGet]
         //Verify Email Address
         public ActionResult VerifyAccount(string emailID)
         {
-            //bool Status = false;
+            
             {
                 dbObj.Configuration.ValidateOnSaveEnabled = false;
                 var v = dbObj.tblUsers.Where(a => a.EmailID == emailID).FirstOrDefault();
@@ -189,7 +185,6 @@ namespace Practise.Controllers
                     v.IsEmailVarified = true;
                     ViewBag.firstname = v.FirstName;
                     dbObj.SaveChanges();
-                    //Status = true;
                 }
                 else
                 {
@@ -241,10 +236,10 @@ namespace Practise.Controllers
 
             var fromEmail = new MailAddress("dnlad22@gmail.com", "Notes Marketplace"); //need system email
             var toEmail = new MailAddress(emailId);
-            var fromEmailPassword = "rishi0712"; // Replace with actual password
+            var fromEmailPassword = "jkqobpmshhmlgumw"; // Replace with actual password
             string subject = "Reset Password";
             string body = "<br/><br/>We got request for reset your account password.<br/> Please click on the below link to reset your password<br/>";
-            body += "Your Password is" + otp;
+            body += "Your Password is" +" "+ otp + " ";
             body += "Notes Marketplace";
             var smtp = new SmtpClient
             {
@@ -266,14 +261,207 @@ namespace Practise.Controllers
         }
         public ActionResult UserProfile()
         {
-            return View();
+
+            var EmailId = User.Identity.Name.ToString();
+
+            tblUser user = dbObj.tblUsers.Where(x => x.EmailID == EmailId).FirstOrDefault();
+            tblUserProfile tblUserProfile = dbObj.tblUserProfiles.Where(x => x.UserID == user.ID).FirstOrDefault();
+
+            ViewBag.Gender = dbObj.tblReferenceDatas.Where(x => x.IsActive == true && x.RefCategory == "Gender");
+            ViewBag.NotesCountry = dbObj.tblCountries.Where(x => x.IsActive == true);
+            ViewBag.CountryCode = dbObj.tblCountries.Where(x => x.IsActive == true);
+            TempData["ProfilePicture"] = tblUserProfile.ProfilePicture;
+
+            if (tblUserProfile != null)
+            {
+                UserProfile userProfile1 = new UserProfile()
+                {
+                    UserID=user.ID,
+                    FirstName = user.FirstName,
+                    LastName = user.LastName,
+                    EmailID = user.EmailID,
+                    DOB = tblUserProfile.DOB,
+                    Gender = tblUserProfile.Gender,
+                    CountryCode = tblUserProfile.CountryCode,
+                    PhoneNumber = tblUserProfile.PhoneNumber,
+                    AddressLine1 = tblUserProfile.AddressLine1,
+                    AddressLine2 = tblUserProfile.AddressLine2,
+                    City = tblUserProfile.City,
+                    State = tblUserProfile.State,
+                    ZipCode = tblUserProfile.ZipCode,
+                    Country = tblUserProfile.Country,
+                    University = tblUserProfile.University,
+                    College = tblUserProfile.College,
+                    CreatedDate = DateTime.Now
+                };
+
+                return View(userProfile1);
+            }
+
+            else
+            {
+                UserProfile userProfile = new UserProfile()
+                {
+                    FirstName = user.FirstName,
+                    LastName = user.LastName,
+                    EmailID = user.EmailID
+                };
+               return View(userProfile);
+            }
+            
+            return RedirectToAction("DashBoard", "SellerNotes");
         }
 
+        [HttpPost]
+        public ActionResult UserProfile(UserProfile userProfile)
+        {
+            var EmailId = User.Identity.Name.ToString();
+
+            tblUser user = dbObj.tblUsers.Where(x => x.EmailID == EmailId).FirstOrDefault();
+
+            if (ModelState.IsValid)
+            {
+                tblUserProfile userProfile1 = dbObj.tblUserProfiles.Where(x => x.UserID == userProfile.UserID).FirstOrDefault();
+
+                if (userProfile1 != null)
+                {
+
+                    userProfile1.DOB = userProfile.DOB;
+                    userProfile1.Gender = userProfile.Gender;
+                    userProfile1.CountryCode = userProfile.CountryCode;
+                    userProfile1.PhoneNumber = userProfile.PhoneNumber;
+                    userProfile1.AddressLine1 = userProfile.AddressLine1;
+                    userProfile1.AddressLine2 = userProfile.AddressLine2;
+                    userProfile1.City = userProfile.City;
+                    userProfile1.State = userProfile.State;
+                    userProfile1.ZipCode = userProfile.ZipCode;
+                    userProfile1.Country = userProfile.Country;
+                    userProfile1.University = userProfile.University;
+                    userProfile1.College = userProfile.College;
+                    userProfile1.ModifiedDate = DateTime.Now;
+                    userProfile1.ModifiedBy = user.ID;
+
+                    string storepath = Path.Combine(Server.MapPath("/Images/" + user.ID));
+
+                    if (!Directory.Exists(storepath))
+                    {
+                        Directory.CreateDirectory(storepath);
+                    }
+
+                    //If user upload Display picture
+                    if (userProfile.ProfilePicture != null && userProfile.ProfilePicture.ContentLength > 0)
+                    {
+                        string _FileName = Path.GetFileNameWithoutExtension(userProfile.ProfilePicture.FileName);
+                        string extension = Path.GetExtension(userProfile.ProfilePicture.FileName);
+                        _FileName = _FileName + DateTime.Now.ToString("ddmmyyyy") + extension;
+                        string finalp = Path.Combine(storepath , _FileName);
+                        userProfile.ProfilePicture.SaveAs(finalp);
+                        userProfile1.ProfilePicture = Path.Combine(("/Images/" + user.ID + "/"), _FileName);
+                        dbObj.SaveChanges();
+                    }
+                    //If user does not upload Display picture
+                    else
+                    {
+                        userProfile1.ProfilePicture = "/DefaultImage/4.jpg";
+                        dbObj.SaveChanges();
+                    }
+
+                    dbObj.Entry(userProfile1).State = EntityState.Modified;
+                    dbObj.SaveChanges();
+                }
+                else
+                {
+                    tblUserProfile tblUserProfile = new tblUserProfile()
+                    {
+                        UserID = user.ID,
+                        DOB = userProfile.DOB,
+                        Gender = userProfile.Gender,
+                        CountryCode = userProfile.CountryCode,
+                        PhoneNumber = userProfile.PhoneNumber,
+                        AddressLine1 = userProfile.AddressLine1,
+                        AddressLine2 = userProfile.AddressLine2,
+                        City = userProfile.City,
+                        State = userProfile.State,
+                        ZipCode = userProfile.ZipCode,
+                        Country = userProfile.Country,
+                        University = userProfile.University,
+                        College = userProfile.College,
+                        CreatedDate = DateTime.Now,
+                        CreatedBy = user.ID
+                    };
+
+
+                    string storepath = Path.Combine(Server.MapPath("/Images/" + user.ID));
+
+                    if (!Directory.Exists(storepath))
+                    {
+                        Directory.CreateDirectory(storepath);
+                    }
+
+                    //If user upload Display picture
+                    if (userProfile.ProfilePicture != null && userProfile.ProfilePicture.ContentLength > 0)
+                    {
+                        string _FileName = Path.GetFileNameWithoutExtension(userProfile.ProfilePicture.FileName);
+                        string extension = Path.GetExtension(userProfile.ProfilePicture.FileName);
+                        _FileName = DateTime.Now.ToString("ddmmyyyy") + extension;
+                        string finalp = Path.Combine(storepath, _FileName);
+                        //userProfile.FilePath = "~/Images/" + _FileName;
+                        //_FileName = Path.Combine(Server.MapPath("~/Images/" + user.ID + "/"), _FileName);
+                        userProfile.ProfilePicture.SaveAs(finalp);
+                        tblUserProfile.ProfilePicture = Path.Combine(("/Images/" + user.ID + "/"), _FileName);
+                        dbObj.SaveChanges();
+                    }
+                    //If user does not upload Display picture
+                    else
+                    {
+                        tblUserProfile.ProfilePicture = "/DefaultImage/4.jpg";
+                        dbObj.SaveChanges();
+                    }
+
+                    dbObj.tblUserProfiles.Add(tblUserProfile);
+                    dbObj.SaveChanges();
+                }
+            }
+            
+            ViewBag.Gender = dbObj.tblReferenceDatas.Where(x => x.IsActive == true && x.RefCategory == "Gender");
+            ViewBag.NotesCountry = dbObj.tblCountries.Where(x => x.IsActive == true);
+            ViewBag.CountryCode = dbObj.tblCountries.Where(x => x.IsActive == true);
+            return RedirectToAction("SearchNotes","SellerNotes");
+        }
         public ActionResult Logout()
         {
             FormsAuthentication.SignOut();
             return RedirectToAction("Login");
         }
 
+        public ActionResult ChangePassWord()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult ChangePassWord(ChangePassword changePassword)
+        {
+            if (ModelState.IsValid)
+            {
+                var EmailId = User.Identity.Name.ToString();
+                tblUser objuser = dbObj.tblUsers.Where(x => x.EmailID == EmailId).FirstOrDefault();
+                var Password = CryptoPassword.Hash(changePassword.OldPassword);
+
+                if (objuser.Password == Password)
+                {
+                    objuser.Password = CryptoPassword.Hash(changePassword.ConfirmPassword);
+                    dbObj.Entry(objuser).State = EntityState.Modified;
+                    dbObj.SaveChanges();
+                    return RedirectToAction("Login", "User");
+                }
+                else
+                {
+                    ViewBag.ErrorMessage = "Password does not match";
+                }
+            }
+            
+            return View(changePassword);
+        }
     }
 }

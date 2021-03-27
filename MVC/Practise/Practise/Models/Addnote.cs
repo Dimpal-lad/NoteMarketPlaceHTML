@@ -19,6 +19,7 @@ namespace Practise.Models
         {
             get; set;
         }
+        public int ID { get; set; }
         public Nullable<int> NoteType { get; set; }
         public Nullable<int> NumberofPages { get; set; }
         [Required(ErrorMessage = "Description  is Required")]
@@ -30,7 +31,7 @@ namespace Practise.Models
         public string Professor { get; set; }
         [Required]
         public bool IsPaid { get; set; }
-        [Required(ErrorMessage = "SellingPrice  is Required")]
+        
         public Nullable<decimal> SellingPrice { get; set; }
         public HttpPostedFileBase NotesPreview { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }

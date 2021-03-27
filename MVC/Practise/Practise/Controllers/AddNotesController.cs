@@ -1,8 +1,10 @@
 ﻿using Practise.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
@@ -13,7 +15,7 @@ namespace Practise.Controllers
 
         private readonly NotesMarketPlaceEntities2 dbObj = new NotesMarketPlaceEntities2();
         // GET: AddNote
-
+        [Authorize]
         public ActionResult AddNotes()
         {
             ViewBag.NotesCategory = dbObj.tblNoteCategories.Where(x => x.IsActive == true);
@@ -59,7 +61,7 @@ namespace Practise.Controllers
 
                 var noteId = sellerNote.ID;
 
-                string storepath = Path.Combine(Server.MapPath("~/Images/" + user.ID), noteId.ToString());
+                string storepath = Path.Combine(Server.MapPath("/Images/" + user.ID), noteId.ToString());
 
                 if (!Directory.Exists(storepath))
                 {
@@ -71,17 +73,16 @@ namespace Practise.Controllers
                 {
                     string _FileName = Path.GetFileNameWithoutExtension(addnote.DisplayPicture.FileName);
                     string extension = Path.GetExtension(addnote.DisplayPicture.FileName);
-                    _FileName = _FileName + DateTime.Now.ToString("ddmmyyyy") + extension;
-                    addnote.FilePath = "~/Images/" + _FileName;
-                    _FileName = Path.Combine(Server.MapPath("~/Images/" + user.ID + "/" + noteId), _FileName);
-                    addnote.DisplayPicture.SaveAs(_FileName);
+                    _FileName =  DateTime.Now.ToString("ddmmyyyy") + extension;
+                    string finalp = Path.Combine(storepath , _FileName);
+                    addnote.DisplayPicture.SaveAs(finalp);
                     sellerNote.DisplayPicture = Path.Combine(("/Images/" + user.ID + "/" + noteId + "/"), _FileName);
                     dbObj.SaveChanges();
                 }
                 //If user does not upload Display picture
                 else
                 {
-                    sellerNote.DisplayPicture = "D:/.Net/Practise/Practise/DefaultImage/4.jpg";
+                    sellerNote.DisplayPicture = "/DefaultImage/4.jpg";
                     dbObj.SaveChanges();
                 }
 
@@ -143,10 +144,12 @@ namespace Practise.Controllers
                 {
                     string _FileName = Path.GetFileNameWithoutExtension(addnote.NotesPreview.FileName);
                     string extension = Path.GetExtension(addnote.NotesPreview.FileName);
-                    _FileName = _FileName + DateTime.Now.ToString("ddmmyyyy") + extension;
-                    addnote.FilePath = "~/Images/" + _FileName;
-                    _FileName = Path.Combine(Server.MapPath("~/Images/" + user.ID + "/" + noteId), _FileName);
-                    addnote.NotesPreview.SaveAs(_FileName);
+                    _FileName = DateTime.Now.ToString("ddmmyyyy") + extension;
+                    string finalp = Path.Combine(storepath, _FileName);
+                    //addnote.DisplayPicture.SaveAs(finalp);
+                    //addnote.FilePath = "/Images/" + _FileName;
+                    //_FileName = Path.Combine(Server.MapPath("/Images/" + user.ID + "/" + noteId), _FileName);
+                    addnote.NotesPreview.SaveAs(finalp);
                     sellerNote.NotesPreview = Path.Combine(("/Images/" + user.ID + "/" + noteId + "/"), _FileName);
                     dbObj.SaveChanges();
                 }
@@ -161,23 +164,89 @@ namespace Practise.Controllers
             return View(addnote);
         }
 
-        public ActionResult EditNotes()
+        public ActionResult EditNotes(int? id)
         {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            tblSellerNote sellerNote = dbObj.tblSellerNotes.Find(id);
+            tblSellerNotesAttachment sellerNotesAttachment = dbObj.tblSellerNotesAttachments.Where(x => x.NoteID == id).FirstOrDefault();
+            Addnote addnote1 = new Addnote()
+            {
+                ID = sellerNote.ID,
+                Title = sellerNote.Title,
+                Category = sellerNote.Category,
+                NoteType = sellerNote.NoteType,
+                NumberofPages = sellerNote.NumberofPages,
+                Description = sellerNote.Description,
+                UniversityName = sellerNote.UniversityName,
+                Country = sellerNote.Country,
+                Course = sellerNote.Course,
+                CourseCode = sellerNote.CourseCode,
+                Professor = sellerNote.Professor,
+                IsPaid = sellerNote.IsPaid,
+                SellingPrice = sellerNote.SellingPrice,
+                CreatedDate = sellerNote.CreatedDate
+            };
+
+            if (sellerNote == null)
+            {
+                return HttpNotFound();
+            }
             ViewBag.NotesCategory = dbObj.tblNoteCategories.Where(x => x.IsActive == true);
             ViewBag.NotesCountry = dbObj.tblCountries.Where(x => x.IsActive == true);
             ViewBag.NotesType = dbObj.tblNoteTypes.Where(x => x.IsActive == true);
 
-            return View();
-        } 
+            return View(addnote1);
+        }
 
-        //[HttpPost]
-        //public ActionResult EditNotes()
-        //{
-        //    ViewBag.NotesCategory = dbObj.tblNoteCategories.Where(x => x.IsActive == true);
-        //    ViewBag.NotesCountry = dbObj.tblCountries.Where(x => x.IsActive == true);
-        //    ViewBag.NotesType = dbObj.tblNoteTypes.Where(x => x.IsActive == true);
+        [HttpPost]
+       
+        public ActionResult EditNotes(int? id, string save, Addnote addnote1)
+        {
+           
+            tblSellerNote sellerNote = dbObj.tblSellerNotes.Find(id);
 
-        //    return View();
-        //}
+            sellerNote.ID = addnote1.ID;
+            sellerNote.Title = addnote1.Title;
+            sellerNote.Category = addnote1.Category;
+            sellerNote.NoteType = addnote1.NoteType;
+            sellerNote.NumberofPages = addnote1.NumberofPages;
+            sellerNote.Description = addnote1.Description;
+            sellerNote.UniversityName = addnote1.UniversityName;
+            sellerNote.Country = addnote1.Country;
+            sellerNote.Course = addnote1.Course;
+            sellerNote.CourseCode = addnote1.CourseCode;
+            sellerNote.Professor = addnote1.Professor;
+            sellerNote.IsPaid = addnote1.IsPaid;
+            sellerNote.SellingPrice = addnote1.SellingPrice;
+            sellerNote.ModifiedDate = DateTime.Now;
+           
+            
+            if (save == "Save")
+            {
+                sellerNote.Status = dbObj.tblReferenceDatas.Where(x => x.RefCategory.ToLower() == "Notes Status" && x.Value.ToLower() == "Draft").Select(x=>x.ID).FirstOrDefault(); 
+            }
+            else
+            {
+                sellerNote.Status = dbObj.tblReferenceDatas.Where(x => x.RefCategory.ToLower() == "Notes Status" && x.Value.ToLower() == "Submitted For Review").Select(x => x.ID).FirstOrDefault(); 
+            }
+
+            dbObj.Entry(sellerNote).State = EntityState.Modified;
+            dbObj.SaveChanges();
+
+            if (sellerNote == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.NotesCategory = dbObj.tblNoteCategories.Where(x => x.IsActive == true);
+            ViewBag.NotesCountry = dbObj.tblCountries.Where(x => x.IsActive == true);
+            ViewBag.NotesType = dbObj.tblNoteTypes.Where(x => x.IsActive == true);
+            return RedirectToAction("DashBoard", "SellerNotes");
+            return View(addnote1);
+        }
+
     }
 }
