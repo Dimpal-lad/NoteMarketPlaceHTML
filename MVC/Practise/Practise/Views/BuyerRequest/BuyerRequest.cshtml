@@ -59,7 +59,7 @@
                         <td style="color: #6255a5; vertical-align: middle;"> @item.objdownload.NoteTitle</td>
                         <td style="vertical-align: middle;"> @item.objdownload.NoteCategory</td>
                         <td style="vertical-align: middle;"> @item.objuser.EmailID</td>
-                        <td style="vertical-align: middle;">@*+91*@ @item.objuserProfile.CountryCode  @item.objuserProfile.PhoneNumber</td>
+                        <td style="vertical-align: middle;"> @item.objuserProfile.PhoneNumber</td>
                         @if (@item.objdownload.IsPaid == true)
                         {
                             <td style="vertical-align: middle;">Paid</td>
@@ -87,8 +87,6 @@
         </table>
     </div>
 </div>
-
-
 <!--Pagination-->
 <div class="text-center">
     <ul class="pagination">
@@ -101,5 +99,4 @@
 
     </ul>
 </div>
-
 <!--Buyer Requests End-->

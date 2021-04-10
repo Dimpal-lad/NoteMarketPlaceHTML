@@ -24,6 +24,9 @@ namespace Practise.Models
             this.tblSellerNotesReviews = new HashSet<tblSellerNotesReview>();
             this.tblUserProfiles = new HashSet<tblUserProfile>();
             this.tblDownloads1 = new HashSet<tblDownload>();
+            this.tblNoteCategories = new HashSet<tblNoteCategory>();
+            this.tblCountries = new HashSet<tblCountry>();
+            this.tblNoteTypes = new HashSet<tblNoteType>();
         }
     
         public int ID { get; set; }
@@ -54,5 +57,11 @@ namespace Practise.Models
         public virtual tblUserRole tblUserRole { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblDownload> tblDownloads1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblNoteCategory> tblNoteCategories { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblCountry> tblCountries { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblNoteType> tblNoteTypes { get; set; }
     }
 }

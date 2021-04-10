@@ -1,0 +1,51 @@
+﻿@model Practise.Models.ManageSystemConfigurationModel
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container-db">
+    @using (Html.BeginForm("ManageSystemConfiguration", "ManageSystem", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <h1>Manage System Configuration</h1>
+        <div class="row mp01">
+            <div class="col-md-6 form-group">
+                <label for="exampleInputtitle">Support email address<span class="required">*</span></label>
+                @Html.TextBoxFor(x => x.SupportEmailID, new { @class = "form-control mp02", @placeholder = "Enter email address" })
+                @Html.ValidationMessageFor(x => x.SupportEmailID, "", new { @class = "text-danger" })
+                
+                <label for="exampleInputtitle">Password<span class="required">*</span></label>
+                @Html.TextBoxFor(x => x.Password, new { @class = "form-control mp02", @placeholder = "Enter your password", @Type = "password" })
+                @Html.ValidationMessageFor(x => x.Password, "", new { @class = "text-danger" })
+
+                <label for="exampleInputtitle">Support phone number<span class="required">*</span></label>
+                @Html.TextBoxFor(x => x.PhoneNumber, new { @class = "form-control mp02", @placeholder = "Enter phone number" })
+                @Html.ValidationMessageFor(x => x.PhoneNumber, "", new { @class = "text-danger" })
+                
+                <label for="exampleInputtitle">Email Address(es)(for various events system will send notifications to these users)<span class="required">*</span></label>
+                @Html.TextBoxFor(x => x.EmailAddresses, new { @class = "form-control mp02", @placeholder = "Enter email address" })
+                @Html.ValidationMessageFor(x => x.EmailAddresses, "", new { @class = "text-danger" })
+
+                <label for="exampleInputtitle">Facebook URL</label>
+                @Html.TextBoxFor(x => x.Facebook, new { @class = "form-control mp02", @placeholder = "Enter facebook url" })
+                @Html.ValidationMessageFor(x => x.Facebook, "", new { @class = "text-danger" })
+
+                <label for="exampleInputtitle">Twitter URL</label>
+                @Html.TextBoxFor(x => x.Twitter, new { @class = "form-control mp02", @placeholder = "Enter twitter url" })
+                @Html.ValidationMessageFor(x => x.Twitter, "", new { @class = "text-danger" })
+
+                <label for="exampleInputtitle">Linkedin URL</label>
+                @Html.TextBoxFor(x => x.LinkedIn, new { @class = "form-control mp02", @placeholder = "Enter linkedin url" })
+                @Html.ValidationMessageFor(x => x.LinkedIn, "", new { @class = "text-danger" })
+
+                <label class="picture"><span>Default image for notes(if seller do not upload)</span></label>
+                <input type="file" class="form-control exampleInputpicture02" placeholder="Upload a picture" onchange="return profileValidation()" id="exampleInputpicture" name="DisplayPicture">
+
+                <label class="picture"><span>Default profile picture(if seller do not upload)</span></label>
+                <input type="file" class="form-control exampleInputpicture02" placeholder="Upload a picture" onchange="return profileValidation()" id="exampleInputpicture" name="ProfilePicture">
+
+
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary btn-md btn-submit">SUBMIT</button>
+    }
+</div>

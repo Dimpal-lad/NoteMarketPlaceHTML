@@ -584,6 +584,10 @@ ul.navbar-nav > li > a {
     margin-left: 180px;
 }
 
+    #btn-lm a {
+        color: #fff;
+    }
+
 #hp-ul > li > a {
     color: #fff;
     font-family: "Open Sans";
@@ -708,6 +712,10 @@ ul.navbar-nav > li > a {
     font-weight: 600;
 }
 
+    #btn-dl a {
+        color: #fff;
+    }
+
 #btn-sb {
     background-color: #6255a5;
     width: 150px;
@@ -719,6 +727,9 @@ ul.navbar-nav > li > a {
     font-weight: 600;
 }
 
+    #btn-sb a {
+        color: #fff;
+    }
 /*What Our customer saying*/
 #abouthp-03 {
     background-color: #fff;
@@ -961,26 +972,6 @@ ul.sn-book li {
     padding-top: 13px;
 }
 
-/*Pagination*/
-/*.pagination .page-link {
-    border: none;
-    color: #333333;
-    font-family: "Open Sans";
-    font-size: 16px;
-    line-height: 20px;
-    font-weight: 400;
-    margin-right: 10px;
-}
-
-.pagination .langle {
-    width: 8px;
-    height: 15px;
-    color: #333333;
-    font-size: 20px;
-    margin-right: 20px;
-    margin-left: 10px;
-}
-*/
 .pagination > li > a {
     border: none;
     color: #333333;
@@ -1003,18 +994,6 @@ ul.sn-book li {
         border-radius: 30px;
         margin-right: 10px;
     }
-/*.pagination .page-item:hover {
-    width: 34px;
-    height: 34px;
-    background-color: #6255a5;
-    color: #fff;
-    font-family: "Open Sans";
-    font-size: 16px;
-    line-height: 20px;
-    font-weight: 400;
-    border-radius: 30px;
-    margin-right: 10px;
-}*/
 .pagination > .active > a,
 .pagination > .active > a:hover {
     z-index: 3;
@@ -1207,7 +1186,6 @@ set-box-shadow-cicis-menu-to-go {
 
 .nd06 {
     margin-top: -13px;
-    
 }
 
     .nd06 p {
@@ -1542,6 +1520,28 @@ span.si1 {
 /*=============================================================
                  My Download Page
 ===============================================================*/
+.reject, .inreview {
+    width: 140px;
+    height: 40px;
+    border-radius: 3px;
+    color: #fff;
+    font-family: "Open Sans";
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 22px;
+}
+
+.reject {
+    background-color: #ff3636;
+}
+.inreview {
+    background-color: #cccccc;
+}
+    .reject:hover,
+    .inreview:hover:hover {
+        background-color: #6255a5;
+    }
+
 .mydownloads table {
     width: 100%;
     border: 1px solid #d1d1d1;

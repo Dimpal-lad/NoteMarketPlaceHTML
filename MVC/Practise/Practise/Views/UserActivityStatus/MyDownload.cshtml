@@ -75,7 +75,7 @@
                                 <div class="dropdown-content">
                                     <a href="/UserActivityStatus/DownloadNote/@item.objdownload.NoteID">Download Note</a>
                                     <a data-toggle="modal" data-target="#exampleModal" href="/UserActivityStatus/AddReview/@item.objdownload.NoteID">Add Reviews/Feedback</a>
-                                    <a href="#">Report as inappropriate</a>
+                                    <a href="#" data-toggle="modal" data-target="#exampleModal_@item.objdownload.NoteID">Report as inappropriate</a>
                                 </div>
                             </div>
 
@@ -117,6 +117,33 @@
                                 </div>
                             </div>
 
+                            <!-- ReportedIsuue Popup -->
+                            <div class="modal fade " id="exampleModal_@item.objdownload.NoteID" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content md01 text-left">
+
+
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" value="Cancel">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                        @using (Html.BeginForm("ReportAnIssue", "UserActivityStatus", FormMethod.Post))
+                                        {
+                                            <div class="modal-body md02">
+                                                <input type="hidden" name="id" value="@item.objdownload.NoteID" />
+                                                <h4 class="text-left">@item.objdownload.NoteTitle</h4>
+                                                <label for="text-area"><span class="text-left review-label ">Remarks*</span></label>
+                                                <textarea class="form-control md03" placeholder="Write remarks" rows="5" name="remark" required></textarea>
+                                                <form style="float:right;">
+                                                    <button class="btn btn-primary reject" type="submit" style="margin-bottom:10px;" onclick="return confirm('Are you sure you want to mark this report as spam, you cannot update it later');">Report an issue</button>
+                                                    <button class="btn btn-primary inreview" type="submit" style="margin-bottom:10px;" value="Cancel" data-dismiss="modal">Cancel</button>
+                                                </form>
+                                            </div>
+                                        }
+                                    </div>
+
+                                </div>
+                            </div>
+
                         </td>
                     </tr>
                     count++;
@@ -139,6 +166,4 @@
 
     </ul>
 </div>
-
-
 <!--My Downloads End-->

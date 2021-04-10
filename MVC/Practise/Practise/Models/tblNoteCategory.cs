@@ -31,5 +31,6 @@ namespace Practise.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblSellerNote> tblSellerNotes { get; set; }
+        public virtual tblUser tblUser { get; set; }
     }
 }

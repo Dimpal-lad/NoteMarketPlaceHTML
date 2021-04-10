@@ -30,7 +30,7 @@ namespace Practise.Controllers
             string message = "";
 
             {
-                var v = dbObj.tblUsers.Where(a => a.EmailID == l.EmailID).FirstOrDefault();
+                var v = dbObj.tblUsers.Where(a => a.EmailID == l.EmailID && a.IsActive==true).FirstOrDefault();
                 if (v != null)
                 {
                     if (string.Compare(CryptoPassword.Hash(l.Password), v.Password) == 0)
@@ -50,6 +50,10 @@ namespace Practise.Controllers
                         }
                         else
                         {
+                            if (v.RoleID != 1)
+                            {
+                                return RedirectToAction("AdminDashBoard", "Admin");
+                            }
                             return RedirectToAction("DashBoard", "SellerNotes");
                         }
 
@@ -80,6 +84,8 @@ namespace Practise.Controllers
         {
             bool Status = false;
             string message = "";
+            tblSystemConfiguration systemConfiguration = dbObj.tblSystemConfigurations.Where(x => x.Key.ToLower() == "Support email address").FirstOrDefault();
+            tblSystemConfiguration systemConfiguration1 = dbObj.tblSystemConfigurations.Where(x => x.Key.ToLower() == "Password").FirstOrDefault();
 
             //Model Validation
             if (ModelState.IsValid)
@@ -97,8 +103,6 @@ namespace Practise.Controllers
                 user.ConfirmPassword = CryptoPassword.Hash(user.ConfirmPassword);
                 user.IsEmailVarified = false;
 
-
-
                 tblUserRole objRole = dbObj.tblUserRoles.Where(x => x.Name.ToLower() == "member").FirstOrDefault();
                 tblUser objtblUser = new tblUser()
                 {
@@ -114,7 +118,7 @@ namespace Practise.Controllers
                 dbObj.SaveChanges();
 
                 //Send Email to user
-                SendVerificationLinkEmail(user.EmailID.ToString());
+                SendVerificationLinkEmail(user.EmailID.ToString(),systemConfiguration.Value,systemConfiguration1.Value);
                 message = "Registration Successfully done.Account activation link" + "has been sent to your email id:" + user.EmailID;
                 Status = true;
                 
@@ -136,19 +140,19 @@ namespace Practise.Controllers
             }
         }
 
-
-
         //Send Verification Mail
         [NonAction]
-        public void SendVerificationLinkEmail(string emailID)
+        public void SendVerificationLinkEmail(string emailID, string supportemailID, string password)
         {
-            var verifyUrl = "User/VerifyAccount/?emailID=" + emailID;
-            var link = Request.Url.AbsoluteUri + verifyUrl;
-            var fromEmail = new MailAddress("dnlad22@gmail.com", "Notes Marketplace"); //need system email
+            tblUser user = dbObj.tblUsers.Where(x => x.IsEmailVarified !=true && x.EmailID == emailID).FirstOrDefault();
+            var verifyUrl = "/User/VerifyAccount/?emailID=" + emailID;
+            var link = Request.Url.AbsoluteUri.Replace(Request.Url.PathAndQuery, verifyUrl);
+            var fromEmail = new MailAddress(supportemailID, "Notes Marketplace"); //need system email
             var toEmail = new MailAddress(emailID);
-            var fromEmailPassword = "jkqobpmshhmlgumw"; // Replace with actual password
-            string subject = "Your account is successfully created";
-            string body = "<br/>Thank you for signing up with us.Please click on below link to verify your email address and to do login.<br/>";
+            var fromEmailPassword = password; // Replace with actual password
+            string subject = "Note Marketplace - Email Verification";
+            string body = "Hello " + " " + user.FirstName + " " + ",<br/>"; 
+            body += "<br/>Thank you for signing up with us.Please click on below link to verify your email address and to do login.<br/>";
             body += "<a href='" + link + "'> Click To VerifyEmail</a>";
             body += "<br/><br/>Regards,<br/>";
             body += "Notes Marketplace";
@@ -192,18 +196,19 @@ namespace Practise.Controllers
                 }
             }
             return View();
-
         }
 
 
         public ActionResult ForgotPassword()
-        {
-
+        {  
             return View();
         }
         [HttpPost]
         public ActionResult ForgotPassword(ForgotPsw forgot)
         {
+            tblSystemConfiguration systemConfiguration = dbObj.tblSystemConfigurations.Where(x => x.Key.ToLower() == "Support email address").FirstOrDefault();
+            tblSystemConfiguration systemConfiguration1 = dbObj.tblSystemConfigurations.Where(x => x.Key.ToLower() == "Password").FirstOrDefault();
+
             if (ModelState.IsValid)
             {
                 bool isvalid = dbObj.tblUsers.Any(x => x.EmailID == forgot.EmailID);
@@ -217,7 +222,7 @@ namespace Practise.Controllers
                     objtblUser1.Password = CryptoPassword.Hash(newotp);
                     dbObj.SaveChanges();
                     //Send Password to Email
-                    SendVerificationCode(forgot.EmailID.ToString(), newotp);
+                    SendVerificationCode(forgot.EmailID.ToString(), newotp,systemConfiguration.Value,systemConfiguration1.Value);
                     dbObj.SaveChanges();
                     return RedirectToAction("Login", "User");
                 }
@@ -231,15 +236,17 @@ namespace Practise.Controllers
         }
 
         [NonAction]
-        public void SendVerificationCode(string emailId, string otp)
+        public void SendVerificationCode(string emailId, string otp, string supportemailID, string password)
         {
 
-            var fromEmail = new MailAddress("dnlad22@gmail.com", "Notes Marketplace"); //need system email
+            var fromEmail = new MailAddress(supportemailID, "Notes Marketplace"); //need system email
             var toEmail = new MailAddress(emailId);
-            var fromEmailPassword = "jkqobpmshhmlgumw"; // Replace with actual password
-            string subject = "Reset Password";
-            string body = "<br/><br/>We got request for reset your account password.<br/> Please click on the below link to reset your password<br/>";
-            body += "Your Password is" +" "+ otp + " ";
+            var fromEmailPassword = password; // Replace with actual password
+            string subject = " New Temporary Password has been created for you";
+            string body = "<br/><br/>Hello, <br/><br/>";
+            body += "<br/>We have generated a new password for you<br/>";
+            body += "<br/>Password: " + " "+ otp + " ";
+            body += "<br/><br/>Regards,<br/>";
             body += "Notes Marketplace";
             var smtp = new SmtpClient
             {
@@ -259,9 +266,10 @@ namespace Practise.Controllers
             })
                 smtp.Send(message);
         }
+
+        [Authorize(Roles = "Member")]
         public ActionResult UserProfile()
         {
-
             var EmailId = User.Identity.Name.ToString();
 
             tblUser user = dbObj.tblUsers.Where(x => x.EmailID == EmailId).FirstOrDefault();
@@ -270,8 +278,7 @@ namespace Practise.Controllers
             ViewBag.Gender = dbObj.tblReferenceDatas.Where(x => x.IsActive == true && x.RefCategory == "Gender");
             ViewBag.NotesCountry = dbObj.tblCountries.Where(x => x.IsActive == true);
             ViewBag.CountryCode = dbObj.tblCountries.Where(x => x.IsActive == true);
-            TempData["ProfilePicture"] = tblUserProfile.ProfilePicture;
-
+            
             if (tblUserProfile != null)
             {
                 UserProfile userProfile1 = new UserProfile()
@@ -294,7 +301,7 @@ namespace Practise.Controllers
                     College = tblUserProfile.College,
                     CreatedDate = DateTime.Now
                 };
-
+                TempData["ProfilePicture"] = tblUserProfile.ProfilePicture;
                 return View(userProfile1);
             }
 
@@ -325,7 +332,8 @@ namespace Practise.Controllers
 
                 if (userProfile1 != null)
                 {
-
+                    userProfile1.tblUser.FirstName = userProfile.FirstName;
+                    userProfile1.tblUser.LastName = userProfile.LastName;
                     userProfile1.DOB = userProfile.DOB;
                     userProfile1.Gender = userProfile.Gender;
                     userProfile1.CountryCode = userProfile.CountryCode;
@@ -362,7 +370,7 @@ namespace Practise.Controllers
                     //If user does not upload Display picture
                     else
                     {
-                        userProfile1.ProfilePicture = "/DefaultImage/4.jpg";
+                        userProfile1.ProfilePicture = "/DefaultImage/DP_.jpg";
                         dbObj.SaveChanges();
                     }
 
@@ -405,8 +413,6 @@ namespace Practise.Controllers
                         string extension = Path.GetExtension(userProfile.ProfilePicture.FileName);
                         _FileName = DateTime.Now.ToString("ddmmyyyy") + extension;
                         string finalp = Path.Combine(storepath, _FileName);
-                        //userProfile.FilePath = "~/Images/" + _FileName;
-                        //_FileName = Path.Combine(Server.MapPath("~/Images/" + user.ID + "/"), _FileName);
                         userProfile.ProfilePicture.SaveAs(finalp);
                         tblUserProfile.ProfilePicture = Path.Combine(("/Images/" + user.ID + "/"), _FileName);
                         dbObj.SaveChanges();
@@ -414,7 +420,7 @@ namespace Practise.Controllers
                     //If user does not upload Display picture
                     else
                     {
-                        tblUserProfile.ProfilePicture = "/DefaultImage/4.jpg";
+                        tblUserProfile.ProfilePicture = "/DefaultImage/DP_.jpg";
                         dbObj.SaveChanges();
                     }
 

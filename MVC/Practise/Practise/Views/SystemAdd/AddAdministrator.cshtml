@@ -1,0 +1,41 @@
+﻿@model Practise.Models.AdminUpdateProfile
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+@using (Html.BeginForm("AddAdministrator", "SystemAdd", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+<div class="container-db">
+    <h1>Add Administrator</h1>
+   
+    <div class="row mp01">
+        <div class="col-md-6 form-group">
+            <label for="exampleInputtitle">First Name<span class="required">*</span></label>
+            @Html.TextBoxFor(x => x.FirstName, new { @class = "form-control mp02", @placeholder = "Enter your first name" })
+            @Html.ValidationMessageFor(x => x.FirstName, "", new { @class = "text-danger" })
+
+            <label for="exampleInputtitle">Last Name<span class="required">*</span></label>
+            @Html.TextBoxFor(x => x.LastName, new { @class = "form-control mp02", @placeholder = "Enter your last name" })
+            @Html.ValidationMessageFor(x => x.LastName, "", new { @class = "text-danger" })
+
+            <label for="exampleInputtitle">Email<span class="required">*</span></label>
+            @Html.TextBoxFor(x => x.EmailID, new { @class = "form-control mp02", @placeholder = "Enter your email address" })
+            @Html.ValidationMessageFor(x => x.EmailID, "", new { @class = "text-danger" })
+
+            <label for="exampleInputtitle">Phone Number</label>
+            <div class="row">
+
+                <div class="col-md-2">
+                    @Html.DropDownList("CountryCode", new SelectList(ViewBag.CountryCode, "ID", "CountryCode"), "", new { @class = "ph-no form-control" })
+                </div>
+                <div class="col-md-4">
+                    @Html.TextBoxFor(x => x.PhoneNumber, new { @class = "form-control mp03", @placeholder = "Enter your phone number" })
+                    @Html.ValidationMessageFor(x => x.PhoneNumber, "", new { @class = "text-danger" })
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary btn-md btn-submit">SUBMIT</button>
+</div>
+}

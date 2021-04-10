@@ -13,6 +13,7 @@
     <Property Name="ModifiedBy" Type="Int32" />
     <Property Name="IsActive" Type="Boolean" Nullable="false" />
     <NavigationProperty Name="tblSellerNotes" Relationship="Self.FK_tblSellerNotes_tblCountries" FromRole="tblCountries" ToRole="tblSellerNotes" />
+    <NavigationProperty Name="tblUser" Relationship="NotesMarketPlaceModel.FK_tblCountries_tblUsers" FromRole="tblCountry" ToRole="tblUser" />
   </EntityType>
   <EntityType Name="tblDownload">
     <Key>
@@ -54,6 +55,7 @@
     <Property Name="ModifiedBy" Type="Int32" />
     <Property Name="IsActive" Type="Boolean" Nullable="false" />
     <NavigationProperty Name="tblSellerNotes" Relationship="Self.FK_tblSellerNotes_tblNoteCategories" FromRole="tblNoteCategories" ToRole="tblSellerNotes" />
+    <NavigationProperty Name="tblUser" Relationship="NotesMarketPlaceModel.FK_tblNoteCategories_tblUsers" FromRole="tblNoteCategory" ToRole="tblUser" />
   </EntityType>
   <EntityType Name="tblNoteType">
     <Key>
@@ -68,6 +70,9 @@
     <Property Name="ModifiedBy" Type="Int32" />
     <Property Name="IsActive" Type="Boolean" Nullable="false" />
     <NavigationProperty Name="tblSellerNotes" Relationship="Self.FK_tblSellerNotes_tblNoteTypes" FromRole="tblNoteTypes" ToRole="tblSellerNotes" />
+    <NavigationProperty Name="tblNoteTypes1" Relationship="NotesMarketPlaceModel.FK_tblNoteTypes_tblNoteTypes" FromRole="tblNoteType" ToRole="tblNoteType1" />
+    <NavigationProperty Name="tblNoteType1" Relationship="NotesMarketPlaceModel.FK_tblNoteTypes_tblNoteTypes" FromRole="tblNoteType1" ToRole="tblNoteType" />
+    <NavigationProperty Name="tblUser" Relationship="NotesMarketPlaceModel.FK_tblNoteTypes_tblUsers" FromRole="tblNoteType" ToRole="tblUser" />
   </EntityType>
   <EntityType Name="tblReferenceData">
     <Key>
@@ -206,7 +211,7 @@
     <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="State" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="ZipCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="Country" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Country" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="University" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
     <Property Name="College" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
     <Property Name="CreatedDate" Type="DateTime" Precision="3" />
@@ -255,6 +260,9 @@
     <NavigationProperty Name="tblUserProfiles" Relationship="Self.FK_tblUserProfile_tblUsers" FromRole="tblUsers" ToRole="tblUserProfile" />
     <NavigationProperty Name="tblUserRole" Relationship="Self.FK_tblUsers_tblUserRoles" FromRole="tblUsers" ToRole="tblUserRoles" />
     <NavigationProperty Name="tblDownloads1" Relationship="NotesMarketPlaceModel.FK_tblDownloads_tblUsers1" FromRole="tblUser" ToRole="tblDownload" />
+    <NavigationProperty Name="tblNoteCategories" Relationship="NotesMarketPlaceModel.FK_tblNoteCategories_tblUsers" FromRole="tblUser" ToRole="tblNoteCategory" />
+    <NavigationProperty Name="tblCountries" Relationship="NotesMarketPlaceModel.FK_tblCountries_tblUsers" FromRole="tblUser" ToRole="tblCountry" />
+    <NavigationProperty Name="tblNoteTypes" Relationship="NotesMarketPlaceModel.FK_tblNoteTypes_tblUsers" FromRole="tblUser" ToRole="tblNoteType" />
   </EntityType>
   <Association Name="FK_tblSellerNotes_tblCountries">
     <End Role="tblCountries" Type="Self.tblCountry" Multiplicity="0..1" />
@@ -578,6 +586,22 @@
       <End Role="tblUser" EntitySet="tblUsers" />
       <End Role="tblDownload" EntitySet="tblDownloads" />
     </AssociationSet>
+    <AssociationSet Name="FK_tblNoteCategories_tblUsers" Association="NotesMarketPlaceModel.FK_tblNoteCategories_tblUsers">
+      <End Role="tblUser" EntitySet="tblUsers" />
+      <End Role="tblNoteCategory" EntitySet="tblNoteCategories" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblCountries_tblUsers" Association="NotesMarketPlaceModel.FK_tblCountries_tblUsers">
+      <End Role="tblUser" EntitySet="tblUsers" />
+      <End Role="tblCountry" EntitySet="tblCountries" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblNoteTypes_tblNoteTypes" Association="NotesMarketPlaceModel.FK_tblNoteTypes_tblNoteTypes">
+      <End Role="tblNoteType" EntitySet="tblNoteTypes" />
+      <End Role="tblNoteType1" EntitySet="tblNoteTypes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblNoteTypes_tblUsers" Association="NotesMarketPlaceModel.FK_tblNoteTypes_tblUsers">
+      <End Role="tblUser" EntitySet="tblUsers" />
+      <End Role="tblNoteType" EntitySet="tblNoteTypes" />
+    </AssociationSet>
   </EntityContainer>
   <Association Name="FK_tblDownloads_tblUsers1">
     <End Type="NotesMarketPlaceModel.tblUser" Role="tblUser" Multiplicity="1" />
@@ -588,6 +612,54 @@
       </Principal>
       <Dependent Role="tblDownload">
         <PropertyRef Name="Downloader" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblNoteCategories_tblUsers">
+    <End Type="NotesMarketPlaceModel.tblUser" Role="tblUser" Multiplicity="0..1" />
+    <End Type="NotesMarketPlaceModel.tblNoteCategory" Role="tblNoteCategory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblUser">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="tblNoteCategory">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblCountries_tblUsers">
+    <End Type="NotesMarketPlaceModel.tblUser" Role="tblUser" Multiplicity="0..1" />
+    <End Type="NotesMarketPlaceModel.tblCountry" Role="tblCountry" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblUser">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="tblCountry">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblNoteTypes_tblNoteTypes">
+    <End Type="NotesMarketPlaceModel.tblNoteType" Role="tblNoteType" Multiplicity="1" />
+    <End Type="NotesMarketPlaceModel.tblNoteType" Role="tblNoteType1" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="tblNoteType">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="tblNoteType1">
+        <PropertyRef Name="ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblNoteTypes_tblUsers">
+    <End Type="NotesMarketPlaceModel.tblUser" Role="tblUser" Multiplicity="0..1" />
+    <End Type="NotesMarketPlaceModel.tblNoteType" Role="tblNoteType" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblUser">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="tblNoteType">
+        <PropertyRef Name="CreatedBy" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

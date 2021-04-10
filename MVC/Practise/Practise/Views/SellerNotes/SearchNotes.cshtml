@@ -51,13 +51,7 @@
                         @Html.DropDownList("Country", new SelectList(ViewBag.NotesCountry, "ID", "Name"), "Select country", new { name = "Country", @class = "form-control sn-1", onchange = "submitForm()" })
                     </div>
                     <div class="col-md-2">
-                        @*<select class="form-control sn-1">
-                            <option value="" disabled selected hidden>Select rating</option>
-                            <option value="">..</option>
-                            <option value="">...</option>
-                            <option value="">....</option>
-                        </select>*@
-                        @Html.DropDownList("Ratings", new SelectList(ViewBag.Rate, "ID", "Ratings"), "Select rating", new { name = "Ratings", @class = "form-control sn-1", onchange = "submitForm()" })
+                        @Html.DropDownList("Ratings", new SelectList(ViewBag.Rating), "Select rating", new { name = "Ratings", @class = "form-control sn-1", onchange = "submitForm()" })
                     </div>
                 </div>
 
@@ -110,19 +104,9 @@
                                                 for (int i = 1; i <= 5; i++)
                                                 {
                                                     <i class="text-muted fa fa-star-o"></i>
-                                                    @*<label for="star5" title="text">@average</label>*@
                                                 }
                                             }
-                                            @*<input type="radio" id="star5" name="rate" value="5" />
-                                                <label for="star5" title="text">5 stars</label>
-                                                <input type="radio" id="star4" name="rate" value="4" />
-                                                <label for="star4" title="text">4 stars</label>
-                                                <input type="radio" id="star3" name="rate" value="3" />
-                                                <label for="star3" title="text">3 stars</label>
-                                                <input type="radio" id="star2" name="rate" value="2" />
-                                                <label for="star2" title="text">2 stars</label>
-                                                <input type="radio" id="star1" name="rate" value="1" />
-                                                <label for="star1" title="text">1 star</label>*@
+                                            
                                             <span>@count reviews</span>
                                         </div>
 

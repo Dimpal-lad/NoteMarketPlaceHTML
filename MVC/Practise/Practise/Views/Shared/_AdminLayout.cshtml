@@ -1,0 +1,230 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <!-- important meta tags-->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1.0,user-scalable=no">
+    <!--Google fonts-->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!--Bootstrap CSS-->
+    <link href="~/Content/Admin/css/bootstrap/bootstrap.min.css" rel="stylesheet" />
+    <!--Fontawesome-->
+    <link href="~/Content/Admin/css/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <!--Custom CSS-->
+    <link href="~/Content/Admin/css/style.css" rel="stylesheet" />
+    <!--Responsive CSS-->
+    <link href="~/Content/Admin/css/responsive.css" rel="stylesheet" />
+    <!--Favicon-->
+    <link rel="shortcut icon" href="~/Content/Admin/images/home/favicon.ico">
+    <title>@ViewBag.Title NotesMarketPlace</title>
+</head>
+<body>
+
+    <header>
+        <nav class="navbar">
+            <div class="container-fluid">
+                <div class="site-nav-wrapper">
+                    <div class="navbar-header">
+
+                        <!--Mobile Menu Open Button-->
+                        <span id="mobile-nav-open-btn">&#9776;</span>
+
+                        <!--Logo-->
+                        <a class="navbar-brand smooth-scroll" href="/Admin/AdminDashBoard">
+                            <img src="~/Content/Admin/images/pre-login/logo-dark.png" alt="logo">
+                        </a>
+
+                    </div>
+
+                    <!--Main Menu-->
+                    <div class="collapse navbar-collapse">
+                        <ul class="nav navbar-nav pull-right">
+                            <li class="nav-item"><a href="/Admin/AdminDashBoard" class="nav-link">Dashboard</a></li>
+
+                            <li class="nav-item dropdown">
+                                <a href="#" class=" dropdown-toggle nav-link" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span>Notes</span>
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenu">
+                                    <a class="dropdown-item" href="/AdminNoteStatus/NotesUnderReview">Notes Under Review</a>
+                                    <a class="dropdown-item" href="/AdminNoteStatus/PublishNotes">Published Notes</a>
+                                    <a class="dropdown-item" href="/AdminNoteStatus/DownloadNote">Downloaded Notes</a>
+                                    <a class="dropdown-item" href="/AdminNoteStatus/RejectedNotes">Rejected Notes</a>
+                                </div>
+
+                            </li>
+                            <li class="nav-item"><a href="/AdminMember/Members" class="nav-link">Members</a></li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="dropdown-toggle nav-link" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span>Reported</span>
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenu">
+                                    <a class="dropdown-item" href="/SpamReport/SpamReports">Spam Reports</a>
+                                </div>
+
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class=" dropdown-toggle nav-link" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span>Settings</span>
+                                </a>
+                                <div class="dropdown-menu setting" aria-labelledby="dropdownMenu">
+                                    <a class="dropdown-item" href="/ManageSystem/ManageSystemConfiguration">Manage System Configuration</a>
+                                    <a class="dropdown-item" href="/ManageSystem/ManageAdministrator">Manage Administrator</a><br />
+                                    <a class="dropdown-item" href="/ManageSystem/ManageCategory">Manage Category</a><br />
+                                    <a class="dropdown-item" href="/ManageSystem/ManageType">Manage Type</a><br />
+                                    <a class="dropdown-item" href="/ManageSystem/ManageCountry">Manage Countries</a>
+                                </div>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class=" dropdown-toggle nav-link" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <img src="@TempData[" ProfilePicture"]" alt="user" class="user-menu">
+                                    @{
+                                        TempData.Keep("ProfilePicture");
+                                    }
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenu">
+                                    <a class="dropdown-item" href="/Admin/AdminProfile">Update Profile</a><br>
+                                    <a class="dropdown-item" href="/User/ChangePassWord">Change Password</a><br>
+                                    <a class="dropdown-item" href="/User/Logout" style="color: #6255a5; font-weight: 600;" onclick="return confirm('Are you sure you want to Logout?');">LOGOUT</a>
+                                </div>
+
+                            </li>
+                            <li class="nav-item"><a href="/User/Logout" class="nav-link"><button class="btn btn-primary" id="btn-up-lg" type="submit" onclick="return confirm('Are you sure you want to Logout?');">Logout</button></a></li>
+                        </ul>
+                    </div>
+
+                    <!--Mobile Menu-->
+                    <div id="mobile-nav">
+                        <!--Mobile Menu Close Button-->
+                        <span id="mobile-nav-close-btn">&times;</span>
+                        <div id="mobile-nav-content">
+                            <ul class="nav">
+                                <li class="nav-item"><a href="/Admin/AdminDashBoard" class="nav-link">Dashboard</a></li>
+
+                                <li class="nav-item dropdown">
+                                    <a href="#" class=" dropdown-toggle nav-link" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <span>Notes</span>
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenu">
+                                        <a class="dropdown-item" href="/AdminNoteStatus/NotesUnderReview">Notes Under Review</a>
+                                        <a class="dropdown-item" href="/AdminNoteStatus/PublishNotes">Published Notes</a>
+                                        <a class="dropdown-item" href="/AdminNoteStatus/DownloadNote">Downloaded Notes</a>
+                                        <a class="dropdown-item" href="/AdminNoteStatus/RejectedNotes">Rejected Notes</a>
+                                    </div>
+
+                                </li>
+                                <li class="nav-item"><a href="/AdminMember/Members" class="nav-link">Members</a></li>
+                                <li class="nav-item dropdown">
+                                    <a href="#" class="dropdown-toggle nav-link" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <span>Reported</span>
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenu">
+                                        <a class="dropdown-item" href="/SpamReport/SpamReports">Spam Reports</a>
+                                    </div>
+
+                                </li>
+                                <li class="nav-item dropdown">
+                                    <a href="#" class=" dropdown-toggle nav-link" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <span>Settings</span>
+                                    </a>
+                                    <div class="dropdown-menu setting" aria-labelledby="dropdownMenu">
+                                        <a class="dropdown-item" href="/ManageSystem/ManageSystemConfiguration">Manage System Configuration</a>
+                                        <a class="dropdown-item" href="/ManageSystem/ManageAdministrator">Manage Administrator</a><br />
+                                        <a class="dropdown-item" href="/ManageSystem/ManageCategory">Manage Category</a><br />
+                                        <a class="dropdown-item" href="/ManageSystem/ManageType">Manage Type</a><br />
+                                        <a class="dropdown-item" href="/ManageSystem/ManageCountry">Manage Countries</a>
+                                    </div>
+                                </li>
+                                <li class="nav-item dropdown">
+                                    <a href="#" class=" dropdown-toggle nav-link" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <img src="TempData[" ProfilePicture"]" alt="user" class="user-menu">
+                                        @{
+                                            TempData.Keep("ProfilePicture");
+                                        }
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenu">
+                                        <a class="dropdown-item" href="/Admin/AdminProfile">Update Profile</a><br>
+                                        <a class="dropdown-item" href="/User/ChangePassWord">Change Password</a><br>
+                                        <a class="dropdown-item" href="/User/Logout" style="color: #6255a5; font-weight: 600;">LOGOUT</a>
+                                    </div>
+
+                                </li>
+                                <li class="nav-item"><a href="/User/Logout" class="nav-link"><button class="btn btn-primary" id="btn-up-lg" type="submit">Logout</button></a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </nav>
+    </header>
+
+
+    @RenderBody()
+
+    <script>
+        function submitForm() {
+
+            document.getElementById('SubmitForm').submit();
+
+        }
+
+        function profileValidation() {
+
+            var fileInput = document.getElementById('exampleInputpicture');
+            var filePath = fileInput.value;
+
+            var allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i;
+
+            if (!allowedExtensions.exec(filePath)) {
+                alert('Please upload file having extensions .jpeg/.jpg/.png/ only.');
+                fileInput.value = '';
+                document.getElementById('exampleInputpicture-error').innerHTML = "Select .png, .jpg or .jpeg file only";
+                document.getElementById('exampleInputpicture').focus;
+                return false;
+            }
+        }
+
+        function profileValidation() {
+
+            var fileInput = document.getElementById('exampleInputpicture');
+            var filePath = fileInput.value;
+
+            var allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i;
+
+            if (!allowedExtensions.exec(filePath)) {
+                alert('Please upload file having extensions .jpeg/.jpg/.png/ only.');
+                fileInput.value = '';
+                document.getElementById('exampleInputpicture-error').innerHTML = "Select .png, .jpg or .jpeg file only";
+                document.getElementById('exampleInputpicture').focus;
+                return false;
+            }
+        }
+
+    </script>
+    <!--Footer-->
+    <div class="container-fluid main-footer">
+        <div class="row">
+            <div class="col-md-6 version">
+                <p>Version:1.1.24</p>
+            </div>
+            <div class="col-md-6 text-right">
+                <p>Copyright &copy; Tatvasoft All rights reserved.</p>
+            </div>
+        </div>
+    </div>
+
+
+    <!--JQuery-->
+    <script src="~/Scripts/js/jquery-min.js"></script>
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+    <!--Bootstrap JS-->
+    <script src="~/Scripts/js/bootstrap/bootstrap.min.js"></script>
+    <!--Custom JS-->
+    <script src="~/Scripts/js/script.js"></script>
+</body>
+</html>

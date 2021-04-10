@@ -178,7 +178,7 @@
     <Property Name="City" Type="varchar" MaxLength="50" />
     <Property Name="State" Type="varchar" MaxLength="50" />
     <Property Name="ZipCode" Type="varchar" MaxLength="50" />
-    <Property Name="Country" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Country" Type="varchar" MaxLength="50" />
     <Property Name="University" Type="varchar" MaxLength="100" />
     <Property Name="College" Type="varchar" MaxLength="100" />
     <Property Name="CreatedDate" Type="datetime" />
@@ -216,6 +216,18 @@
     <Property Name="ModifiedBy" Type="int" />
     <Property Name="IsActive" Type="bit" Nullable="false" />
   </EntityType>
+  <Association Name="FK_tblCountries_tblUsers">
+    <End Role="tblUsers" Type="Self.tblUsers" Multiplicity="0..1" />
+    <End Role="tblCountries" Type="Self.tblCountries" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblUsers">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="tblCountries">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_tblDownloads_tblSellerNotes">
     <End Role="tblSellerNotes" Type="Self.tblSellerNotes" Multiplicity="1" />
     <End Role="tblDownloads" Type="Self.tblDownloads" Multiplicity="*" />
@@ -249,6 +261,42 @@
       </Principal>
       <Dependent Role="tblDownloads">
         <PropertyRef Name="Downloader" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblNoteCategories_tblUsers">
+    <End Role="tblUsers" Type="Self.tblUsers" Multiplicity="0..1" />
+    <End Role="tblNoteCategories" Type="Self.tblNoteCategories" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblUsers">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="tblNoteCategories">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblNoteTypes_tblNoteTypes">
+    <End Role="tblNoteTypes" Type="Self.tblNoteTypes" Multiplicity="1" />
+    <End Role="tblNoteTypes1" Type="Self.tblNoteTypes" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="tblNoteTypes">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="tblNoteTypes1">
+        <PropertyRef Name="ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblNoteTypes_tblUsers">
+    <End Role="tblUsers" Type="Self.tblUsers" Multiplicity="0..1" />
+    <End Role="tblNoteTypes" Type="Self.tblNoteTypes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblUsers">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="tblNoteTypes">
+        <PropertyRef Name="CreatedBy" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -458,6 +506,10 @@
     <EntitySet Name="tblUserProfile" EntityType="Self.tblUserProfile" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tblUserRoles" EntityType="Self.tblUserRoles" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tblUsers" EntityType="Self.tblUsers" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_tblCountries_tblUsers" Association="Self.FK_tblCountries_tblUsers">
+      <End Role="tblUsers" EntitySet="tblUsers" />
+      <End Role="tblCountries" EntitySet="tblCountries" />
+    </AssociationSet>
     <AssociationSet Name="FK_tblDownloads_tblSellerNotes" Association="Self.FK_tblDownloads_tblSellerNotes">
       <End Role="tblSellerNotes" EntitySet="tblSellerNotes" />
       <End Role="tblDownloads" EntitySet="tblDownloads" />
@@ -469,6 +521,18 @@
     <AssociationSet Name="FK_tblDownloads_tblUsers1" Association="Self.FK_tblDownloads_tblUsers1">
       <End Role="tblUsers" EntitySet="tblUsers" />
       <End Role="tblDownloads" EntitySet="tblDownloads" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblNoteCategories_tblUsers" Association="Self.FK_tblNoteCategories_tblUsers">
+      <End Role="tblUsers" EntitySet="tblUsers" />
+      <End Role="tblNoteCategories" EntitySet="tblNoteCategories" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblNoteTypes_tblNoteTypes" Association="Self.FK_tblNoteTypes_tblNoteTypes">
+      <End Role="tblNoteTypes" EntitySet="tblNoteTypes" />
+      <End Role="tblNoteTypes1" EntitySet="tblNoteTypes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblNoteTypes_tblUsers" Association="Self.FK_tblNoteTypes_tblUsers">
+      <End Role="tblUsers" EntitySet="tblUsers" />
+      <End Role="tblNoteTypes" EntitySet="tblNoteTypes" />
     </AssociationSet>
     <AssociationSet Name="FK_tblSellerNotes_tblCountries" Association="Self.FK_tblSellerNotes_tblCountries">
       <End Role="tblCountries" EntitySet="tblCountries" />

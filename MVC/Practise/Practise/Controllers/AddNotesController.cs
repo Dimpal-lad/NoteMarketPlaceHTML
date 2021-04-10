@@ -5,6 +5,7 @@ using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Mail;
 using System.Web;
 using System.Web.Mvc;
 
@@ -15,14 +16,13 @@ namespace Practise.Controllers
 
         private readonly NotesMarketPlaceEntities2 dbObj = new NotesMarketPlaceEntities2();
         // GET: AddNote
-        [Authorize]
+        [Authorize(Roles = "Member")]
         public ActionResult AddNotes()
         {
             ViewBag.NotesCategory = dbObj.tblNoteCategories.Where(x => x.IsActive == true);
             ViewBag.NotesCountry = dbObj.tblCountries.Where(x => x.IsActive == true);
             ViewBag.NotesType = dbObj.tblNoteTypes.Where(x => x.IsActive == true);
             return View();
-
         }
 
         [HttpPost]
@@ -82,7 +82,7 @@ namespace Practise.Controllers
                 //If user does not upload Display picture
                 else
                 {
-                    sellerNote.DisplayPicture = "/DefaultImage/4.jpg";
+                    sellerNote.DisplayPicture = "/DefaultImage/DN_.jpg";
                     dbObj.SaveChanges();
                 }
 
@@ -146,9 +146,6 @@ namespace Practise.Controllers
                     string extension = Path.GetExtension(addnote.NotesPreview.FileName);
                     _FileName = DateTime.Now.ToString("ddmmyyyy") + extension;
                     string finalp = Path.Combine(storepath, _FileName);
-                    //addnote.DisplayPicture.SaveAs(finalp);
-                    //addnote.FilePath = "/Images/" + _FileName;
-                    //_FileName = Path.Combine(Server.MapPath("/Images/" + user.ID + "/" + noteId), _FileName);
                     addnote.NotesPreview.SaveAs(finalp);
                     sellerNote.NotesPreview = Path.Combine(("/Images/" + user.ID + "/" + noteId + "/"), _FileName);
                     dbObj.SaveChanges();
@@ -164,6 +161,7 @@ namespace Practise.Controllers
             return View(addnote);
         }
 
+        [Authorize(Roles = "Member")]
         public ActionResult EditNotes(int? id)
         {
             if (id == null)
@@ -204,10 +202,14 @@ namespace Practise.Controllers
 
         [HttpPost]
        
-        public ActionResult EditNotes(int? id, string save, Addnote addnote1)
+        public ActionResult EditNotes(int id, string save, Addnote addnote1)
         {
            
             tblSellerNote sellerNote = dbObj.tblSellerNotes.Find(id);
+            tblSystemConfiguration systemConfiguration = dbObj.tblSystemConfigurations.Where(x => x.Key.ToLower() == "Support email address").FirstOrDefault();
+            tblSystemConfiguration systemConfiguration1 = dbObj.tblSystemConfigurations.Where(x => x.Key.ToLower() == "Password").FirstOrDefault();
+            tblSystemConfiguration systemConfiguration2 = dbObj.tblSystemConfigurations.Where(x => x.Key.ToLower() == "Email Address(es)").FirstOrDefault();
+
 
             sellerNote.ID = addnote1.ID;
             sellerNote.Title = addnote1.Title;
@@ -231,7 +233,8 @@ namespace Practise.Controllers
             }
             else
             {
-                sellerNote.Status = dbObj.tblReferenceDatas.Where(x => x.RefCategory.ToLower() == "Notes Status" && x.Value.ToLower() == "Submitted For Review").Select(x => x.ID).FirstOrDefault(); 
+                sellerNote.Status = dbObj.tblReferenceDatas.Where(x => x.RefCategory.ToLower() == "Notes Status" && x.Value.ToLower() == "Submitted For Review").Select(x => x.ID).FirstOrDefault();
+                SendEmailtoAdmin(systemConfiguration.Value, systemConfiguration1.Value, systemConfiguration2.Value, id);
             }
 
             dbObj.Entry(sellerNote).State = EntityState.Modified;
@@ -246,6 +249,40 @@ namespace Practise.Controllers
             ViewBag.NotesType = dbObj.tblNoteTypes.Where(x => x.IsActive == true);
             return RedirectToAction("DashBoard", "SellerNotes");
             return View(addnote1);
+        }
+
+        [NonAction]
+        public void SendEmailtoAdmin(string supportemailID, string password, string emailID, int id)
+        {
+            tblSellerNote sellerNote = dbObj.tblSellerNotes.Where(x => x.ID == id).FirstOrDefault();
+            tblUser user1 = dbObj.tblUsers.Where(x => x.ID == sellerNote.SellerID).FirstOrDefault();
+
+            var fromEmail = new MailAddress(supportemailID, "Notes Marketplace"); //need system email
+            var toEmail = new MailAddress(emailID);
+            var fromEmailPassword = password; // Replace with actual password
+            string subject = user1.FirstName + " " + "sent his note for review";
+            string body = "<br/>Hello Admin,<br/>";
+            body += "We want to inform you that," + " " + user1.FirstName + " " + " sent his note <br/>";
+            body += sellerNote.Title+" "+"for review.Please look at the notes and take required actions." ;
+            body += "<br/><br/>Regards,<br/>";
+            body += "Notes Marketplace";
+            var smtp = new SmtpClient
+            {
+                Host = "smtp.gmail.com",
+                Port = 587,
+                EnableSsl = true,
+                DeliveryMethod = SmtpDeliveryMethod.Network,
+                UseDefaultCredentials = false,
+                Credentials = new NetworkCredential(fromEmail.Address, fromEmailPassword)
+            };
+
+            using (var message = new MailMessage(fromEmail, toEmail)
+            {
+                Subject = subject,
+                Body = body,
+                IsBodyHtml = true
+            })
+                smtp.Send(message);
         }
 
     }

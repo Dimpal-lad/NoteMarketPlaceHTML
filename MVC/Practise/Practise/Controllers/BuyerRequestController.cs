@@ -15,7 +15,7 @@ namespace Practise.Controllers
     {
         private readonly NotesMarketPlaceEntities2 dbObj = new NotesMarketPlaceEntities2();
         // GET: BuyerRequest
-        //[Authorize]
+        [Authorize(Roles = "Member")]
         public ActionResult BuyerRequest(string searchTxt,int? page,string sortOrder)
         {
             var EmailId = User.Identity.Name.ToString();
@@ -82,6 +82,9 @@ namespace Practise.Controllers
             var v = dbObj.tblDownloads.Where(x =>x.NoteID == id && x.IsSellerHasAllowedDownload==false && x.Downloader==buyerID).FirstOrDefault();
             tblSellerNotesAttachment sellerNotesAttachment = dbObj.tblSellerNotesAttachments.Where(x => x.NoteID == id).FirstOrDefault();
             tblSellerNote sellerNote = dbObj.tblSellerNotes.Where(x => x.ID == id).FirstOrDefault();
+            tblSystemConfiguration systemConfiguration = dbObj.tblSystemConfigurations.Where(x => x.Key.ToLower() == "Support email address").FirstOrDefault();
+            tblSystemConfiguration systemConfiguration1 = dbObj.tblSystemConfigurations.Where(x => x.Key.ToLower() == "Password").FirstOrDefault();
+
             if (v != null)
             {
                 v.IsSellerHasAllowedDownload = true;
@@ -91,13 +94,13 @@ namespace Practise.Controllers
             }
 
             tblUser user = dbObj.tblUsers.Where(x => x.ID == v.Downloader).FirstOrDefault();
-            SendEmailtoBuyer(user.EmailID.ToString(),v.NoteID);
+            SendEmailtoBuyer(user.EmailID.ToString(),v.NoteID,systemConfiguration.Value,systemConfiguration1.Value);
             return RedirectToAction("SearchNotes", "SellerNotes");
         }
 
 
         [NonAction]
-        public void SendEmailtoBuyer(string emailID,int noteId)
+        public void SendEmailtoBuyer(string emailID,int noteId,string supportemailID, string password)
         {
             
             tblUser user = dbObj.tblUsers.Where(x => x.EmailID == emailID).FirstOrDefault();
@@ -106,9 +109,9 @@ namespace Practise.Controllers
 
             tblUser user1 = dbObj.tblUsers.Where(x => x.ID == sellerNote.SellerID).FirstOrDefault();
 
-            var fromEmail = new MailAddress("dnlad22@gmail.com", "Notes Marketplace"); //need system email
+            var fromEmail = new MailAddress(supportemailID, "Notes Marketplace"); //need system email
             var toEmail = new MailAddress(emailID);
-            var fromEmailPassword = "jkqobpmshhmlgumw"; // Replace with actual password
+            var fromEmailPassword = password; // Replace with actual password
             string subject = user1.FirstName + " " + "Allows you to download a note ";
             string body = "<br/>Hello" + " " + user.FirstName + " ,<br/>";
             body += "We would like to inform you that, " + user1.FirstName + " " + "Allows you to downnload a note.<br/> Please login and see My Download tabs to download particular note ";

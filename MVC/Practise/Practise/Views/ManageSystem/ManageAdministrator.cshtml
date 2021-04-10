@@ -1,0 +1,93 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model IPagedList<Practise.Models.tblUser>
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container-m_ad">
+    <h3>Manage Administrator</h3>
+    @using (Html.BeginForm("ManageAdministrator", "ManageSystem", FormMethod.Get))
+    {
+        <div class="row">
+            <div class="col-md-6">
+                <a href="/SystemAdd/AddAdministrator"><button type="button" class="form-control" id="search-add"> ADD ADMINISTRATOR</button></a>
+            </div>
+            <div class="col-md-4">
+                <input type="text" class="form-control" id="search-ds" name="searchTxt" placeholder="&#xf002;  Search">
+
+            </div>
+            <div class="col-md-2">
+                <button type="submit" class="form-control" id="search-ds01">SEARCH</button>
+            </div>
+        </div>
+    }
+    <table class="table border">
+        <thead>
+            <tr class="table11" style="height: 75px;">
+                <th scope="col" style="vertical-align: middle;">SR NO.</th>
+                <th scope="col" style="vertical-align: middle;text-align: left;">@Html.ActionLink("FIRST NAME", "ManageAdministrator", new { sortOrder = ViewBag.FirstSortParm })</th>
+                <th scope="col" style="vertical-align: middle;text-align: left;">@Html.ActionLink("LAST NAME", "ManageAdministrator", new { sortOrder = ViewBag.LastSortParm })</th>
+                <th scope="col" style="vertical-align: middle;text-align: left;">@Html.ActionLink("EMAIL", "ManageAdministrator", new { sortOrder = ViewBag.EmailIDSortParm })</th>
+                <th scope="col" style="vertical-align: middle;">PHONE NO.</th>
+                <th scope="col" style="vertical-align: middle;">@Html.ActionLink("DATE ADDED", "ManageAdministrator", new { sortOrder = ViewBag.CreatedDateParm })</th>
+                <th scope="col" style="vertical-align: middle;">@Html.ActionLink("ACTIVE", "ManageAdministrator", new { sortOrder = ViewBag.ActiveParm })</th>
+                <th scope="col" style="vertical-align: middle;">ACTION</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                var count = 0;
+            }
+            @if (Model.Count() == 0)
+            {
+                <tr>
+                    <td colspan="6" class="text-center">
+                        No record found
+                    </td>
+                </tr>
+            }
+            @foreach (var item in Model)
+            {
+
+                <tr class="table2">
+                    <td style="vertical-align: middle;">@(count + ((Model.PageNumber - 1) * Model.PageSize) + 1)</td>
+                    <td style="vertical-align: middle;text-align: left;">@item.FirstName</td>
+                    <td style="vertical-align: middle;text-align: left;">@item.LastName</td>
+                    <td style="vertical-align: middle;text-align: left;">@item.EmailID</td>
+                    <td style="vertical-align: middle;">@item.tblUserProfiles.Where(x => x.UserID == x.tblUser.ID).Select(x => x.PhoneNumber).FirstOrDefault()</td>
+                    <td style="vertical-align: middle;">@item.CreatedDate</td>
+                    <td style="vertical-align: middle;">
+                        @if (@item.IsActive == true)
+                        {
+                            <p>Yes</p>
+                        }
+                        else
+                        {
+                            <p>No</p>
+                        }
+                    </td>
+                    <td style="vertical-align: middle;">
+                        <a href="/SystemAdd/AddAdministrator/@item.ID"><img src="~/Content/Admin/images/My Administrator/edit.png" class="edit" style="padding-right: 10px;"> </a>
+                        <a href="/SystemAdd/DeleteAdministrator/@item.ID"><img src="~/Content/Admin/images/My Administrator/delete.png" class="delete" onclick="return confirm('Are you sure you want to make this administrator inactive?');" role="button"></a>
+                    </td>
+                </tr>
+                count++;
+            }
+        </tbody>
+    </table>
+
+</div>
+
+<!--Pagination-->
+<div class="text-center">
+    <ul class="pagination">
+        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+        @Html.PagedListPager(Model, page => Url.Action("ManageAdministrator",
+            new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }),
+            new PagedListRenderOptions() { Display = PagedListDisplayMode.IfNeeded, MaximumPageNumbersToDisplay = 5 })
+
+    </ul>
+</div>

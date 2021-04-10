@@ -1,0 +1,138 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+
+@model IPagedList<Practise.Models.DashboardModel>
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<div class="container-m_ad">
+    <h3>Published Notes</h3>
+    <div class="row notes-under">
+        <div class="col-md-12">
+            <label class="nur">Seller</label>
+        </div>
+    </div>
+    @using (Html.BeginForm("PublishNotes", "AdminNoteStatus", FormMethod.Get, new { @id = "SubmitForm" }))
+    {
+        <div class="row">
+            <div class="col-md-2">
+                @Html.DropDownList("Seller", new SelectList(ViewBag.Seller, "ID", "FirstName"), "Select Seller", new { name = "Seller", @class = "form-control seller", onchange = "submitForm()" })
+            </div>
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+                <input type="text" class="form-control" id="search-ds" name="searchNote" placeholder="&#xf002;  Search">
+
+            </div>
+            <div class="col-md-2">
+                <button type="submit" class="form-control" id="search-ds01">SEARCH</button>
+            </div>
+        </div>
+    }
+    <table class="table border">
+        <thead>
+            <tr class="table11" style="height: 75px;">
+                <th scope="col" style="vertical-align: middle;">SR NO.</th>
+                <th scope="col" style="vertical-align: middle;text-align: left;">@Html.ActionLink("NOTE TITLE", "PublishNotes", new { sortOrder1 = ViewBag.TitleSortParm1 })</th>
+                <th scope="col" style="vertical-align: middle;text-align: left;">@Html.ActionLink("CATEGORY", "PublishNotes", new { sortOrder1 = ViewBag.CategorySortParm1 })</th>
+                <th scope="col" style="vertical-align: middle;text-align: left;">@Html.ActionLink("SELL TYPE", "PublishNotes", new { sortOrder1 = ViewBag.SellTypeParm1 })</th>
+                <th scope="col" style="vertical-align: middle;text-align: left;">@Html.ActionLink("PRICE", "PublishNotes", new { sortOrder1 = ViewBag.PriceParm1 })</th>
+                <th scope="col" style="vertical-align: middle;text-align: left;">@Html.ActionLink("SELLER", "PublishNotes", new { sortOrder1 = ViewBag.SellerParm1 })</th>
+                <th scope="col"></th>
+                <th scope="col" style="vertical-align: middle;text-align: left;">@Html.ActionLink("PUBLISHED DATE", "PublishNotes", new { sortOrder1 = ViewBag.PublishDateSortParm1 })</th>
+                <th scope="col" style="vertical-align: middle;text-align: left;">APPROVED BY</th>
+                <th scope="col" style="vertical-align: middle;">@Html.ActionLink("NUMBER OF DOWNLOADS", "PublishNotes", new { sortOrder1 = ViewBag.DownloadNoParm1 })</th>
+                <th scope="col" style="vertical-align: middle;"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                var count = 0;
+            }
+            @if (Model.Count() == 0)
+            {
+                <tr>
+                    <td colspan="6" class="text-center">
+                        No record found
+                    </td>
+                </tr>
+            }
+            @foreach (var item in Model)
+            {
+                <tr class="table2">
+                    <td style="vertical-align: middle; text-align: center;">@(count + ((Model.PageNumber - 1) * Model.PageSize) + 1)</td>
+                    <td style="vertical-align: middle; color: #6255a5;text-align: left;"><a href="/Admin/AdminNoteDetails/@item.sellernoteinfo.ID">@item.sellernoteinfo.Title</a></td>
+                    <td style="vertical-align: middle;text-align: left;">@item.noteCategoryinfo.Name</td>
+                    @if (@item.sellernoteinfo.IsPaid == true)
+                    {
+                        <td style="vertical-align: middle;">Paid</td>
+                    }
+                    else
+                    {
+                        <td style="vertical-align: middle;">Free</td>
+                    }
+                    <td style="vertical-align: middle;text-align: left;">&#36;@item.sellernoteinfo.SellingPrice</td>
+                    <td style="vertical-align: middle;text-align: left;">@item.sellernoteinfo.tblUser.FirstName @item.sellernoteinfo.tblUser.LastName</td>
+                    <td style="vertical-align: middle;text-align: left;"><a href="/AdminMember/MembersDetails/@item.sellernoteinfo.SellerID"><img src="~/Content/Admin/images/assets/eye.png"></a></td>
+                    <td style="vertical-align: middle;text-align: left;">@item.sellernoteinfo.PublishedDate</td>
+                    <td style="vertical-align: middle;text-align: left;">@item.sellernoteinfo.tblUser1.FirstName @item.sellernoteinfo.tblUser1.LastName</td>
+                    <td style="vertical-align: middle;"><a href="/AdminNoteStatus/DownloadNote">@item.sellernoteinfo.tblDownloads.Where(x => x.IsSellerHasAllowedDownload == true).Select(x => x.NoteID).Count()</a></td>
+                    <td style="vertical-align: middle;">
+                        <div class="dropdown1">
+                            <img src="~/Content/Admin/images/My Download/dots.png" class="dots">
+                            <div class="dropdown-content1">
+                                <a href="/UserActivityStatus/DownloadNote/@item.sellernoteinfo.ID">Download Notes</a>
+                                <a href="/Admin/AdminNoteDetails/@item.sellernoteinfo.ID">View More Details</a>
+                                <a  data-toggle="modal" data-target="#exampleModal_@item.sellernoteinfo.ID" value="@item.sellernoteinfo.ID">Unpublish</a>
+                            </div>
+                        </div>
+
+                        <!-- Unpublish Note -->
+                        <div class="modal fade " id="exampleModal_@item.sellernoteinfo.ID" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content md01 text-left">
+
+
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" value="Cancel">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    @using (Html.BeginForm("Unpublish", "AdminNoteStatus", FormMethod.Post))
+                                    {
+                                        <div class="modal-body md02">
+                                            <input type="hidden" name="id" value="@item.sellernoteinfo.ID" />
+                                            <h4 class="text-left">@item.sellernoteinfo.Title-@item.noteCategoryinfo.Name</h4>
+                                            <label for="text-area"><span class="text-left review-label ">Remarks*</span></label>
+                                            <textarea class="form-control md03" placeholder="Write remarks" rows="5" name="remark" required></textarea>
+                                            <form style="float:right;">
+                                                <button class="btn btn-primary reject" type="submit" style="margin-bottom:10px;" onclick="return confirm('Are you sure you want to Unpublish this note?');">Unpublish</button>
+                                                <button class="btn btn-primary inreview" type="submit" style="margin-bottom:10px;" value="Cancel" data-dismiss="modal">Cancel</button>
+                                            </form>
+                                        </div>
+                                    }
+                                </div>
+
+                            </div>
+                        </div>
+                    </td>
+
+                </tr>
+                count++;
+            }
+            
+        </tbody>
+    </table>
+
+</div>
+
+<!--Pagination-->
+<div class="text-center">
+    <ul class="pagination">
+        
+        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+        @Html.PagedListPager(Model, pagepublish => Url.Action("PublishNotes",
+            new { pagepublish, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }),
+            new PagedListRenderOptions() { Display = PagedListDisplayMode.IfNeeded, MaximumPageNumbersToDisplay = 5 })
+    </ul>
+</div>

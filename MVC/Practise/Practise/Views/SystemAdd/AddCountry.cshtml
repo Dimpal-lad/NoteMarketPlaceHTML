@@ -1,0 +1,23 @@
+﻿@model Practise.Models.AddCountryModel
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+@using (Html.BeginForm("AddCountry", "SystemAdd", FormMethod.Post))
+{
+    <div class="container-db">
+        <h1>Add Country</h1>
+        <div class="row mp01">
+            <div class="col-md-6 form-group">
+                <label for="exampleInputtitle">Country Name<span class="required">*</span></label>
+                @Html.TextBoxFor(x => x.CountryName, new { @class = "form-control mp02", @placeholder = "Enter your country name" })
+                @Html.ValidationMessageFor(x => x.CountryName, "", new { @class = "text-danger" })
+                
+                <label for="exampleInputtitle">Country Code<span class="required">*</span></label>
+                @Html.TextBoxFor(x => x.CountryCode, new { @class = "form-control mp02", @placeholder = "Enter your country code" })
+                @Html.ValidationMessageFor(x => x.CountryCode, "", new { @class = "text-danger" })
+                
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary btn-md btn-submit">SUBMIT</button>
+    </div>
+}

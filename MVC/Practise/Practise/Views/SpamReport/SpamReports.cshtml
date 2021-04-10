@@ -1,0 +1,95 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model IPagedList<Practise.Models.tblSellerNotesReportedIssue>
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<div class="container-m_ad">
+    @using (Html.BeginForm("SpamReports", "SpamReport", FormMethod.Get))
+    {
+        <div class="row">
+            <div class="col-md-6">
+                <h3>Spam Reports</h3>
+            </div>
+            <div class="col-md-4">
+                <input type="text" class="form-control" id="search-ds" name="searchTxt" placeholder="&#xf002;  Search">
+
+            </div>
+            <div class="col-md-2">
+                <button type="submit" class="form-control" id="search-ds01">SEARCH</button>
+            </div>
+        </div>
+    }
+    <table class="table border">
+        <thead>
+            <tr class="table11" style="height: 75px;">
+                <th scope="col" style="vertical-align: middle;">SR NO.</th>
+                <th scope="col" style="vertical-align: middle;text-align: left;">@Html.ActionLink("REPORTED BY", "SpamReports", new { sortOrder = ViewBag.Name })</th>
+                <th scope="col" style="vertical-align: middle;text-align: left;">@Html.ActionLink("NOTE TITLE", "SpamReports", new { sortOrder = ViewBag.TitleSortParm })</th>
+                <th scope="col" style="vertical-align: middle;text-align: left;">@Html.ActionLink("CATEGORY", "SpamReports", new { sortOrder = ViewBag.CategorySortParm })</th>
+                <th scope="col" style="vertical-align: middle;text-align: left;">@Html.ActionLink("DATE EDITED", "SpamReports", new { sortOrder = ViewBag.AddedDateSortParm })</th>
+                <th scope="col" style="vertical-align: middle;text-align: left;">@Html.ActionLink("REMARK", "SpamReports", new { sortOrder = ViewBag.RemarkParm })</th>
+                <th scope="col" style="vertical-align: middle;">ACTION</th>
+                <th scope="col" style="vertical-align: middle;"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                var count = 0;
+            }
+            @if (Model.Count() == 0)
+            {
+                <tr>
+                    <td colspan="6" class="text-center">
+                        No record found
+                    </td>
+                </tr>
+            }
+            @foreach (var item in Model)
+            {
+                <tr class="table2">
+                    <td style="vertical-align: middle;">@(count + ((Model.PageNumber - 1) * Model.PageSize) + 1)</td>
+                    <td style="vertical-align: middle;text-align: left;">
+                        @item.tblUser.tblSellerNotesReportedIssues.Where(x => x.CreatedBy == x.tblUser.ID).Select(m => m.tblUser.FirstName).FirstOrDefault()
+                        @item.tblUser.tblSellerNotesReportedIssues.Where(x => x.CreatedBy == x.tblUser.ID).Select(m => m.tblUser.LastName).FirstOrDefault()
+                    </td>
+                    <td style="vertical-align: middle; color: #6255a5;text-align: left;">@item.tblSellerNote.Title</td>
+                    <td style="vertical-align: middle;text-align: left;">@item.tblSellerNote.tblNoteCategory.Name</td>
+                    <td style="vertical-align: middle;text-align: left;">@item.CreatedDate</td>
+                    <td style="vertical-align: middle;text-align: left;">@item.Remarks</td>
+                    <td style="vertical-align: middle;">
+                        <a href="/SpamReport/DeleteSpamReport/@item.NoteID">
+                            <img src="~/Content/Admin/images/My Administrator/delete.png" class="delete" onclick="return confirm('Are you sure you want to delete reported issue?');" role="button">
+                        </a>
+                    </td>
+                    <td style="vertical-align: middle;">
+                        <div class="dropdown2">
+                            <img src="~/Content/Admin/images/My Download/dots.png" class="dots">
+                            <div class="dropdown-content2">
+                                <a  href="/UserActivityStatus/DownloadNote/@item.NoteID">Download Notes</a>
+                                <a href="/Admin/AdminNoteDetails/@item.NoteID">View More Details</a>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                count++;
+            }
+
+        </tbody>
+    </table>
+
+</div>
+
+<!--Pagination-->
+<div class="text-center">
+    <ul class="pagination">
+        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+        @Html.PagedListPager(Model, page => Url.Action("SpamReports",
+            new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }),
+            new PagedListRenderOptions() { Display = PagedListDisplayMode.IfNeeded, MaximumPageNumbersToDisplay = 5 })
+
+    </ul>
+</div>

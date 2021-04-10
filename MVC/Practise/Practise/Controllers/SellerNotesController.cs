@@ -10,6 +10,7 @@ using System.Net;
 using System.IO;
 using Ionic.Zip;
 using System.Net.Mail;
+using System.Data.Entity;
 
 namespace Practise.Controllers
 {
@@ -19,7 +20,7 @@ namespace Practise.Controllers
         private readonly NotesMarketPlaceEntities2 dbObj = new NotesMarketPlaceEntities2();
         // GET: SellerNotes
 
-        [Authorize]
+        [Authorize(Roles = "Member")]
         public ActionResult DashBoard(string searchTxt, int? page, string sortOrder, string currentFilter, string searchNote, int? pagepublish, string sortOrder1, string currentFilter1)
         {
             //For In Progress Notes
@@ -134,7 +135,7 @@ namespace Practise.Controllers
             {
                 multipletable1 = multipletable1.Where(x => x.noteCategoryinfo.Name.Contains(searchNote) || x.sellernoteinfo.Title.Contains(searchNote) || searchNote == null);
             }
-            
+
             switch (sortOrder1)
             {
                 case "addedate_desc1":
@@ -157,6 +158,11 @@ namespace Practise.Controllers
                     break;
             }
 
+            ViewBag.RejectedNote = dbObj.tblSellerNotes.Where(x => x.SellerID == user.ID && x.tblReferenceData.Value.ToLower() == "Rejected").Count();
+            ViewBag.DownloadNote = dbObj.tblDownloads.Where(x => x.Downloader == user.ID && x.IsSellerHasAllowedDownload == true).Count();
+            ViewBag.SoldNote = dbObj.tblDownloads.Where(x => x.Seller == user.ID && x.IsSellerHasAllowedDownload == true).Count();
+            ViewBag.BuyerRequest = dbObj.tblDownloads.Where(x => x.IsPaid == true && x.Seller == user.ID && x.IsSellerHasAllowedDownload == false).Count();
+            ViewBag.SellingPrice = dbObj.tblDownloads.Where(x => x.Seller == user.ID && x.IsSellerHasAllowedDownload == true).Sum(x => x.PurchasedPrice);
             int pageSize1 = 5;
             int pageNumber1 = (pagepublish ?? 1);
             ViewBag.multipletable1 = multipletable1.ToList().ToPagedList(pageNumber1, pageSize1);
@@ -175,35 +181,31 @@ namespace Practise.Controllers
             return RedirectToAction("DashBoard", "SellerNotes");
         }
 
-        public ActionResult SearchNotes(string searchTxt, int? page, string NoteType, string Category, string UniversityName, string Course, string Country)
+        public ActionResult SearchNotes(string searchTxt, int? page, string NoteType, string Category, string UniversityName, string Course, string Country,string Ratings)
         {
-            var EmailId = User.Identity.Name.ToString();
-
-            tblUser user = dbObj.tblUsers.Where(x => x.EmailID == EmailId).FirstOrDefault();
             List<tblSellerNote> tblSellers = dbObj.tblSellerNotes.OrderBy(x => x.Title).ToList();
             List<tblNoteCategory> tblNotes = dbObj.tblNoteCategories.ToList();
             List<tblReferenceData> tblReferenceDatas = dbObj.tblReferenceDatas.Where(x => x.RefCategory == "Notes Status" && x.Value == "Published").ToList();
             List<tblSellerNotesReview> tblSellerNotesReviews = dbObj.tblSellerNotesReviews.ToList();
-            
+
             var multipletable = from s in tblSellers
                                 join n in tblNotes on s.Category equals n.ID into table1
                                 from n in table1.ToList()
                                 join r in tblReferenceDatas on s.Status equals r.ID into table2
                                 from r in table2.ToList()
-                                //join nreview in tblSellerNotesReviews on s.ID equals nreview.NoteID into table3
-                                //from nreview in table3.ToList()
                                 where (r.Value == "Published" && ((s.NoteType.ToString() == NoteType || String.IsNullOrEmpty(NoteType)) &&
                                                                   (s.Category.ToString() == Category || String.IsNullOrEmpty(Category)) &&
                                                                   (s.UniversityName == UniversityName || String.IsNullOrEmpty(UniversityName)) &&
                                                                   (s.Course == Course || String.IsNullOrEmpty(Course)) &&
-                                                                  (s.Country.ToString() == Country || String.IsNullOrEmpty(Country))
+                                                                  (s.Country.ToString() == Country || String.IsNullOrEmpty(Country)) &&
+                                                                  ((Math.Round(s.tblSellerNotesReviews.Where(x => x.NoteID == s.ID).Count() == 0 ? 0 : s.tblSellerNotesReviews.Where(x => x.NoteID == s.ID).Sum(r => r.Ratings) / s.tblSellerNotesReviews.Where(x => x.NoteID == s.ID).Count())).ToString() == Ratings || String.IsNullOrEmpty(Ratings))
                                                                  ))
                                 select new SearchNoteModel
                                 {
                                     sellernoteinfo = s,
                                     referenceDatainfo = r,
                                     noteCategoryinfo = n,
-                                    //notesReviewinfo = nreview
+
                                 };
 
             if (!String.IsNullOrEmpty(searchTxt))
@@ -211,9 +213,7 @@ namespace Practise.Controllers
                 multipletable = multipletable.Where(x => x.sellernoteinfo.Title.Contains(searchTxt) || searchTxt == null).ToList();
             }
 
-            //tblUserProfile userProfile = dbObj.tblUserProfiles.Where(x => x.UserID == user.ID).FirstOrDefault();
-            //TempData["ProfilePicture"] = userProfile.ProfilePicture;
-            ViewBag.Rate = dbObj.tblSellerNotesReviews.Where(x => x.IsActive == true);
+            
             ViewBag.NotesType = dbObj.tblNoteTypes.Where(x => x.IsActive == true);
             ViewBag.NotesCategory = dbObj.tblNoteCategories.Where(x => x.IsActive == true);
             ViewBag.UniversityName = dbObj.tblSellerNotes.Where(x => x.UniversityName != null).Select(x => x.UniversityName).Distinct();
@@ -221,8 +221,11 @@ namespace Practise.Controllers
             ViewBag.NotesCountry = dbObj.tblCountries.Where(x => x.IsActive == true);
             int pageSize = 9;
             int pageNumber = (page ?? 1);
+            tblUserProfile userProfile = dbObj.tblUserProfiles.FirstOrDefault();
+            TempData["ProfilePicture"] = userProfile.ProfilePicture;
 
             ViewBag.totalCount = multipletable.Count();
+            ViewBag.Rating = Enumerable.Range(0, 6).ToList();
             return View(multipletable.ToPagedList(pageNumber, pageSize));
         }
 
@@ -239,68 +242,81 @@ namespace Practise.Controllers
         public ActionResult Download(int id)
         {
 
-            tblSellerNote sellerNote = dbObj.tblSellerNotes.Find(id);
-
-            tblSellerNotesAttachment sellerNotesAttachment = dbObj.tblSellerNotesAttachments.Where(x=>x.NoteID==id).FirstOrDefault();
+            tblSellerNote sellerNote = dbObj.tblSellerNotes.Where(x => x.ID == id && x.tblReferenceData.Value == "Published").FirstOrDefault();
+            tblSellerNotesAttachment sellerNotesAttachment = dbObj.tblSellerNotesAttachments.Where(x => x.NoteID == id).FirstOrDefault();
 
             var EmailId = User.Identity.Name.ToString();
 
             tblUser user = dbObj.tblUsers.Where(x => x.EmailID == EmailId).FirstOrDefault();
 
             tblNoteCategory noteCategory = dbObj.tblNoteCategories.Where(x => x.ID == sellerNote.Category).FirstOrDefault();
-            if (sellerNote.IsPaid == false)
+            tblDownload download1 = dbObj.tblDownloads.Where(x => x.NoteID == id && x.Downloader == user.ID).FirstOrDefault();
+            if (download1 != null)
             {
-                tblDownload download = new tblDownload()
-                {
-                    NoteID = sellerNote.ID,
-                    Seller = sellerNote.SellerID,
-                    Downloader = user.ID,
-                    IsSellerHasAllowedDownload = true,
-                    AttachmentPath = sellerNotesAttachment.FilePath,
-                    IsAttachmentDownloaded = true,
-                    AttachmentDownloadedDate = DateTime.Now,
-                    IsPaid = sellerNote.IsPaid,
-                    PurchasedPrice = sellerNote.SellingPrice,
-                    NoteTitle = sellerNote.Title,
-                    NoteCategory = noteCategory.Name,
-                    CreatedDate=DateTime.Now,
-                    CreatedBy=user.ID,
-                    ModifiedBy=user.ID
-                };
-                dbObj.tblDownloads.Add(download);
+                download1.ModifiedBy = user.ID;
+                download1.ModifiedDate = DateTime.Now;
+                dbObj.Entry(download1).State = EntityState.Modified;
                 dbObj.SaveChanges();
-
-                using (ZipFile zip = new ZipFile())
-                {
-                    zip.AddDirectory(Server.MapPath("~/Images/" + sellerNote.SellerID + "/" + id + "/" + "Attachment"));
-
-                    MemoryStream output = new MemoryStream();
-                    zip.Save(output);
-                    return File(output.ToArray(), "Attachment/zip", "Note.zip");
-                }
             }
             else
             {
-                tblUser user1 = dbObj.tblUsers.Where(x => x.ID == sellerNote.SellerID).FirstOrDefault();
-                SendEmail(user1.EmailID.ToString());
-                tblDownload download = new tblDownload()
+
+                if (sellerNote.IsPaid == false)
                 {
-                    NoteID = sellerNote.ID,
-                    Seller = sellerNote.SellerID,
-                    Downloader = user.ID,
-                    IsSellerHasAllowedDownload = false,
-                    AttachmentDownloadedDate = DateTime.Now,
-                    IsPaid = sellerNote.IsPaid,
-                    PurchasedPrice = sellerNote.SellingPrice,
-                    NoteTitle = sellerNote.Title,
-                    NoteCategory = noteCategory.Name,
-                    CreatedDate = DateTime.Now,
-                    CreatedBy = user.ID,
-                    ModifiedBy = user.ID
-                };
-                dbObj.tblDownloads.Add(download);
-                dbObj.SaveChanges();
-                
+                    tblDownload download = new tblDownload()
+                    {
+                        NoteID = sellerNote.ID,
+                        Seller = sellerNote.SellerID,
+                        Downloader = user.ID,
+                        IsSellerHasAllowedDownload = true,
+                        AttachmentPath = sellerNotesAttachment.FilePath,
+                        IsAttachmentDownloaded = true,
+                        AttachmentDownloadedDate = DateTime.Now,
+                        IsPaid = sellerNote.IsPaid,
+                        PurchasedPrice = sellerNote.SellingPrice,
+                        NoteTitle = sellerNote.Title,
+                        NoteCategory = noteCategory.Name,
+                        CreatedDate = DateTime.Now,
+                        CreatedBy = user.ID,
+                    };
+                    dbObj.tblDownloads.Add(download);
+                    dbObj.SaveChanges();
+
+                    using (ZipFile zip = new ZipFile())
+                    {
+                        zip.AddDirectory(Server.MapPath("~/Images/" + sellerNote.SellerID + "/" + id + "/" + "Attachment"));
+
+                        MemoryStream output = new MemoryStream();
+                        zip.Save(output);
+                        return File(output.ToArray(), "Attachment/zip", "Note.zip");
+                    }
+                }
+                else
+                {
+                    tblSystemConfiguration systemConfiguration = dbObj.tblSystemConfigurations.Where(x => x.Key.ToLower() == "Support email address").FirstOrDefault();
+                    tblSystemConfiguration systemConfiguration1 = dbObj.tblSystemConfigurations.Where(x => x.Key.ToLower() == "Password").FirstOrDefault();
+
+                    tblUser user1 = dbObj.tblUsers.Where(x => x.ID == sellerNote.SellerID).FirstOrDefault();
+                    SendEmail(user1.EmailID.ToString(),systemConfiguration.Value,systemConfiguration1.Value);
+                    tblDownload download = new tblDownload()
+                    {
+                        NoteID = sellerNote.ID,
+                        Seller = sellerNote.SellerID,
+                        Downloader = user.ID,
+                        IsSellerHasAllowedDownload = false,
+                        AttachmentDownloadedDate = DateTime.Now,
+                        IsPaid = sellerNote.IsPaid,
+                        PurchasedPrice = sellerNote.SellingPrice,
+                        NoteTitle = sellerNote.Title,
+                        NoteCategory = noteCategory.Name,
+                        CreatedDate = DateTime.Now,
+                        CreatedBy = user.ID,
+                        ModifiedBy = user.ID
+                    };
+                    dbObj.tblDownloads.Add(download);
+                    dbObj.SaveChanges();
+
+                }
             }
             return RedirectToAction("SearchNotes", "SellerNotes");
 
@@ -308,20 +324,20 @@ namespace Practise.Controllers
 
 
         [NonAction]
-        public void SendEmail(string emailID)
+        public void SendEmail(string emailID,string supportemailID, string password)
         {
             var EmailId = User.Identity.Name.ToString();
 
             tblUser user = dbObj.tblUsers.Where(x => x.EmailID == EmailId).FirstOrDefault();
 
-            tblUser user1 = dbObj.tblUsers.Where(x => x.EmailID==emailID).FirstOrDefault();
+            tblUser user1 = dbObj.tblUsers.Where(x => x.EmailID == emailID).FirstOrDefault();
 
-            var fromEmail = new MailAddress("dnlad22@gmail.com", "Notes Marketplace"); //need system email
+            var fromEmail = new MailAddress(supportemailID, "Notes Marketplace"); //need system email
             var toEmail = new MailAddress(emailID);
-            var fromEmailPassword = "jkqobpmshhmlgumw"; // Replace with actual password
-            string subject = user.FirstName +" "+"wants to purchase your notes";
-            string body = "<br/>Hello"+" "+user1.FirstName +" ,<br/>";
-            body += "We would like to inform you that, "+ user.FirstName+" " + "wants to purchase your notes.Please see<br/> Buyer Requests tab and allow download access to Buyer if you have received the payment from him. ";
+            var fromEmailPassword = password; // Replace with actual password
+            string subject = user.FirstName + " " + "wants to purchase your notes";
+            string body = "<br/>Hello" + " " + user1.FirstName + " ,<br/>";
+            body += "We would like to inform you that, " + user.FirstName + " " + "wants to purchase your notes.Please see<br/> Buyer Requests tab and allow download access to Buyer if you have received the payment from him. ";
             body += "<br/><br/>Regards,<br/>";
             body += "Notes Marketplace";
             var smtp = new SmtpClient

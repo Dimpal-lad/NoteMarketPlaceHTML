@@ -34,7 +34,7 @@
 
 
                         <!--Logo-->
-                        <a class="navbar-brand smooth-scroll" href="#">
+                        <a class="navbar-brand smooth-scroll" href="/Home/Home">
 
                             <img src="~/Content/images/pre-login/logo-dark.png" />
                         </a>
@@ -58,7 +58,7 @@
                                     <li class="nav-item dropdown">
 
                                         <a href="#" class=" dropdown-toggle nav-link" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <img src="TempData[" ProfilePicture"]" alt="user" class="user-menu">
+                                            <img src="@TempData["ProfilePicture"]" alt="user" class="user-menu">
                                             @{
                                                 TempData.Keep("ProfilePicture");
                                             }
@@ -69,7 +69,7 @@
                                             <a class="dropdown-item" href="/UserActivityStatus/MySoldNotes">My Sold Notes</a><br>
                                             <a class="dropdown-item" href="/UserActivityStatus/MyRejectedNotes">My Rejected Notes</a><br>
                                             <a class="dropdown-item" href="/User/ChangePassWord">Change Password</a><br>
-                                            <a class="dropdown-item" href="#" style="color: #6255a5; font-weight: 600;">LOGOUT</a>
+                                            <a class="dropdown-item" href="/User/Logout" style="color: #6255a5; font-weight: 600;">LOGOUT</a>
                                         </div>
 
                                     </li>
@@ -114,7 +114,7 @@
                                             <a class="dropdown-item" href="/UserActivityStatus/MySoldNotes">My Sold Notes</a><br>
                                             <a class="dropdown-item" href="/UserActivityStatus/MyRejectedNotes">My Rejected Notes</a><br>
                                             <a class="dropdown-item" href="/User/ChangePassWord">Change Password</a><br>
-                                            <a class="dropdown-item" href="#" style="color: #6255a5; font-weight: 600;">LOGOUT</a>
+                                            <a class="dropdown-item" href="/User/Logout" style="color: #6255a5; font-weight: 600;">LOGOUT</a>
                                         </div>
 
                                     </li>
@@ -198,16 +198,12 @@
 
     <!--JQuery-->
     <script src="~/Scripts/js/jquery-min.js"></script>
-    @*<script src="js/jquery-min.js"></script>*@
     <script src="~/Scripts/jquery-3.4.1.min.js"></script>
     <script src="~/Scripts/jquery.validate.min.js"></script>
     <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
-
     <!--Bootstrap JS-->
     <script src="~/Scripts/js/bootstrap/bootstrap.min.js"></script>
-    @*<script src="js/bootstrap/bootstrap.min.js"></script>*@
     <!--Custom JS-->
-    @*<script src="js/script.js"></script>*@
     <script src="~/Scripts/js/script.js"></script>
 </body>
 </html>

@@ -1,0 +1,23 @@
+﻿@model Practise.Models.AddCategoryModel
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+@using (Html.BeginForm("AddCategory", "SystemAdd", FormMethod.Post))
+{
+    <div class="container-db">
+        <h1>Add Category</h1>
+        <div class="row mp01">
+            <div class="col-md-6 form-group">
+                <label for="exampleInputtitle">Category Name<span class="required">*</span></label>
+                @Html.TextBoxFor(x => x.Name, new { @class = "form-control mp02", @placeholder = "Enter your category name" })
+                @Html.ValidationMessageFor(x => x.Name, "", new { @class = "text-danger" })
+
+                <label for="text-area"><span class="review-label">Description*</span></label>
+                @Html.TextAreaFor(x => x.Description, new { @class = "form-control mp02", @placeholder = "Enter your description", @rows = "5" })
+                @Html.ValidationMessageFor(x => x.Description, "", new { @class = "text-danger" })
+
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary btn-md btn-submit">SUBMIT</button>
+    </div>
+}

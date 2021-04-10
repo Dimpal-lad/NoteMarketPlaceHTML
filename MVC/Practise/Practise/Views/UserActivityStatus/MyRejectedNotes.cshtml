@@ -1,221 +1,90 @@
-﻿
+﻿@using PagedList;
+@using PagedList.Mvc;
+
+@model IPagedList<Practise.Models.DashboardModel>
 @{
     Layout = "~/Views/Shared/_Notes.cshtml";
 }
 
 
-    <!--My Rejected Notes-->
+<!--My Rejected Notes-->
 
-    <div class="container-ds02">
-        <div class="mydownloads">
+<div class="container-ds02">
+    <div class="mydownloads">
+        @using (Html.BeginForm("MyRejectedNotes", "UserActivityStatus", FormMethod.Get))
+        {
             <div class="row">
                 <div class="col-md-6">
                     <h3>My Rejected Notes</h3>
                 </div>
                 <div class="col-md-4">
-                    <input type="text" class="form-control" id="search-ds" placeholder="&#xf002;  Search">
+                    <input type="text" class="form-control" id="search-ds" name="searchNote" placeholder="&#xf002;  Search">
 
                 </div>
                 <div class="col-md-2">
-                    <button type="button" class="form-control" id="search-ds01">SEARCH</button>
+                    <button type="submit" class="form-control" id="search-ds01">SEARCH</button>
                 </div>
             </div>
-
-            <table class="table border">
-                <thead>
-                    <tr class="table11 " style="height: 75px;">
-                        <th scope="col" style="vertical-align: middle;text-align: center;">SR NO.</th>
-                        <th scope="col" style="vertical-align: middle;">NOTE TITLE</th>
-                        <th scope="col" style="vertical-align: middle;">CATEGORY</th>
-                        <th scope="col" style="vertical-align: middle;">REMARKS</th>
-                        <th scope="col" style="vertical-align: middle;">CLONE</th>
-                        <th scope="col" style="vertical-align: middle;"> </th>
+        }
+        <table class="table border">
+            <thead>
+                <tr class="table11 " style="height: 75px;">
+                    <th scope="col" style="vertical-align: middle;text-align: center;">SR NO.</th>
+                    <th scope="col" style="vertical-align: middle;">@Html.ActionLink("NOTE TITLE", "MyRejectedNotes", new { sortOrder1 = ViewBag.TitleSortParm1 })</th>
+                    <th scope="col" style="vertical-align: middle;">@Html.ActionLink("CATEGORY", "MyRejectedNotes", new { sortOrder1 = ViewBag.CategorySortParm1 })</th>
+                    <th scope="col" style="vertical-align: middle;">@Html.ActionLink("REMARKS", "MyRejectedNotes", new { sortOrder1 = ViewBag.RemarkParm })</th>
+                    <th scope="col" style="vertical-align: middle;text-align: left;">@Html.ActionLink("DATE EDITED", "MyRejectedNotes", new { sortOrder1 = ViewBag.EditedDateSortParm1 })</th>
+                    <th scope="col" style="vertical-align: middle;">CLONE</th>
+                    <th scope="col" style="vertical-align: middle;"> </th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    var count = 0;
+                }
+                @if (Model.Count() == 0)
+                {
+                    <tr>
+                        <td colspan="6" class="text-center">
+                            No record found
+                        </td>
                     </tr>
-                </thead>
-                <tbody>
+                }
+                @foreach (var item in Model)
+                {
                     <tr class="table2">
-                        <td style="vertical-align: middle;text-align: center;">1</td>
-                        <td style="color: #6255a5; vertical-align: middle;">Data Science</td>
-                        <td style="vertical-align: middle;">Science</td>
-                        <td style="vertical-align: middle;">Lorem Ipsum is simply dummy text</td>
-                        <td style="color: #6255a5; vertical-align: middle;">Clone</td>
+                        <td style="vertical-align: middle;text-align: center;">@(count + ((Model.PageNumber - 1) * Model.PageSize) + 1)</td>
+                        <td style="color: #6255a5; vertical-align: middle;">@item.sellernoteinfo.Title</td>
+                        <td style="vertical-align: middle;">@item.noteCategoryinfo.Name</td>
+                        <td style="vertical-align: middle;">@item.sellernoteinfo.AdminRemarks</td>
+                        <td style="vertical-align: middle;text-align: left;">@item.sellernoteinfo.ModifiedDate</td>
+                        <td style="color: #6255a5; vertical-align: middle;"><a href="/UserActivityStatus/CloneNote/@item.sellernoteinfo.ID">Clone</a></td>
                         <td style="vertical-align: middle;">
                             <div class="dropdown">
-                                <img src="images/My Download/dots.png" class="dots">
+                                <img src="~/Content/images/My Download/dots.png" class="dots">
                                 <div class="dropdown-content1">
-                                    <a href="#">Download Note</a>
+                                    <a href="/UserActivityStatus/DownloadNote/@item.sellernoteinfo.ID">Download Note</a>
                                 </div>
                             </div>
                         </td>
                     </tr>
-
-                    <tr class="table2">
-                        <td style="vertical-align: middle;text-align: center;">2</td>
-                        <td style="color: #6255a5; vertical-align: middle;">Accounts</td>
-                        <td style="vertical-align: middle;">Commerce</td>
-                        <td style="vertical-align: middle;">Lorem Ipsum is simply dummy text</td>
-                        <td style="color: #6255a5; vertical-align: middle;">Clone</td>
-                        <td style="vertical-align: middle;">
-                            <div class="dropdown">
-                                <img src="images/My Download/dots.png" class="dots">
-                                <div class="dropdown-content1">
-                                    <a href="#">Download Note</a>
-                                </div>
-                            </div>
-                        </td>
-
-                    </tr>
-                    <tr class="table2">
-                        <td style="vertical-align: middle;text-align: center;">3</td>
-                        <td style="color: #6255a5; vertical-align: middle;">Social Students</td>
-                        <td style="vertical-align: middle;">social</td>
-                        <td style="vertical-align: middle;">Lorem Ipsum is simply dummy text</td>
-                        <td style="color: #6255a5; vertical-align: middle;">Clone</td>
-                        <td style="vertical-align: middle;">
-                            <div class="dropdown">
-                                <img src="images/My Download/dots.png" class="dots">
-                                <div class="dropdown-content1">
-                                    <a href="#">Download Note</a>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr class="table2">
-                        <td style="vertical-align: middle;text-align: center;">4</td>
-                        <td style="color: #6255a5; vertical-align: middle;">AI</td>
-                        <td style="vertical-align: middle;">IT</td>
-                        <td style="vertical-align: middle;">Lorem Ipsum is simply dummy text</td>
-                        <td style="color: #6255a5; vertical-align: middle;">Clone</td>
-                        <td style="vertical-align: middle;">
-                            <div class="dropdown">
-                                <img src="images/My Download/dots.png" class="dots">
-                                <div class="dropdown-content1">
-                                    <a href="#">Download Note</a>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr class="table2">
-                        <td style="vertical-align: middle;text-align: center;">5</td>
-                        <td style="color: #6255a5; vertical-align: middle;">Lorem ipsum </td>
-                        <td style="vertical-align: middle;">Lorem</td>
-                        <td style="vertical-align: middle;">Lorem Ipsum is simply dummy text</td>
-                        <td style="color: #6255a5; vertical-align: middle;">Clone</td>
-                        <td style="vertical-align: middle;">
-                            <div class="dropdown">
-                                <img src="images/My Download/dots.png" class="dots">
-                                <div class="dropdown-content1">
-                                    <a href="#">Download Note</a>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr class="table2">
-                        <td style="vertical-align: middle;text-align: center;">6</td>
-                        <td style="color: #6255a5; vertical-align: middle;">Data Science</td>
-                        <td style="vertical-align: middle;">Science</td>
-                        <td style="vertical-align: middle;">Lorem Ipsum is simply dummy text</td>
-                        <td style="color: #6255a5; vertical-align: middle;">Clone</td>
-                        <td style="vertical-align: middle;">
-                            <div class="dropdown">
-                                <img src="images/My Download/dots.png" class="dots">
-                                <div class="dropdown-content1">
-                                    <a href="#">Download Note</a>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr class="table2">
-                        <td style="vertical-align: middle;text-align: center;">7</td>
-                        <td style="color: #6255a5; vertical-align: middle;">Accounts</td>
-                        <td style="vertical-align: middle;">Commerce</td>
-                        <td style="vertical-align: middle;">Lorem Ipsum is simply dummy text</td>
-                        <td style="color: #6255a5; vertical-align: middle;">Clone</td>
-                        <td style="vertical-align: middle;">
-                            <div class="dropdown">
-                                <img src="images/My Download/dots.png" class="dots">
-                                <div class="dropdown-content1">
-                                    <a href="#">Download Note</a>
-                                </div>
-                            </div>
-                        </td>
-
-
-                    </tr>
-                    <tr class="table2">
-                        <td style="vertical-align: middle;text-align: center;">8</td>
-                        <td style="color: #6255a5; vertical-align: middle;">Social Students</td>
-                        <td style="vertical-align: middle;">social</td>
-                        <td style="vertical-align: middle;">Lorem Ipsum is simply dummy text</td>
-                        <td style="color: #6255a5; vertical-align: middle;">Clone</td>
-                        <td style="vertical-align: middle;">
-                            <div class="dropdown">
-                                <img src="images/My Download/dots.png" class="dots">
-                                <div class="dropdown-content1">
-                                    <a href="#">Download Note</a>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr class="table2">
-                        <td style="vertical-align: middle;text-align: center;">9</td>
-                        <td style="color: #6255a5; vertical-align: middle;">AI</td>
-                        <td style="vertical-align: middle;">IT</td>
-                        <td style="vertical-align: middle;">Lorem Ipsum is simply dummy text</td>
-                        <td style="color: #6255a5; vertical-align: middle;">Clone</td>
-                        <td style="vertical-align: middle;">
-                            <div class="dropdown">
-                                <img src="images/My Download/dots.png" class="dots">
-                                <div class="dropdown-content1">
-                                    <a href="#">Download Note</a>
-                                </div>
-                            </div>
-                        </td>
-
-                    </tr>
-                    <tr class="table2">
-                        <td style="vertical-align: middle;text-align: center;">10</td>
-                        <td style="color: #6255a5; vertical-align: middle;">Lorem ipsum </td>
-                        <td style="vertical-align: middle;">Lorem</td>
-                        <td style="vertical-align: middle;">Lorem Ipsum is simply dummy text</td>
-                        <td style="color: #6255a5; vertical-align: middle;">Clone</td>
-                        <td style="vertical-align: middle;">
-                            <div class="dropdown">
-                                <img src="images/My Download/dots.png" class="dots">
-                                <div class="dropdown-content1">
-                                    <a href="#">Download Note</a>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-
-
-                </tbody>
-            </table>
-        </div>
+                    count++;
+                }
+                
+            </tbody>
+        </table>
     </div>
+</div>
 
 
-    <!--Pagination-->
-    <div class="text-center">
-        <ul class="pagination">
-            <li class="page-item">
-                <a class="page-link langle" href="#" aria-label="Previous">
-                    <span aria-hidden="true" class="fa fa-angle-left"></span>
-                </a>
-            </li>
-            <li class="page-item"><a class="page-link page-item1" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item"><a class="page-link" href="#">4</a></li>
-            <li class="page-item"><a class="page-link" href="#">5</a></li>
+<!--Pagination-->
+<div class="text-center">
+    <ul class="pagination">
+        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
 
-            <li class="page-item">
-                <a class="page-link rangle" href="#" aria-label="Next">
-                    <span aria-hidden="true" class="fa fa-angle-right"></span>
-                </a>
-            </li>
-        </ul>
-    </div>
-    <!--My Rejected Notes End-->
-    
+        @Html.PagedListPager(Model, pagepublish => Url.Action("MyRejectedNotes",
+            new { pagepublish, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }),
+            new PagedListRenderOptions() { Display = PagedListDisplayMode.IfNeeded, MaximumPageNumbersToDisplay = 5 })
+    </ul>
+</div>
+<!--My Rejected Notes End-->

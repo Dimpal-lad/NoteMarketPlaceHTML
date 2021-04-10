@@ -38,6 +38,10 @@
         <AssociationConnector Association="NotesMarketPlaceModel.FK_tblUserProfile_tblUsers" ManuallyRouted="false" />
         <AssociationConnector Association="NotesMarketPlaceModel.FK_tblUsers_tblUserRoles" ManuallyRouted="false" />
         <AssociationConnector Association="NotesMarketPlaceModel.FK_tblDownloads_tblUsers1" />
+        <AssociationConnector Association="NotesMarketPlaceModel.FK_tblNoteCategories_tblUsers" />
+        <AssociationConnector Association="NotesMarketPlaceModel.FK_tblCountries_tblUsers" />
+        <AssociationConnector Association="NotesMarketPlaceModel.FK_tblNoteTypes_tblNoteTypes" />
+        <AssociationConnector Association="NotesMarketPlaceModel.FK_tblNoteTypes_tblUsers" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

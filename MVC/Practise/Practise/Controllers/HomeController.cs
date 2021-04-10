@@ -52,8 +52,11 @@ namespace Practise.Controllers
         {
             if (ModelState.IsValid)
             {
+                tblSystemConfiguration systemConfiguration = dbObj.tblSystemConfigurations.Where(x => x.Key.ToLower() == "Support email address").FirstOrDefault();
+                tblSystemConfiguration systemConfiguration1 = dbObj.tblSystemConfigurations.Where(x => x.Key.ToLower() == "Password").FirstOrDefault();
+
                 var fromEmail = new MailAddress(contactModel.EmailID); //need system email
-                var toEmail = new MailAddress("dnlad22@gmail.com");
+                var toEmail = new MailAddress(systemConfiguration.Value);
                 string subject = contactModel.FullName + " " + contactModel.Subject;
                 string body = "<br/><br/>Hello,<br/><br/>";
                 body += contactModel.Comment;
@@ -66,7 +69,7 @@ namespace Practise.Controllers
                     EnableSsl = true,
                     DeliveryMethod = SmtpDeliveryMethod.Network,
                     UseDefaultCredentials = false,
-                    Credentials = new NetworkCredential("dnlad22@gmail.com", "jkqobpmshhmlgumw")
+                    Credentials = new NetworkCredential(systemConfiguration.Value, systemConfiguration1.Value)
                 };
 
                 using (var message = new MailMessage(fromEmail, toEmail)

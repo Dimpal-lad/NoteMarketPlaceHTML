@@ -1,0 +1,130 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@{
+    IEnumerable<Practise.Models.tblUser> Model = ViewBag.objUser;
+    IPagedList<Practise.Models.tblSellerNote> Model1 = ViewBag.objsellernote;
+}
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+
+<div class="container-db">
+    <h1>Member Details</h1>
+    @foreach (var item in Model)
+    {
+        <div class="row member-detail">
+            <div class="col-md-2" style="padding-right: 0px;">
+                <img src="@item.tblUserProfiles.Where(x=>x.UserID==item.ID).Select(x=>x.ProfilePicture).FirstOrDefault()" alt="member" class="img-responsive member">
+            </div>
+            <div class="col-md-2" style="padding-right: 0px; padding-left: 0px;">
+                <p>First Name:</p>
+                <p>Last Name:</p>
+                <p>Email:</p>
+                <p>DOB:</p>
+                <p>Phone Number:</p>
+                <p>College/University:</p>
+            </div>
+            <div class="col-md-2 member-01" style="border-right: 1px solid #d1d1d1;padding-right: 10px;padding-left: 0px;">
+                <p>@item.FirstName</p>
+                <p>@item.LastName</p>
+                <p>@item.EmailID</p>
+                <p>@item.tblUserProfiles.Where(x => x.UserID == item.ID).Select(x => x.DOB).FirstOrDefault()</p>
+                <p>@item.tblUserProfiles.Where(x => x.UserID == item.ID).Select(x => x.PhoneNumber).FirstOrDefault()</p>
+                <p>@item.tblUserProfiles.Where(x => x.UserID == item.ID).Select(x => x.University).FirstOrDefault()</p>
+            </div>
+
+            <div class="col-md-2" style="padding-right: 0px;">
+                <p>Address 1:</p>
+                <p>Address 2:</p>
+                <p>City:</p>
+                <p>State:</p>
+                <p>Country:</p>
+                <p>Zip Code:</p>
+            </div>
+            <div class="col-md-2 member-01" style="padding-right: 0px; padding-left: 0px;">
+                <p>@item.tblUserProfiles.Where(x => x.UserID == item.ID).Select(x => x.AddressLine1).FirstOrDefault()</p>
+                <p>@item.tblUserProfiles.Where(x => x.UserID == item.ID).Select(x => x.AddressLine2).FirstOrDefault()</p>
+                <p>@item.tblUserProfiles.Where(x => x.UserID == item.ID).Select(x => x.City).FirstOrDefault()</p>
+                <p>@item.tblUserProfiles.Where(x => x.UserID == item.ID).Select(x => x.State).FirstOrDefault()</p>
+                <p>@item.tblSellerNotes.Where(x => x.SellerID == item.ID).Select(x => x.tblCountry.Name).FirstOrDefault()</p>
+                <p>@item.tblUserProfiles.Where(x => x.UserID == item.ID).Select(x => x.ZipCode).FirstOrDefault()</p>
+            </div>
+        </div>
+        <hr>
+    }
+
+    <div class="progress-nots">
+        <div class="row">
+            <div class="col-md-12">
+                <h3> Notes</h3>
+            </div>
+        </div>
+
+        <table class="table border">
+            <thead>
+                <tr class="table11" style="height: 75px;">
+                    <th scope="col" style="vertical-align: middle;">SR NO.</th>
+                    <th scope="col" style="vertical-align: middle;text-align: left;">@Html.ActionLink("NOTE TITLE", "MembersDetails", new { sortOrder = ViewBag.TitleSortParm })</th>
+                    <th scope="col" style="vertical-align: middle;text-align: left;">@Html.ActionLink("CATEGORY", "MembersDetails", new { sortOrder = ViewBag.CategorySortParm })</th>
+                    <th scope="col" style="vertical-align: middle;text-align: left;">@Html.ActionLink("STATUS", "MembersDetails", new { sortOrder = ViewBag.StatusParm })</th>
+                    <th scope="col" style="vertical-align: middle;">DOWNLOADED NOTES</th>
+                    <th scope="col" style="vertical-align: middle;">@Html.ActionLink("TOTAL EARNING", "MembersDetails", new { sortOrder = ViewBag.TotalEarningSortParm })</th>
+                    <th scope="col" style="vertical-align: middle;text-align: left;">@Html.ActionLink("DATE ADDED", "MembersDetails", new { sortOrder = ViewBag.AddedDateSortParm })</th>
+                    <th scope="col" style="vertical-align: middle;text-align: left;">@Html.ActionLink("PUBLISHED DATE", "MembersDetails", new { sortOrder = ViewBag.PublishDateSortParm })</th>
+                    <th scope="col" style="vertical-align: middle;"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                        var count = 0;
+                }
+                @if (Model.Count() == 0)
+                {
+                    <tr>
+                        <td colspan="6" class="text-center">
+                            No record found
+                        </td>
+                    </tr>
+                }
+                @foreach (var item in Model1)
+                {
+                    <tr class="table2">
+                        <td style="vertical-align: middle; text-align: center;">@(count + ((Model1.PageNumber - 1) * Model1.PageSize) + 1)</td>
+                        <td style="vertical-align: middle; color: #6255a5;text-align: left;"><a href="/Admin/AdminNoteDetails/@item.ID">@item.Title</a></td>
+                        <td style="vertical-align: middle;text-align: left;">@item.tblNoteCategory.Name</td>
+                        <td style="vertical-align: middle;text-align: left;">@item.tblReferenceData.Value</td>
+                        <td style="vertical-align: middle;"><a href="/AdminNoteStatus/DownloadNote">@item.tblDownloads.Where(x => x.IsSellerHasAllowedDownload == true).Count()</a></td>
+                        <td style="vertical-align: middle;">&#36;@item.tblDownloads.Where(x => x.IsSellerHasAllowedDownload && x.Seller == x.tblUser.ID).Sum(x => x.PurchasedPrice)</td>
+                        <td style="vertical-align: middle;text-align: left;">@item.CreatedDate</td>
+                        <td style="vertical-align: middle;text-align: left;">@item.PublishedDate</td>
+                        <td style="vertical-align: middle;">
+                            <div class="dropdown3">
+                                <img src="~/Content/Admin/images/My Download/dots.png" class="dots">
+                                <div class="dropdown-content3">
+                                    <a href="/UserActivityStatus/DownloadNote/@item.ID">Download Notes</a>
+                                </div>
+                            </div>
+                        </td>
+
+                    </tr>
+                    count++;
+                }
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<!--Pagination-->
+<div class="text-center">
+    <ul class="pagination">
+        Page @(Model1.PageCount < Model1.PageNumber ? 0 : Model1.PageNumber) of @Model1.PageCount
+
+        @Html.PagedListPager(Model1, page => Url.Action("MembersDetails",
+            new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }),
+            new PagedListRenderOptions() { Display = PagedListDisplayMode.IfNeeded, MaximumPageNumbersToDisplay = 5 })
+    </ul>
+</div>

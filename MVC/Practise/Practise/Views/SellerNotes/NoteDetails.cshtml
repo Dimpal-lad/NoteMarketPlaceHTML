@@ -20,39 +20,42 @@
                         <h3>@Model.Title</h3>
                         <h5>@Model.tblNoteCategory.Name</h5>
                         <p>@Model.Description</p>
-
-                        @if (User.Identity.IsAuthenticated)
+                        @if (Model.tblReferenceData.Value == "Published")
                         {
-                            if (Model.IsPaid == true)
+                            if (User.Identity.IsAuthenticated)
                             {
-                                <a href="/SellerNotes/Download/@Model.ID">
-                                    <button type="button" class="btn btn-primary btn-dl15" data-toggle="modal" data-target="#exampleModal" onclick="return confirm('Are you sure you want to download this Paid note?');">
+
+                                if (Model.IsPaid == true)
+                                {
+                                    <a href="/SellerNotes/Download/@Model.ID">
+                                        <button type="button" class="btn btn-primary btn-dl15" data-toggle="modal" data-target="#exampleModal" onclick="return confirm('Are you sure you want to download this Paid note?');">
+                                            DOWNLOAD/$@Model.SellingPrice
+                                        </button>
+                                    </a>
+                                }
+                                else
+                                {
+                                    <button type="button" class="btn btn-primary btn-dl15" onclick="location.href = '@Url.Action("Download", "SellerNotes", new { id = Model.ID })'">
+                                        DOWNLOAD
+                                    </button>
+                                }
+                            }
+                            else
+                            {
+                                if (Model.IsPaid == true)
+                                {
+                                    <button type="button" class="btn btn-primary btn-dl15" data-toggle="modal" data-target="#exampleModal" onclick="location.href = '@Url.Action("Login", "User", new { id = Model.ID })'">
                                         DOWNLOAD/$@Model.SellingPrice
                                     </button>
-                                </a>
-                            }
-                            else
-                            {
-                                <button type="button" class="btn btn-primary btn-dl15" onclick="location.href = '@Url.Action("Download", "SellerNotes", new { id = Model.ID })'">
-                                    DOWNLOAD
-                                </button>
-                            }
-                        }
-                        else
-                        {
-                            if (Model.IsPaid == true)
-                            {
-                                <button type="button" class="btn btn-primary btn-dl15" data-toggle="modal" data-target="#exampleModal" onclick="location.href = '@Url.Action("Login", "User", new { id = Model.ID })'">
-                                    DOWNLOAD/$@Model.SellingPrice
-                                </button>
-                            }
-                            else
-                            {
-                                <button type="button" class="btn btn-primary btn-dl15" onclick="location.href = '@Url.Action("Login", "User", new { id = Model.ID })'">
-                                    DOWNLOAD
-                                </button>
-                            }
+                                }
+                                else
+                                {
+                                    <button type="button" class="btn btn-primary btn-dl15" onclick="location.href = '@Url.Action("Login", "User", new { id = Model.ID })'">
+                                        DOWNLOAD
+                                    </button>
+                                }
 
+                            }
                         }
                     </div>
                 </div>
@@ -73,7 +76,7 @@
                     <li><span>Course Code:</span><span class="text-right nd05" style="color: #6255a5; font-weight: 600;"> @Model.CourseCode</span></li>
                     <li><span>Professor:</span><span class="text-right nd05" style="color: #6255a5; font-weight: 600;"> @Model.Professor</span></li>
                     <li><span>Number of Pages:</span><span class="text-right nd05" style="color: #6255a5; font-weight: 600;">@Model.NumberofPages</span></li>
-                    <li><span>Approved Date:</span><span class="text-right nd05" style="color: #6255a5; font-weight: 600;"> @Model.CreatedDate.Value.ToString("MMMM dd yyyy")</span></li>
+                    <li><span>Approved Date:</span><span class="text-right nd05" style="color: #6255a5; font-weight: 600;"> @Model.CreatedDate</span></li>
                     <li>
                         <span>Rating:</span><span class="text-right nd05">
 
@@ -81,7 +84,7 @@
                                 @{
                                     var count = Model.tblSellerNotesReviews.Where(Model => Model.NoteID == Model.tblSellerNote.ID).Count();
                                     var rating = Model.tblSellerNotesReviews.Where(Model => Model.NoteID == Model.tblSellerNote.ID).Sum(Model => Model.Ratings);
-                                    
+
                                 }
                                 @if (count > 0)
                                 {
@@ -207,21 +210,18 @@
             <button type="button" class="close" data-dismiss="modal" aria-label="close">
                 <span aria-hidden="true">&times;</span>
             </button>
-
             <div class="modal-body modal-img nd10">
 
-                <img src="images/Notes Details/SUCCESS.png" class="img-responsive img-circle">
+                <img src="~/Content/images/Notes Details/SUCCESS.png" class="img-responsive img-circle">
                 <h4 class="text-center">Thank you for purchasing!</h4>
-                <p><span>Dear Smith,</span></p>
+                <p><span>Dear @Model.tblUser.FirstName,</span></p>
                 <p class="thanks-para">As this is paid notes-you have need to pay to seller Rahil Shah offline.We will send him an email that you want to download one. He may contact you further for payment process completion</p>
                 <p class="thanks-para">In case, you have urgency,</p>
                 <p class="thanks-para">Please contact us in +9195377345959</p><br>
                 <p class="thanks-para">Once he receives the payment and acknowledge us-selected notes you can see over my downloads tab for download.</p><br>
                 <p class="thanks-para">Have a good day.</p>
 
-
             </div>
-
 
         </div>
     </div>
